@@ -2,6 +2,7 @@ package com.andre.dojo.invoicemanager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
@@ -9,12 +10,20 @@ import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.export.JRGraphics2DExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.export.Graphics2DExporterOutput;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleGraphics2DExporterOutput;
+import net.sf.jasperreports.pdf.common.PdfDocument;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
@@ -40,8 +49,8 @@ public class LayoutsDesignController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 //        try {
-//            InputStream reportStream = getClass().getResourceAsStream("Jrxml/sample.jrxml");
-//            JasperReport jasperReport = JasperCompileManager.compileReport("/home/andre/Documents/invoiceManager/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/sample.jrxml");
+//            InputStream reportStream = getClass().getResourceAsStream("Jrxml/Invoice.jrxml");
+//            JasperReport jasperReport = JasperCompileManager.compileReport("/home/andre/Documents/invoiceManager/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/Invoice.jrxml");
 //            Map<String, Object> parameters = new HashMap<>();
 //            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, new JREmptyDataSource());
 //
@@ -63,10 +72,11 @@ public class LayoutsDesignController implements Initializable {
 //        } catch (JRException e) {
 //            throw new RuntimeException(e);
 //        }
-        InputStream reportStream = getClass().getResourceAsStream("Jrxml/sample.jrxml");
-//        System.out.println(getClass().getResource("Jrxml/sample.jrxml"));
-        File reportFile = new File(getClass().getResource("Jrxml/sample.jrxml").getFile());
-        System.out.println(reportFile);
+        InputStream reportStream = getClass().getResourceAsStream("Jrxml/Invoice.jrxml");
+//        System.out.println(getClass().getResource("Jrxml/Invoice.jrxml"));
+        File reportFile = new File(getClass().getResource("Jrxml/Invoice.jrxml").getFile());
+        File exportFile = new File(getClass().getResource("Jrxml/Blank_A4.jasper").getFile());
+        System.out.println(reportFile.getAbsolutePath());
 
         if (reportStream == null){
             System.out.println("jrxml masih kosong");
@@ -84,22 +94,85 @@ public class LayoutsDesignController implements Initializable {
             } catch (IOException e) {
                 System.out.println("Error membaca file: " + e.getMessage());
             }
-            // show and compile from jasper file.
-            try {
-                // Kompilasi JRXML menjadi JasperReport
-                JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
-                System.out.println("JRXML berhasil dikompilasi menjadi JasperReport");
 
-                // Opsional: Simpan JasperReport ke file .jasper
-                JasperCompileManager.compileReportToFile("Jrxml/sample.jrxml", "output/sample.jasper");
-                System.out.println("JasperReport berhasil disimpan ke file .jasper");
+//            try {
+//                long start = System.currentTimeMillis();
+//                JasperCompileManager.compileReportToFile(reportFile.toString(), exportFile.toString());
+//                long end = System.currentTimeMillis();
+//                System.out.println("Kompilasi selesai dalam " + (end - start) + " ms");
+//                System.out.println("File .jasper tersimpan di: " + exportFile);
+//            } catch (JRException e) {
+//                System.out.println("Error saat kompilasi: " + e.getMessage());
+//                e.printStackTrace();
+//            }
+
+            try {
+                JasperReport jasperReport = (JasperReport) JRLoader.loadObject(exportFile);
+                System.out.println("jare berhasil .jasper");
+
+                JasperPrint jrPrint = JasperFillManager.fillReport(jasperReport, null, new JREmptyDataSource());
+                byte[] pdfByte = JasperExportManager.exportReportToPdf(jrPrint);
+
+                BufferedImage bufferedImage = new BufferedImage(
+                        jrPrint.getPageWidth(),
+                        jrPrint.getPageHeight(),
+                        BufferedImage.TYPE_INT_RGB
+                );
+
+//                JRGraphics2DExporter exporter = new JRGraphics2DExporter();
+//                exporter.setExporterInput(new SimpleExporterInput(jrPrint));
+//                exporter.setExporterOutput(new SimpleGraphics2DExporterOutput());
+//                exporter.exportReport();
+
+                // Convert BufferedImage to JavaFX Image
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                ImageIO.write(bufferedImage, "png", outputStream);
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+
+                WritableImage fxImage = new WritableImage(bufferedImage.getWidth(), bufferedImage.getHeight());
+                PixelWriter pixelWriter = fxImage.getPixelWriter();
+
+                for (int x = 0; x < bufferedImage.getWidth(); x++) {
+                    for (int y = 0; y < bufferedImage.getHeight(); y++) {
+                        pixelWriter.setArgb(x, y, bufferedImage.getRGB(x, y));
+                    }
+                }
+
+                ImageView imageView = new ImageView(fxImage);
+
+                // Add canvas to AnchorPane
+                anchorPanePreview.getChildren().add(imageView);
+                AnchorPane.setTopAnchor(imageView, 0.0);
+                AnchorPane.setLeftAnchor(imageView, 0.0);
+
+
+
+                System.out.println("Report generated successfully.");
 
             } catch (JRException e) {
-                System.out.println("Error saat mengompilasi JRXML: " + e.getMessage());
-
+                System.out.println("gagal : "+ e.getMessage() );
+//                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+
+//             show and compile from jasper file.
+//            try {
+//                JasperReportsContext jrContext = DefaultJasperReportsContext.getInstance();
+//                JRXmlLoader jrXmlLoader = new JRXmlLoader(jrContext, JRXmlLoader);
+//                JasperDesign jasperDesign = jrXmlLoader.loadXML(reportStream);
+//                System.out.println("berhasil mencetak gambar");
+//
+//
+//                JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+//                System.out.println("JRXML berhasil dikompilasi menjadi JasperReport");
+//
+//
+//            } catch (JRException e) {
+//                System.out.println("Error saat mengompilasi JRXML: " + e.getMessage());
+////                e.printStackTrace();
+//            }
         }
-//        System.out.println(System.getProperty("java.class.path"));
     }
 
     public static javafx.scene.image.Image convertToFXImage(BufferedImage image) {

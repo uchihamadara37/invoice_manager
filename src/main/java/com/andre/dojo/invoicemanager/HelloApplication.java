@@ -80,7 +80,6 @@ public class HelloApplication extends Application {
         metadataSave.getPersons().add(person);
     }
 
-
     public static void setMetadataSave(MetadataSave metadataSave) {
         HelloApplication.metadataSave = metadataSave;
     }

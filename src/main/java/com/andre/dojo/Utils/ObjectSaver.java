@@ -44,7 +44,7 @@ public class ObjectSaver implements Serializable{
             String enkripsi = Base64.getEncoder().encodeToString(dataJson.getBytes());
 
 ////            String encodedS = HelloApplication.makeVigenereString(enkripsi);
-//
+
             writer.write(enkripsi);
             writer.newLine();
         }catch (IOException e){
