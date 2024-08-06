@@ -5,16 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8adacacf-1080-473a-8e1a-343262ed38e4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/Blank_A4.jasper" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/Invoice.jasper" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/Invoice.jrxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/test.jasper" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/PersonManagement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/PersonManagement.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Utils/ObjectSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Utils/ObjectSaver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/LayoutsDesignController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/LayoutsDesignController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/PopUpInsertOrgController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/PopUpInsertOrgController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/sample.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/sample.jasper" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/Invoice.jrxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml/Invoice.jrxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/popUp-add-org-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/popUp-add-org-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +36,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+        <option name="mavenHome" value="Use Maven wrapper" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -48,19 +49,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_directory_selection&quot;: &quot;/home/andre/Documents/invoiceManager/src/main/java/com/andre/dojo/invoicemanager&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/andre/Documents/invoiceManager/src/main/resources/com/andre/dojo/invoicemanager/Jrxml&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.HelloApplication.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_directory_selection": "/home/andre/Documents/invoiceManager/src/main/java/com/andre/dojo/invoicemanager",
+    "last_opened_file_path": "D:/PROJECT/invoice_manager",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECT\invoice_manager\src\main\resources\com\andre\dojo\invoicemanager\Jrxml" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
@@ -81,5 +85,15 @@
       <updated>1722403673434</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NoClassDefFoundError" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -32,10 +32,12 @@ public class ObjectSaver implements Serializable{
             .registerTypeAdapter(MetadataSave.class, new MetadataSaveAdapter())
             .create();
 
-    public static String fileNameAddress = "/home/andre/Documents/data_text/invoice.txt";
+    public static String jsonData = "";
+
+    public static String fileNameAddress = "D:\\data_text\\invoice.txt";
     public static String fileCacheAddress;
 
-    public static void SaveData(MetadataSave allData) {
+    public static void saveData(MetadataSave allData) {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileNameAddress))) {
             String dataJson = gsonPretty.toJson(allData);
@@ -64,8 +66,9 @@ public class ObjectSaver implements Serializable{
                 String encodeEnkripsi = new String(Base64.getDecoder().decode(line));
                 System.out.println("retrive person\n"+encodeEnkripsi);
                 // Definisikan tipe untuk List<PersonManagement>
+                jsonData = encodeEnkripsi;
                 Type listType = new TypeToken<List<MetadataSave>>(){}.getType();
-                System.out.println(listType);
+//                System.out.println(listType);
                 // Parse JSON ke List<PersonManagement>
                 data = ObjectSaver.gsonPretty.fromJson(encodeEnkripsi, MetadataSave.class);
 //                persons = PersonManagementJSONConverter.jsonToObservableList(encodeEnkripsi);
@@ -73,7 +76,7 @@ public class ObjectSaver implements Serializable{
             }
         }catch (IOException e){
             System.out.println("error baca file mase");
-            throw new RuntimeException(e);
+//            throw new RuntimeException(e);
         }
         return data;
     }

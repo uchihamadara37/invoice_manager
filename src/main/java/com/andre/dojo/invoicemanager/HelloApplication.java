@@ -25,20 +25,16 @@ public class HelloApplication extends Application {
     private static Stage mainStage;
 
     private static MetadataSave metadataSave = new MetadataSave();
-//    private static ObservableList<Organization> dataOrganization = FXCollections.observableArrayList();
-//    private static ObservableList<PersonManagement> dataPerson = FXCollections.observableArrayList();
     @Override
     public void start(Stage stage) throws IOException {
 
-        if (ObjectSaver.fileNameAddress != null && ObjectSaver.retrieveData() != null) {
+        if ((!Objects.equals(ObjectSaver.fileNameAddress, "")) && ObjectSaver.retrieveData() != null) {
             metadataSave = (ObjectSaver.retrieveData());
 
             System.out.println("data berhasil dibaca");
         }else{
             System.out.println("harusnya");
         }
-
-        PersonManagement pr = new PersonManagement( "iuoiuoiu", "iouoiu", "uiyiuyi", "iuyiuy");
 
         mainStage = stage;
 

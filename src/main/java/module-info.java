@@ -4,7 +4,8 @@ module com.andre.dojo.invoicemanager {
     requires com.google.gson;
     requires jasperreports;
     requires java.desktop;
-    requires jasperreports.pdf;
+    requires java.sql;
+    requires org.apache.pdfbox;
 
 
     opens com.andre.dojo.invoicemanager to javafx.fxml;

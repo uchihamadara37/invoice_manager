@@ -64,6 +64,8 @@ public class PersonManagement {
         return noRekening.get();
     }
 
+    public StringProperty getPropertyName() { return this.name; }
+
     public PersonManagementOri toOriData(){
         return new PersonManagementOri(
             getId(), getName(), getNoRekening(), getBank(), getMobilePhone()
