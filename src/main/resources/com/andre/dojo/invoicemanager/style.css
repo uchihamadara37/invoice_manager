@@ -1,0 +1,173 @@
+
+
+.root{
+    /* Light theme variables */
+    -fx-light-background-color: #e9ebf5;
+    -fx-light-text-color: #333333;
+    -fx-light-accent-color: #127ee3;
+    -fx-light-2-color: #d8e1fc;
+
+    /* Dark theme variables */
+    -fx-dark-background-color: #333333;
+    -fx-dark-text-color: #f4f4f4;
+    -fx-dark-accent-color: #66BB6A;
+
+    /* Default to light theme */
+    -fx-background-color: -fx-light-background-color;
+    -fx-text-fill: -fx-light-text-color;
+    -fx-accent-color: -fx-light-accent-color;
+
+/*    -fx-background-color: #e9ebf5;*/
+
+}
+.side-panel{
+    -fx-background-color: white;
+}
+.side-button-active{
+    -fx-background-color: -fx-light-2-color;
+    -fx-background-radius: 8px;
+}
+.side-button:hover{
+    -fx-background-color: #f1f2f8;
+    -fx-background-radius: 8px;
+}
+
+.top-panel{
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-padding: 0.5em;
+}
+.top-label-active{
+    -fx-background-color: -fx-light-accent-color;
+    -fx-text-fill: white;
+    -fx-padding: 0.5em;
+    -fx-background-radius: 8px;
+    -fx-font-family: "Arial", "Sans-serif";
+    -fx-font-weight: 700;
+
+}
+.top-label-active:hover{
+    -fx-background-color: #127ee3ca;
+    -fx-text-fill: white;
+    -fx-font-size: 15px;
+    /*    -fx-padding: 0.5em;*/
+    /*    -fx-background-radius: 5px;*/
+}
+
+/*start spinner*/
+.spinner {
+    -fx-padding: 5px;
+    -fx-background-color: -fx-light-2-color;
+    -fx-background-radius: 8px;
+}
+
+.spinner .increment-arrow-button {
+    -fx-background-color: white;
+    -fx-background-radius: 3px;
+/*    -fx-shape: "M 0 4 L 8 4 L 4 0 Z";*/
+}
+
+.spinner .decrement-arrow-button {
+    -fx-background-color: #9fc7ec;
+    -fx-text-fill: white;
+    -fx-background-radius: 3px;
+    /*    -fx-shape: "M 0 0 L 4 4 L 8 0 Z";*/
+}
+
+.spinner .text-field {
+    -fx-font-size: 14px;
+    -fx-font-family: "Arial";
+    -fx-text-fill: black;
+    -fx-background-color: transparent;
+/*    -fx-border-color: gray;*/
+}
+/*finish spinner*/
+
+.field-search{
+    -fx-border: 1px;
+    -fx-border-style: solid;
+    -fx-border-color: -fx-light-accent-color;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+    -fx-padding: 5 5 5 40px;
+    -fx-font-size: 1.2em;
+    -fx-background-image: url('./icon/search.png');
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 5% center;
+/*    -fx-background-position: 5 0 0 20px;*/
+    -fx-background-insets: 0 0 0 0px;
+}
+
+.list-invoice{
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+}
+
+
+
+/*untuk table*/
+.table-view {
+    -fx-background-color: transparent;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-color: -fx-light-2-color;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 0px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: -fx-light-2-color;
+    -fx-background-radius: 8px 8px 0px 0px;
+    -fx-padding: 0 0 0px 0;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: transparent;
+    -fx-size: 35px;
+    -fx-border-width: 0 0 0 0;
+}
+
+.table-view .column-header .label {
+    -fx-padding: 0 0 0 10px;
+    -fx-text-fill: #333333;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.table-view .table-cell {
+    -fx-text-fill: #333333;
+    -fx-font-family: "Arial";
+    -fx-font-size: 12px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 2 0 2 10px;
+}
+
+.table-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f0f0f0;
+    -fx-table-cell-border-color: #f0f0f0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f9f9f9;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #0096c9;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: white;
+}
+
+.table-view .scroll-bar:vertical {
+    -fx-background-radius: 0px 8px 8px 0px;
+}
+
+.table-view .scroll-bar:horizontal {
+    -fx-background-radius: 0px 0px 8px 8px;
+}
+/*akhir untuk table*/

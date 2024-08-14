@@ -1,15 +1,129 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" prefHeight="720.0" prefWidth="1280.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22" fx:controller="com.andre.dojo.invoicemanager.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-    <Button onAction="#onHelloButtonClick" prefHeight="24.0" prefWidth="204.0" text="Masuk" />
-
-    <Label fx:id="welcomeText" />
-</VBox>
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.HelloController">
+   <children>
+      <Pane prefHeight="720.0" prefWidth="273.0" styleClass="side-panel">
+         <children>
+            <Pane layoutX="22.0" layoutY="111.0" prefHeight="47.0" prefWidth="230.0" styleClass="side-button-active">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/layout-panel-left.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="55.0" layoutY="13.0" prefHeight="17.0" prefWidth="121.0" text="Invoice">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="85.0" layoutY="32.0" prefHeight="39.0" prefWidth="157.0" text="SEIGAN INVOICE" textFill="#127ee3">
+               <font>
+                  <Font name="Arial Bold" size="19.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="47.0" fitWidth="39.0" layoutX="31.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/building-2.png" />
+               </image>
+            </ImageView>
+            <Pane layoutX="22.0" layoutY="158.0" prefHeight="47.0" prefWidth="230.0" styleClass="side-button">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/settings-2.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="55.0" layoutY="9.0" prefHeight="30.0" prefWidth="147.0" text="Change Data">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="22.0" layoutY="205.0" prefHeight="47.0" prefWidth="230.0" styleClass="side-button">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/folder-down.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="54.0" layoutY="9.0" prefHeight="30.0" prefWidth="147.0" text="Export / Generate">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="22.0" layoutY="621.0" prefHeight="76.0" prefWidth="230.0">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/bird.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="14.0" layoutY="36.0" prefHeight="30.0" prefWidth="212.0" text="Keep faster to safe your time.">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <AnchorPane layoutX="295.0" layoutY="23.0" prefHeight="64.0" prefWidth="964.0" styleClass="top-panel">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="925.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/sun.png" />
+               </image>
+            </ImageView>
+            <TextField layoutX="701.0" layoutY="13.0" prefHeight="39.0" prefWidth="212.0" promptText="Search..." styleClass="field-search" />
+            <Label alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="39.0" prefWidth="157.0" styleClass="top-label-active" text="29 Agustus 2024">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="184.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Invoice History">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="273.0" layoutY="107.0" prefHeight="586.0" prefWidth="982.0">
+         <children>
+            <Pane layoutX="22.0" prefHeight="586.0" prefWidth="964.0" styleClass="list-invoice">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" text="Invoice for this month is ready to generate.">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Separator layoutX="14.0" layoutY="48.0" prefHeight="0.0" prefWidth="927.0" />
+                  <TableView fx:id="tableViewInvoice" layoutX="4.0" layoutY="60.0" minHeight="489.0" prefHeight="489.0" prefWidth="947.0">
+                    <columns>
+                      <TableColumn fx:id="tableColumnCheckbox" prefWidth="109.0" text="Choose!" />
+                        <TableColumn fx:id="tableColumnCode" prefWidth="203.0" text="Invoice Code" />
+                      <TableColumn fx:id="tableColumnDescription" prefWidth="326.0" text="Description" />
+                        <TableColumn fx:id="tableColumnCustomer" prefWidth="308.0" text="Customer" />
+                    </columns>
+                  </TableView>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

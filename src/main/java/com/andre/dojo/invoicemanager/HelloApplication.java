@@ -1,22 +1,16 @@
 package com.andre.dojo.invoicemanager;
 
-import com.andre.dojo.Models.MetadataSave;
-import com.andre.dojo.Models.Organization;
-import com.andre.dojo.Models.PersonManagement;
-import com.andre.dojo.Models.PersonManagementOri;
-import com.andre.dojo.Utils.ObjectSaver;
-import com.andre.dojo.Utils.Orang;
+import com.andre.dojo.Models.*;
+import com.andre.dojo.Utils.DatabaseManager;
 import com.google.gson.Gson;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Objects;
 
 public class HelloApplication extends Application {
 
@@ -24,23 +18,17 @@ public class HelloApplication extends Application {
 
     private static Stage mainStage;
 
-    private static MetadataSave metadataSave = new MetadataSave();
     @Override
     public void start(Stage stage) throws IOException {
 
-        if ((!Objects.equals(ObjectSaver.fileNameAddress, "")) && ObjectSaver.retrieveData() != null) {
-            metadataSave = (ObjectSaver.retrieveData());
 
-            System.out.println("data berhasil dibaca");
-        }else{
-            System.out.println("harusnya");
-        }
+
 
         mainStage = stage;
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Authentication!");
+        stage.setTitle("Invoice Manager!");
         stage.setScene(scene);
         stage.show();
     }
@@ -51,37 +39,6 @@ public class HelloApplication extends Application {
 
     public static Stage getMainStage() {
         return mainStage;
-    }
-
-    public static void setDataOrganization(ObservableList<Organization> data) {
-        metadataSave.setOrganizations(data);
-    }
-    public static void addDataOrganization(Organization organization) {
-        metadataSave.getOrganizations().add(organization);
-    }
-
-    public static ObservableList<Organization> getDataOrganization() {
-        return metadataSave.getOrganizations();
-    }
-
-    public static void setDataPerson(ObservableList<PersonManagement> data) {
-        metadataSave.setPersons(data);
-    }
-
-    public static ObservableList<PersonManagement> getDataPerson() {
-        return metadataSave.getPersons();
-    }
-
-    public static void addDataPerson(PersonManagement person) {
-        metadataSave.getPersons().add(person);
-    }
-
-    public static void setMetadataSave(MetadataSave metadataSave) {
-        HelloApplication.metadataSave = metadataSave;
-    }
-
-    public static MetadataSave getMetadataSave() {
-        return metadataSave;
     }
 
     public static void showAlert(String message) {

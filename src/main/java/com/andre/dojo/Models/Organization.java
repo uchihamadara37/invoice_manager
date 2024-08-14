@@ -1,63 +1,165 @@
 package com.andre.dojo.Models;
 
+import com.andre.dojo.Utils.DatabaseManager;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.chart.PieChart;
+
+import java.time.Instant;
+import java.util.List;
 
 public class Organization {
-    private StringProperty id;
-    private StringProperty name;
-    private StringProperty address;
-    private StringProperty email;
-    private PersonManagement personManagement;
+    private long id;
+    private String logo;
+    private String brandName;
+    private String description;
+    private String address;
+    private String email;
+    private int noUrutInstansi;
+    private int tahunOperasi;
+    private Personal personManagement;
 
-    public Organization(){
-
+    public Organization(){}
+    public Organization(long id, String logo, String brandName, String description, String address, String email, int noUrutInstansi, int tahunOperasi) {
+        this.id = id;
+        this.logo = logo;
+        this.brandName = brandName;
+        this.description = description;
+        this.address = address;
+        this.email = email;
+        this.noUrutInstansi = noUrutInstansi;
+        this.tahunOperasi = tahunOperasi;
     }
 
-    public Organization(String name, String address, String email) {
-        this.id = new SimpleStringProperty(String.valueOf(System.currentTimeMillis()));
-        this.name = new SimpleStringProperty(name);
-        this.address = new SimpleStringProperty(address);
-        this.email = new SimpleStringProperty(email);
+    public static boolean addToDB(Organization organization){
+        String query = """
+                INSERT INTO organization (
+                id, 
+                logo, 
+                brandName, 
+                description, 
+                address, 
+                email, 
+                noUrutInstansi, 
+                tahunOperasi
+                ) VALUES (
+                :id, 
+                :logo, 
+                :brandName, 
+                :description, 
+                :address, 
+                :email, 
+                :noUrutInstansi, 
+                :tahunOperasi
+                )""";
+        return DatabaseManager.addOneData(query, organization);
+    }
+    public static List<Organization> getAllData(){
+        String query = """
+                SELECT * FROM organization
+                """;
+        return DatabaseManager.getListData(query, Organization.class);
+    }
+    public static Organization getOneData(long id){
+        String query = """
+                SELECT * FROM organization WHERE id = :p1
+                """;
+        return DatabaseManager.getOneData(query, Organization.class, Long.toString(id));
+    }
+    public static boolean deleteOneById(long id){
+        String query = """
+                DELETE FROM organization WHERE id = :p1
+                """;
+        return DatabaseManager.deleteData(query, Long.toString(id));
+    }
+    public static boolean updateById(Organization organization, long id){
+        String query = """
+                UPDATE organization SET 
+                logo = :logo, 
+                brandName = :brandName, 
+                description = :description, 
+                address = :address, 
+                email = :email, 
+                noUrutInstansi = :noUrutInstansi, 
+                tahunOperasi = :tahunOperasi 
+                WHERE id = :p1
+                """;
+        return DatabaseManager.updateData(query, organization, Long.toString(id));
+    }
+    public Organization(String brand_name) {
+        this.id = Instant.now().toEpochMilli();
+        this.brandName = brand_name;
     }
 
-    public void setName(String name) {
-        this.name = new SimpleStringProperty(name);
+    public long getId() {
+        return id;
     }
 
-    public void setAddress(String address) {
-        this.address = new SimpleStringProperty(address);
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setId(String id) {
-        this.id = new SimpleStringProperty(id);
+    public String getLogo() {
+        return logo;
     }
 
-    public void setEmail(String email) {
-        this.email = new SimpleStringProperty(email);
+    public void setLogo(String logo) {
+        this.logo = logo;
     }
 
-    public void setPersonManagement(PersonManagement personManagement) {
-        this.personManagement = personManagement;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public String getId() {
-        return id.get();
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
-    public String getName() {
-        return name.get();
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getAddress() {
-        return address.get();
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmail() {
-        return email.get();
+        return email;
     }
 
-    public PersonManagement getPersonManagement() {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getNoUrutInstansi() {
+        return noUrutInstansi;
+    }
+
+    public void setNoUrutInstansi(int noUrutInstansi) {
+        this.noUrutInstansi = noUrutInstansi;
+    }
+
+    public int getTahunOperasi() {
+        return tahunOperasi;
+    }
+
+    public void setTahunOperasi(int tahunOperasi) {
+        this.tahunOperasi = tahunOperasi;
+    }
+
+    public Personal getPersonManagement() {
         return personManagement;
+    }
+
+    public void setPersonManagement(Personal personManagement) {
+        this.personManagement = personManagement;
     }
 }
