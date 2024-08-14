@@ -104,11 +104,7 @@ public class HelloController implements Initializable {
     }
 
     private void loadTableView() {
-        List<Invoice> oi = Invoice.getAllData();
-        ObservableList<Invoice> list = FXCollections.observableArrayList();
-        list.addAll(oi);
-        System.out.println(list.size());
-        tableViewInvoice.setItems(list);
+        tableViewInvoice.setItems(FXCollections.observableArrayList(Invoice.getAllData()));
         tableColumnCode.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceCode()));
         tableColumnDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));
         tableColumnCustomer.setCellValueFactory(e -> new SimpleStringProperty(Customer.getOneData(e.getValue().getCustomer_id()).getName()));

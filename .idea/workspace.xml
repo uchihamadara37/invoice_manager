@@ -7,7 +7,7 @@
     <list default="true" id="8adacacf-1080-473a-8e1a-343262ed38e4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
