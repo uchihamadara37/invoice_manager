@@ -84,9 +84,9 @@
 /*finish spinner*/
 
 .field-search{
-    -fx-border: 1px;
+    -fx-border-width: 2px;
     -fx-border-style: solid;
-    -fx-border-color: -fx-light-accent-color;
+    -fx-border-color: -fx-light-2-color;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
     -fx-padding: 5 5 5 40px;
@@ -95,7 +95,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: 5% center;
 /*    -fx-background-position: 5 0 0 20px;*/
-    -fx-background-insets: 0 0 0 0px;
+/*    -fx-background-insets: 0 0 0 0px;*/
 }
 
 .list-invoice{

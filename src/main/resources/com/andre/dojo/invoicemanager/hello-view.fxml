@@ -15,7 +15,7 @@
    <children>
       <Pane prefHeight="720.0" prefWidth="273.0" styleClass="side-panel">
          <children>
-            <Pane layoutX="22.0" layoutY="111.0" prefHeight="47.0" prefWidth="230.0" styleClass="side-button-active">
+            <Pane fx:id="tombolInvoice" layoutX="22.0" layoutY="111.0" prefHeight="47.0" prefWidth="230.0" styleClass="side-button-active">
                <children>
                   <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -39,7 +39,7 @@
                   <Image url="@icon/building-2.png" />
                </image>
             </ImageView>
-            <Pane layoutX="22.0" layoutY="158.0" prefHeight="47.0" prefWidth="230.0" styleClass="side-button">
+            <Pane fx:id="tombolChangeData" layoutX="22.0" layoutY="158.0" prefHeight="47.0" prefWidth="230.0" styleClass="side-button">
                <children>
                   <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -53,7 +53,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="22.0" layoutY="205.0" prefHeight="47.0" prefWidth="230.0" styleClass="side-button">
+            <Pane fx:id="tombolExport" layoutX="22.0" layoutY="205.0" prefHeight="47.0" prefWidth="230.0" styleClass="side-button">
                <children>
                   <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -103,9 +103,9 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="273.0" layoutY="107.0" prefHeight="586.0" prefWidth="982.0">
+      <AnchorPane fx:id="anchorPaneMain" layoutX="295.0" layoutY="107.0" prefHeight="586.0" prefWidth="964.0">
          <children>
-            <Pane layoutX="22.0" prefHeight="586.0" prefWidth="964.0" styleClass="list-invoice">
+            <Pane fx:id="paneInvoice" prefHeight="586.0" prefWidth="964.0" styleClass="list-invoice">
                <children>
                   <Label layoutX="14.0" layoutY="14.0" text="Invoice for this month is ready to generate.">
                      <font>
