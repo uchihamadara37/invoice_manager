@@ -91,11 +91,17 @@
     -fx-background-radius: 20px;
     -fx-padding: 5 5 5 40px;
     -fx-font-size: 1.2em;
+
     -fx-background-image: url('./icon/search.png');
     -fx-background-repeat: no-repeat;
     -fx-background-position: 5% center;
-/*    -fx-background-position: 5 0 0 20px;*/
-/*    -fx-background-insets: 0 0 0 0px;*/
+
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 20px;
+}
+.field-search:focused{
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
 }
 
 .list-invoice{

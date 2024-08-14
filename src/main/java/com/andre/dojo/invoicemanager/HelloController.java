@@ -57,12 +57,30 @@ public class HelloController implements Initializable {
 
         // event tombol
         tombolChangeData.setOnMouseClicked(e -> {
+            tombolChangeData.getStyleClass().removeFirst();
+            tombolChangeData.getStyleClass().add("side-button-active");
+            tombolInvoice.getStyleClass().removeFirst();
+            tombolInvoice.getStyleClass().add("side-button");
+            tombolExport.getStyleClass().removeFirst();
+            tombolExport.getStyleClass().add("side-button");
             openChangeDataPane();
         });
         tombolInvoice.setOnMouseClicked(e -> {
+            tombolChangeData.getStyleClass().removeFirst();
+            tombolChangeData.getStyleClass().add("side-button");
+            tombolInvoice.getStyleClass().removeFirst();
+            tombolInvoice.getStyleClass().add("side-button-active");
+            tombolExport.getStyleClass().removeFirst();
+            tombolExport.getStyleClass().add("side-button");
             openInvoicePane();
         });
         tombolExport.setOnMouseClicked(e -> {
+            tombolChangeData.getStyleClass().removeFirst();
+            tombolChangeData.getStyleClass().add("side-button");
+            tombolInvoice.getStyleClass().removeFirst();
+            tombolInvoice.getStyleClass().add("side-button");
+            tombolExport.getStyleClass().removeFirst();
+            tombolExport.getStyleClass().add("side-button-active");
             openExportPane();
         });
 
