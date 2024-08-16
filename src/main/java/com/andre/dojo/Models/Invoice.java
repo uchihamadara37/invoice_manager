@@ -1,6 +1,8 @@
 package com.andre.dojo.Models;
 
 import com.andre.dojo.Utils.DatabaseManager;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 
 import java.time.Instant;
 import java.util.List;
@@ -17,6 +19,7 @@ public class Invoice {
     private String timestamp;
     private long jrxml_id;
     private long customer_id;
+    private BooleanProperty checked = new SimpleBooleanProperty(true);
 
     private List<Item> listItems;
 
@@ -76,6 +79,15 @@ public class Invoice {
                 )""";
         return DatabaseManager.addOneData(query, invoice);
     }
+
+    public void setChecked(boolean checked) {
+        this.checked.set(checked);
+    }
+    public BooleanProperty getChecked(){
+        return this.checked;
+    }
+
+
     public static List<Invoice> getAllData(){
         String query = """
                 SELECT * FROM invoice

@@ -6,6 +6,7 @@
     -fx-light-text-color: #333333;
     -fx-light-accent-color: #127ee3;
     -fx-light-2-color: #d8e1fc;
+    -fx-light-3-color: #54a5f1;
 
     /* Dark theme variables */
     -fx-dark-background-color: #333333;
@@ -40,10 +41,10 @@
 .top-label-active{
     -fx-background-color: -fx-light-accent-color;
     -fx-text-fill: white;
-    -fx-padding: 0.5em;
     -fx-background-radius: 8px;
     -fx-font-family: "Arial", "Sans-serif";
     -fx-font-weight: 700;
+    -fx-font-size: 15px;
 
 }
 .top-label-active:hover{
@@ -68,7 +69,7 @@
 }
 
 .spinner .decrement-arrow-button {
-    -fx-background-color: #9fc7ec;
+    -fx-background-color: -fx-light-3-color;
     -fx-text-fill: white;
     -fx-background-radius: 3px;
     /*    -fx-shape: "M 0 0 L 4 4 L 8 0 Z";*/
@@ -145,8 +146,8 @@
 
 .table-view .table-cell {
     -fx-text-fill: #333333;
-    -fx-font-family: "Arial";
-    -fx-font-size: 12px;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15px;
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 2 0 2 10px;
 }
@@ -162,11 +163,12 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #0096c9;
+    -fx-background-color: white;
 }
-
-.table-row-cell:selected .table-cell {
-    -fx-text-fill: white;
+.table-row-cell:selected .check-box-table-cell > .check-box > .box {
+    -fx-background-color: white;
+    -fx-border-color: #3f3f3f;
+    -fx-boder-radius: 5px;
 }
 
 .table-view .scroll-bar:vertical {
@@ -177,3 +179,73 @@
     -fx-background-radius: 0px 0px 8px 8px;
 }
 /*akhir untuk table*/
+.tombol-primary{
+    -fx-background-color: -fx-light-accent-color;
+    -fx-background-radius: 8px;
+}
+.tombol-primary .label{
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+}
+
+
+/*start TabePane*/
+.tab-pane {
+    -fx-tab-min-width: 90px;
+/*    -fx-tab-max-width: 90px;*/
+    -fx-tab-min-height: 30px;
+    -fx-tab-max-height: 30px;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: -fx-light-2-color;
+}
+
+.tab-pane .tab {
+    -fx-background-color: -fx-light-2-color;
+    -fx-background-insets: 0 1 0 1;
+    -fx-padding: 5 15px;
+}
+
+.tab-pane .tab:selected {
+    -fx-background-color: -fx-light-accent-color;
+    -fx-background-radius: 20 20 0 0;
+/*    -fx-background-radius: -20px;*/
+}
+
+.tab-pane .tab .tab-label {
+    -fx-font-family: "Roboto";
+    -fx-alignment: CENTER;
+    -fx-text-fill: -fx-light-text-color;
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+}
+
+.tab-pane .tab:selected .tab-label {
+    -fx-text-fill: -fx-dark-text-color;
+/*    -fx-font-weight: 700;*/
+
+}
+
+.tab-pane .tab-content-area {
+/*    -fx-background-color: #ffffff;*/
+}
+/*.tab-pane .tab:selected::after {*/
+/*    -fx-content: "";*/
+/*    -fx-position: absolute;*/
+/*    -fx-bottom: 0;*/
+/*    -fx-left: -10px;*/
+/*    -fx-right: -10px;*/
+/*    -fx-height: 10px;*/
+/*    -fx-background-color: #3c3c3c;*/
+/*    -fx-shape: "M0,0 Q5,10 10,0 L90,0 Q95,10 100,0 Z";*/
+/*    -fx-z-index: 2;*/
+/*}*/
+/*finish TabPane*/
+
+.pane-headline{
+    -fx-background-color: -fx-light-accent-color;
+}
+.pane-headline-text{
+    -fx-text-fill: -fx-light-text-color;
+}

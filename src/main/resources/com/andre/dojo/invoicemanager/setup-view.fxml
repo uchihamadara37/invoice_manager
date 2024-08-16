@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="paneInvoice" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.SetupController">
+<children>
+    <AnchorPane prefHeight="64.0" prefWidth="978.0" styleClass="top-panel">
+        <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@icon/sun.png" />
+                </image>
+            </ImageView>
+            <Label fx:id="tombolTanggal" alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="39.0" prefWidth="157.0" styleClass="top-label-active" text="Choose the Invoice">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="tombolHistory" alignment="CENTER" layoutX="171.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" text="Add Items">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="tombolHistory1" alignment="CENTER" layoutX="263.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" text="Json Data">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tombolHistory11" alignment="CENTER" layoutX="355.0" layoutY="14.0" prefHeight="37.0" prefWidth="101.0" text="Jrxml String">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tombolHistory111" alignment="CENTER" layoutX="456.0" layoutY="14.0" prefHeight="37.0" prefWidth="127.0" text="Preview Invoice">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+        </children>
+    </AnchorPane>
+    <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+        <children>
+            <TableView fx:id="tableViewInvoice" layoutX="14.0" layoutY="60.0" minHeight="337.0" prefHeight="337.0" prefWidth="951.0">
+                <columns>
+                    <TableColumn fx:id="tableColumnCode" prefWidth="180.0" text="Invoice Code" />
+                    <TableColumn fx:id="tableColumnDescription" prefWidth="298.0" text="Description" />
+                    <TableColumn fx:id="tableColumnCustomer" prefWidth="244.0" text="Time Created" />
+                  <TableColumn fx:id="tableColumnCustomer1" prefWidth="220.0" text="Customer" />
+                </columns>
+            </TableView>
+            <Pane fx:id="tombolGenerate" layoutX="422.0" layoutY="560.0" prefHeight="42.0" prefWidth="127.0" styleClass="tombol-primary">
+                <children>
+                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icon/image-down.png" />
+                        </image>
+                    </ImageView>
+                    <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="81.0" text="Add Items">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                </children>
+            </Pane>
+            <TextField layoutX="329.0" layoutY="11.0" prefHeight="39.0" prefWidth="313.0" promptText="Search..." styleClass="field-search" />
+            <Label layoutX="15.0" layoutY="415.0" prefHeight="21.0" prefWidth="136.0" text="Invoice Selected">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="182.0" layoutY="415.0" prefHeight="21.0" prefWidth="213.0" text="Code/9809/inv/87/0908/100">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="182.0" layoutY="444.0" prefHeight="21.0" prefWidth="322.0" text="Membeli ayam kalkun untuk stock resto">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="182.0" layoutY="475.0" prefHeight="21.0" prefWidth="322.0" text="Ibu Susiyati, PT. Mekar Wisata Tbk.">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="182.0" layoutY="506.0" prefHeight="21.0" prefWidth="322.0" text="Created at 19.20 21 June 2025">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+        </children>
+    </Pane>
+</children>
+</AnchorPane>

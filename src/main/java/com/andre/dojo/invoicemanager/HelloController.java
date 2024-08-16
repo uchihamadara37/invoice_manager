@@ -9,24 +9,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
     @FXML
     private TableView<Invoice> tableViewInvoice;
     @FXML
-    private TableColumn<Invoice, String> tableColumnCheckbox;
+    private TableColumn<Invoice, Boolean> tableColumnCheckbox;
     @FXML
     private TableColumn<Invoice, String> tableColumnCode;
     @FXML
@@ -41,11 +38,19 @@ public class HelloController implements Initializable {
     private Pane tombolChangeData;
     @FXML
     private Pane tombolExport;
+    @FXML
+    private Label tombolHistory;
+    @FXML
+    private Label tombolTanggal;
+    @FXML
+    private Pane tombolGenerate;
+    @FXML
+    private Pane tombolSetup;
 
     @FXML
     private AnchorPane anchorPaneMain;
     @FXML
-    private Pane paneInvoice;
+    private AnchorPane paneInvoice;
 
 
 
@@ -63,6 +68,8 @@ public class HelloController implements Initializable {
             tombolInvoice.getStyleClass().add("side-button");
             tombolExport.getStyleClass().removeFirst();
             tombolExport.getStyleClass().add("side-button");
+            tombolSetup.getStyleClass().removeFirst();
+            tombolSetup.getStyleClass().add("side-button");
             openChangeDataPane();
         });
         tombolInvoice.setOnMouseClicked(e -> {
@@ -72,7 +79,20 @@ public class HelloController implements Initializable {
             tombolInvoice.getStyleClass().add("side-button-active");
             tombolExport.getStyleClass().removeFirst();
             tombolExport.getStyleClass().add("side-button");
+            tombolSetup.getStyleClass().removeFirst();
+            tombolSetup.getStyleClass().add("side-button");
             openInvoicePane();
+        });
+        tombolSetup.setOnMouseClicked(e -> {
+            tombolChangeData.getStyleClass().removeFirst();
+            tombolChangeData.getStyleClass().add("side-button");
+            tombolInvoice.getStyleClass().removeFirst();
+            tombolInvoice.getStyleClass().add("side-button");
+            tombolExport.getStyleClass().removeFirst();
+            tombolExport.getStyleClass().add("side-button");
+            tombolSetup.getStyleClass().removeFirst();
+            tombolSetup.getStyleClass().add("side-button-active");
+            openSetupPane();
         });
         tombolExport.setOnMouseClicked(e -> {
             tombolChangeData.getStyleClass().removeFirst();
@@ -81,9 +101,63 @@ public class HelloController implements Initializable {
             tombolInvoice.getStyleClass().add("side-button");
             tombolExport.getStyleClass().removeFirst();
             tombolExport.getStyleClass().add("side-button-active");
+            tombolSetup.getStyleClass().removeFirst();
+            tombolSetup.getStyleClass().add("side-button");
             openExportPane();
         });
 
+
+
+        tombolHistory.setOnMouseClicked(e -> {
+            openHistoryPane();
+//            tombolHistory.getStyleClass().remove("top-label-active");
+//            tombolHistory.getStyleClass().add("top-label-active");
+//            tombolTanggal.getStyleClass().remove(1);
+
+        });
+//        tombolTanggal.setOnMouseClicked(e -> {
+//            openInvoicePane();
+//            tombolTanggal.getStyleClass().add("top-label-active");
+//            tombolHistory.getStyleClass().remove(1);
+//        });
+        tombolGenerate.setOnMouseClicked(e -> {
+            ObservableList<Invoice> currentData = tableViewInvoice.getItems();
+            System.out.println("Current TableView Data:");
+            for (Invoice item : currentData) {
+                System.out.println("Item: " + item.getChecked().get() + ", Desc: " + item.getDescription());
+            }
+        });
+        tableViewInvoice.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> {
+//                    System.out.println("bool: "+newValue.getChecked().get());
+
+                });
+    }
+
+    private void openSetupPane() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("setup-view.fxml"));
+            Pane anchorPane = new Pane((Node) fxmlLoader.load());
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(anchorPane);
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+    }
+
+    private void openHistoryPane() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("history-view.fxml"));
+            Pane anchorPane = new Pane((Node) fxmlLoader.load());
+
+            HistoryController historyController = fxmlLoader.getController();
+            historyController.setHelloController(this);
+
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(anchorPane);
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
     }
 
     private void openExportPane() {
@@ -102,9 +176,19 @@ public class HelloController implements Initializable {
         anchorPaneMain.getChildren().add(paneInvoice);
         loadTableView();
     }
+    public AnchorPane getAnchorPaneMain(){
+        return anchorPaneMain;
+    }
+    public AnchorPane getPaneInvoice(){
+        return paneInvoice;
+    }
 
-    private void loadTableView() {
+    public void loadTableView() {
+        tableViewInvoice.setEditable(true);
         tableViewInvoice.setItems(FXCollections.observableArrayList(Invoice.getAllData()));
+        tableColumnCheckbox.setCellValueFactory(e -> e.getValue().getChecked());
+        tableColumnCheckbox.setCellFactory(e -> new CheckBoxTableCell<>());
+
         tableColumnCode.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceCode()));
         tableColumnDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));
         tableColumnCustomer.setCellValueFactory(e -> new SimpleStringProperty(Customer.getOneData(e.getValue().getCustomer_id()).getName()));
