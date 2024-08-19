@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.JsonDataController">
+<children>
+    <AnchorPane prefHeight="64.0" prefWidth="978.0" styleClass="top-panel">
+        <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@icon/sun.png" />
+                </image>
+            </ImageView>
+            <Label fx:id="btnInvoiceSelection" alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="39.0" prefWidth="157.0" text="Choose the Invoice">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnItem" alignment="CENTER" layoutX="171.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" text="Add Items">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnJsonData" alignment="CENTER" layoutX="263.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" styleClass="top-label-active" text="Json Data">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnJrxml" alignment="CENTER" layoutX="355.0" layoutY="14.0" prefHeight="37.0" prefWidth="101.0" text="Jrxml String">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnPreview" alignment="CENTER" layoutX="456.0" layoutY="14.0" prefHeight="37.0" prefWidth="127.0" text="Preview Invoice">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </AnchorPane>
+    <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+        <children>
+            <Pane fx:id="btnCopy" layoutX="443.0" layoutY="14.0" prefHeight="42.0" prefWidth="92.0" styleClass="tombol-primary">
+                <children>
+                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icon/copy.png" />
+                        </image>
+                    </ImageView>
+                    <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="42.0" text="Copy">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                </children>
+            </Pane>
+            <TextArea fx:id="jsonText" editable="false" layoutX="13.0" layoutY="69.0" prefHeight="532.0" prefWidth="953.0" styleClass="field-add-item" />
+            <Label fx:id="btnInvoiceSelection1" layoutX="27.0" layoutY="16.0" prefHeight="39.0" prefWidth="387.0" text="Use this json to build up your JasperReport Design.">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+        </children>
+    </Pane>
+</children>
+</AnchorPane>

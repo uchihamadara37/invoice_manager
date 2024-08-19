@@ -20,7 +20,6 @@ public class Invoice {
     private long jrxml_id;
     private long customer_id;
     private BooleanProperty checked = new SimpleBooleanProperty(true);
-
     private List<Item> listItems;
 
     public Invoice(){
@@ -117,7 +116,7 @@ public class Invoice {
                 UPDATE invoice SET 
                 invoiceMarkText = :invoiceMarkText, 
                 date = :date,
-                totalPriceAll = :totalPrice,
+                totalPriceAll = :totalPriceAll,
                 jsonData = :jsonData,
                 pdfUrl = :pdfUrl,
                 timestamp = :timestamp,
@@ -199,7 +198,9 @@ public class Invoice {
     }
 
     public void setListItems(List<Item> listItems) {
-        this.listItems = listItems;
+        for (Item i : listItems){
+            Item.addToDB(i);
+        }
     }
 
     public long getId() {
@@ -231,6 +232,6 @@ public class Invoice {
     }
 
     public List<Item> getListItems() {
-        return listItems;
+        return Item.getListByInvoiceID(id);
     }
 }

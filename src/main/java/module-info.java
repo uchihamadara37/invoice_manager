@@ -12,10 +12,12 @@ module com.andre.dojo.invoicemanager {
     requires org.xerial.sqlitejdbc;
     requires sql2o;
     requires org.slf4j;
+    requires org.controlsfx.controls;
 
 
     opens com.andre.dojo.invoicemanager to javafx.fxml;
     opens com.andre.dojo.Models;
+
     exports com.andre.dojo.invoicemanager;
     exports com.andre.dojo.Models;
 }

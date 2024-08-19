@@ -10,17 +10,18 @@ public class Customer {
     private String name;
     private String description;
     private String phoneNumber;
-    private int organization_id;
+    private long organization_id;
 
     public Customer(){
 
     }
 
-    public Customer(String name, String description, String phone_number) {
+    public Customer(String name, String description, String phone_number, long organization_id) {
         this.id = Instant.now().toEpochMilli();
         this.name = name;
         this.description = description;
         this.phoneNumber = phone_number;
+        this.organization_id = organization_id;
     }
 
     public static boolean addToDB(Customer customer){
@@ -52,11 +53,11 @@ public class Customer {
                 """;
         return DatabaseManager.getListData(query, Customer.class, Long.toString(id));
     }
-    public static Customer getOneData(long id){
+    public static Customer getOneData(long cs_id){
         String query = """
                 SELECT * FROM customer WHERE id = :p1
                 """;
-        return DatabaseManager.getOneData(query, Customer.class, Long.toString(id));
+        return DatabaseManager.getOneData(query, Customer.class, Long.toString(cs_id));
     }
     public static boolean deleteOneById(long id){
         String query = """
@@ -64,23 +65,23 @@ public class Customer {
                 """;
         return DatabaseManager.deleteData(query, Long.toString(id));
     }
-    public static boolean updateById(Invoice invoice){
+    public static boolean updateById(Customer customer){
         String query = """
                 UPDATE customer SET 
                 name = :name, 
-                describtion = :description,
+                description = :description,
                 phoneNumber = :phoneNumber,
                 organization_id = :organization_id
                 WHERE id = :id
                 """;
-        return DatabaseManager.updateData(query, invoice);
+        return DatabaseManager.updateData(query, customer);
     }
 
-    public int getOrganization_id() {
+    public long getOrganization_id() {
         return organization_id;
     }
 
-    public void setOrganization_id(int organization_id) {
+    public void setOrganization_id(long organization_id) {
         this.organization_id = organization_id;
     }
 

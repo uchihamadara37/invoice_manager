@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.AddItemController">
+<children>
+    <AnchorPane prefHeight="64.0" prefWidth="978.0" styleClass="top-panel">
+        <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@icon/sun.png" />
+                </image>
+            </ImageView>
+            <Label fx:id="btnSelectInvoice" alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="39.0" prefWidth="157.0" text="Choose the Invoice">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnItems" alignment="CENTER" layoutX="171.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" styleClass="top-label-active" text="Add Items">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnJsonData" alignment="CENTER" layoutX="263.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" text="Json Data">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnJrxml" alignment="CENTER" layoutX="355.0" layoutY="14.0" prefHeight="37.0" prefWidth="101.0" text="Jrxml String">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnPreview" alignment="CENTER" layoutX="456.0" layoutY="14.0" prefHeight="37.0" prefWidth="127.0" text="Preview Invoice">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </AnchorPane>
+    <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+        <children>
+            <TableView fx:id="tableViewItem" layoutX="14.0" layoutY="60.0" minHeight="337.0" prefHeight="337.0" prefWidth="951.0">
+                <columns>
+                  <TableColumn fx:id="tableColumnDelete" prefWidth="83.0" text="Delete it?" />
+                    <TableColumn fx:id="tableColumnName" prefWidth="274.0" text="Item" />
+                    <TableColumn fx:id="tableColumnPrice" prefWidth="128.0" text="Price (IDR)" />
+                    <TableColumn fx:id="tableColumnQty" prefWidth="58.0" text="Qty" />
+                    <TableColumn fx:id="tableColumnPriceAll" prefWidth="140.0" text="Total Price (IDR)" />
+                  <TableColumn fx:id="tableColumnAdjust" prefWidth="250.0" text="Add Month and Year on it name?" />
+                </columns>
+            </TableView>
+            <Pane fx:id="btnJsonBawah" layoutX="401.0" layoutY="561.0" prefHeight="42.0" prefWidth="170.0" styleClass="tombol-primary">
+                <children>
+                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icon/braces.png" />
+                        </image>
+                    </ImageView>
+                    <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="127.0" text="Check Json Data">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                </children>
+            </Pane>
+            <TextField fx:id="itemName" layoutX="120.0" layoutY="11.0" prefHeight="39.0" prefWidth="374.0" promptText="Item name" styleClass="field-add-item" />
+            <Label layoutX="14.0" layoutY="19.0" prefHeight="21.0" prefWidth="101.0" text="Add new Item">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="showCode" layoutX="15.0" layoutY="412.0" prefHeight="21.0" prefWidth="418.0" text="Code/9809/inv/87/0908/100">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="showDescription" layoutX="14.0" layoutY="442.0" prefHeight="21.0" prefWidth="486.0" text="Membeli ayam kalkun untuk stock resto">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="showCustomer" layoutX="15.0" layoutY="472.0" prefHeight="21.0" prefWidth="486.0" text="Ibu Susiyati, PT. Mekar Wisata Tbk.">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="showTimeStamp" layoutX="15.0" layoutY="502.0" prefHeight="21.0" prefWidth="486.0" text="Created at 19.20 21 June 2025">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="showMessage" alignment="CENTER" layoutX="208.0" layoutY="532.0" prefHeight="21.0" prefWidth="555.0" styleClass="text-danger" text="Please add at least one item above!" textFill="RED">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Pane fx:id="btnAdd" layoutX="884.0" layoutY="10.0" prefHeight="42.0" prefWidth="80.0" styleClass="tombol-primary">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/package-plus.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="38.0" layoutY="6.0" prefHeight="28.0" prefWidth="40.0" text="Add">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="509.0" layoutY="21.0" prefHeight="21.0" prefWidth="19.0" text="/">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="itemPrice" layoutX="528.0" layoutY="11.0" prefHeight="39.0" prefWidth="205.0" promptText="Price per item (IDR)" styleClass="field-add-item" />
+            <TextField fx:id="itemQty" layoutX="763.0" layoutY="12.0" prefHeight="39.0" prefWidth="108.0" promptText="Qty.." styleClass="field-add-item" />
+            <Label layoutX="743.0" layoutY="21.0" prefHeight="21.0" prefWidth="19.0" text="/">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="itemtotalPrice" disable="true" editable="false" layoutX="737.0" layoutY="406.0" prefHeight="39.0" prefWidth="227.0" promptText="Total Price...." styleClass="field-add-item" />
+            <Label layoutX="612.0" layoutY="415.0" prefHeight="21.0" prefWidth="115.0" text="(IDR) Total price">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+        </children>
+    </Pane>
+</children>
+</AnchorPane>
