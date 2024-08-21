@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8adacacf-1080-473a-8e1a-343262ed38e4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Month.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HistoryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/SetupController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/history-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/setup-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/DashboardController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Dashboard-view.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/changeDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/export-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/export-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/hello-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +29,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -63,7 +52,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_directory_selection&quot;: &quot;D:/PROJECT/invoice_manager/src/main/java/com/andre/dojo/invoicemanager&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/andre/Downloads/Compressed/sqlite-jdbc-3.5.7.jar&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Bootcamp/invoice_manager/src/main/resources/com/andre/dojo/invoicemanager&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.3275862&quot;,
@@ -72,6 +61,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Bootcamp\invoice_manager\src\main\resources\com\andre\dojo\invoicemanager" />
       <recent name="D:\PROJECT\invoice_manager\src\main\resources\com\andre\dojo\invoicemanager\Image" />
       <recent name="D:\PROJECT\invoice_manager\src\main\resources\com\andre\dojo\invoicemanager\Jrxml" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml" />
