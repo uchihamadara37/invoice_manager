@@ -175,11 +175,12 @@ public class DatabaseManager {
 
 
     public static void createTableItem() {
-        String sql = "CREATE TABLE IF NOT EXISTS item (\n" +
+        String sql = "CREATE TABLE IF NOT EXISTS item2 (\n" +
                 "    id INTEGER PRIMARY KEY,\n" +
                 "    name TEXT NOT NULL,\n" +
                 "    price INTEGER NOT NULL,\n" +
                 "    qty INTEGER NOT NULL,\n" +
+                "    fillNameWithMonth BOOLEAN,\n" +
                 "    totalPriceItem INTEGER NOT NULL,\n" +
                 "    invoice_id INTEGER NOT NULL,\n" +
                 "    FOREIGN KEY (invoice_id) REFERENCES invoice(id)\n" +
@@ -208,11 +209,11 @@ public class DatabaseManager {
         ) {
 //            stmt.execute("DROP TABLE IF EXISTS organization;");
 //            stmt.execute("DROP TABLE IF EXISTS customer;");
-//            stmt.execute("DROP TABLE IF EXISTS personal;");
+//            stmt.execute("ALTER TABLE item2 RENAME TO item;");
 //            stmt.execute("DROP TABLE IF EXISTS item;");
 //            stmt.execute("DROP TABLE IF EXISTS kode_surat;");
-//            stmt.execute("DROP TABLE IF EXISTS invoice;");
-            stmt.execute("ALTER TABLE invoice ADD COLUMN invoiceCode TEXT;");
+//            stmt.execute("INSERT INTO item2 SELECT * FROM item;");
+            stmt.execute("ALTER TABLE design ADD COLUMN first_invoice_id TEXT;");
             stmt.close();
             conn.close();
             System.out.println("Tabel telah dihapus.");
@@ -223,9 +224,6 @@ public class DatabaseManager {
 
     //========================================================================
     public static <T> boolean addOneData (String query, T object) {
-
-//        String selectSql = "SELECT * FROM organization WHERE brandName = :brandName";
-
         try (org.sql2o.Connection conn = sql2o.beginTransaction()) {
             conn.createQuery(query).bind(object).executeUpdate();
             System.out.println("query masuk telah dijalankan");
@@ -275,9 +273,9 @@ public class DatabaseManager {
             return false;
         }
     }
-    public static <T> boolean updateData(String query, T object, String... params){
+    public static <T> boolean updateData(String query, T object){
         try(org.sql2o.Connection con = sql2o.open()){
-            con.createQuery(query).bind(object).withParams((Object) params).executeUpdate();
+            con.createQuery(query).bind(object).executeUpdate();
             return true;
         }catch (Sql2oException e1){
             e1.printStackTrace();

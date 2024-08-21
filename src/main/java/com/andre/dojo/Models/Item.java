@@ -1,6 +1,7 @@
 package com.andre.dojo.Models;
 
 import com.andre.dojo.Utils.DatabaseManager;
+import javafx.scene.chart.PieChart;
 
 import java.time.Instant;
 import java.util.List;
@@ -10,19 +11,21 @@ public class Item {
     private String name;
     private int price;
     private int qty;
+    private boolean fillNameWithMonth = false;
     private int totalPriceItem;
-    private int invoice_id;
+    private long invoice_id;
 
     public Item(){
 
     }
 
-    public Item(String name, int price, int qty, int total_price_item) {
+    public Item(String name, int price, int qty, int total_price_item, long invoice_id) {
         this.id = Instant.now().toEpochMilli();
         this.name = name;
         this.price = price;
         this.qty = qty;
         this.totalPriceItem = total_price_item;
+        this.invoice_id = invoice_id;
     }
 
     public static boolean addToDB(Item item){
@@ -32,6 +35,7 @@ public class Item {
                 name, 
                 price,
                 qty,
+                fillNameWithMonth,
                 totalPriceItem,
                 invoice_id
                 ) VALUES (
@@ -39,6 +43,7 @@ public class Item {
                 :name, 
                 :price,
                 :qty,
+                :fillNameWithMonth,
                 :totalPriceItem,
                 :invoice_id
                 )""";
@@ -54,6 +59,7 @@ public class Item {
         String query = """
                 SELECT * FROM item WHERE invoice_id = :p1
                 """;
+//        System.out.println("jangkrik item invoiceid");
         return DatabaseManager.getListData(query, Item.class, Long.toString(invoice_id));
     }
     public static Item getOneData(long id_item){
@@ -71,14 +77,25 @@ public class Item {
     public static boolean updateById(Item item){
         String query = """
                 UPDATE item SET 
-                name = :kode, 
-                price = :noUrut, 
+                name = :name, 
+                price = :price, 
                 qty = :qty,
                 totalPriceItem = :totalPriceItem,
-                invoice_id = :invoice_id
+                invoice_id = :invoice_id,
+                fillNameWithMonth = :fillNameWithMonth
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, item);
+    }
+
+    public static int getSumOfPriceByInvoiceId(long invoice_id){
+        String query = "SELECT SUM(totalPriceItem) FROM item WHERE invoice_id = :p1;";
+
+        Integer val = DatabaseManager.getOneData(query, Integer.class, String.valueOf(invoice_id));
+        if (val != null){
+            return val;
+        }
+        return 0;
     }
 
     public long getId() {
@@ -89,6 +106,19 @@ public class Item {
         this.id = id;
     }
 
+    public boolean isFillNameWithMonth() {
+        return fillNameWithMonth;
+    }
+
+    public boolean getFillNameWithMonth(){
+        return fillNameWithMonth;
+    }
+
+    public void setFillNameWithMonth(boolean fillNameWithMonth) {
+        this.fillNameWithMonth = fillNameWithMonth;
+    }
+
+
     public int getTotalPriceItem() {
         return totalPriceItem;
     }
@@ -97,11 +127,11 @@ public class Item {
         this.totalPriceItem = totalPriceItem;
     }
 
-    public int getInvoice_id() {
+    public long getInvoice_id() {
         return invoice_id;
     }
 
-    public void setInvoice_id(int invoice_id) {
+    public void setInvoice_id(long invoice_id) {
         this.invoice_id = invoice_id;
     }
 

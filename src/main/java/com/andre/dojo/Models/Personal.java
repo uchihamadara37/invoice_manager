@@ -13,19 +13,21 @@ public class Personal {
     private String bankName;
     private String bankIDNumber;
     private String bankIDName;
+    private String urlTtd;
     private long organization_id;
 
 
     public Personal(){
     }
 
-    public Personal(String name, String bank_name, String bank_id_number, String bank_id_name, long organization_id) {
+    public Personal(String name, String bank_name, String bank_id_number, String bank_id_name, String urlTtd, long organization_id) {
         this.id = Instant.now().toEpochMilli();
         this.name = name;
         this.bankName = bank_name;
         this.bankIDNumber = bank_id_number;
         this.bankIDName = bank_id_name;
         this.organization_id = organization_id;
+        this.urlTtd = urlTtd;
     }
 
     public static boolean addToDB(Personal personal){
@@ -36,6 +38,7 @@ public class Personal {
                 bankName, 
                 bankIDNumber, 
                 bankIDName, 
+                urlTtd,
                 organization_id 
                 ) VALUES (
                 :id, 
@@ -43,6 +46,7 @@ public class Personal {
                 :bankName, 
                 :bankIDNumber, 
                 :bankIDName, 
+                :urlTtd,
                 :organization_id
                 )""";
         return DatabaseManager.addOneData(query, personal);
@@ -59,6 +63,12 @@ public class Personal {
                 """;
         return DatabaseManager.getOneData(query, Personal.class, Long.toString(id));
     }
+    public static Personal getOneDataByOrganizeId(long organization_id){
+        String query = """
+                SELECT * FROM personal WHERE organization_id = :p1
+                """;
+        return DatabaseManager.getOneData(query, Personal.class, Long.toString(organization_id));
+    }
     public static boolean deleteOneById(long id){
         String query = """
                 DELETE FROM personal WHERE id = :p1
@@ -73,10 +83,19 @@ public class Personal {
                 bankName = :bankName, 
                 bankIDNumber = :bankIDNumber, 
                 bankIDName = :bankIDName, 
-                organization_id = :organization_id, 
+                organization_id = :organization_id,
+                urlTtd = :urlTtd 
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, personal);
+    }
+
+    public String getUrlTtd() {
+        return urlTtd;
+    }
+
+    public void setUrlTtd(String urlTtd) {
+        this.urlTtd = urlTtd;
     }
 
     public long getOrganization_id() {

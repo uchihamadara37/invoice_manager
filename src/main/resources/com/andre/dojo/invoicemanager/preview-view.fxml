@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.PreviewController">
+<children>
+    <AnchorPane prefHeight="64.0" prefWidth="978.0" styleClass="top-panel">
+        <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@icon/sun.png" />
+                </image>
+            </ImageView>
+            <Label fx:id="btnInvoiceSelection" alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="39.0" prefWidth="157.0" text="Choose the Invoice">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnItem" alignment="CENTER" layoutX="171.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" text="Add Items">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnJsonData" alignment="CENTER" layoutX="263.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" text="Json Data">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnJrxml" alignment="CENTER" layoutX="355.0" layoutY="14.0" prefHeight="37.0" prefWidth="101.0" text="Jrxml String">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnPreview" alignment="CENTER" layoutX="456.0" layoutY="14.0" prefHeight="37.0" prefWidth="127.0" styleClass="top-label-active" text="Preview Invoice">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </AnchorPane>
+    <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+         <children>
+            <Pane fx:id="previewPane" layoutX="14.0" layoutY="14.0" prefHeight="585.0" prefWidth="951.0" />
+         </children>
+    </Pane>
+</children>
+</AnchorPane>

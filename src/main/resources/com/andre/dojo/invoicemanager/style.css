@@ -230,17 +230,7 @@
 .tab-pane .tab-content-area {
 /*    -fx-background-color: #ffffff;*/
 }
-/*.tab-pane .tab:selected::after {*/
-/*    -fx-content: "";*/
-/*    -fx-position: absolute;*/
-/*    -fx-bottom: 0;*/
-/*    -fx-left: -10px;*/
-/*    -fx-right: -10px;*/
-/*    -fx-height: 10px;*/
-/*    -fx-background-color: #3c3c3c;*/
-/*    -fx-shape: "M0,0 Q5,10 10,0 L90,0 Q95,10 100,0 Z";*/
-/*    -fx-z-index: 2;*/
-/*}*/
+
 /*finish TabPane*/
 
 .pane-headline{
@@ -248,4 +238,50 @@
 }
 .pane-headline-text{
     -fx-text-fill: -fx-light-text-color;
+}
+
+.text-danger{
+    -fx-text-fill: red;
+}
+.field-add-item{
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-color: -fx-light-2-color;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 5 5 5 5px;
+    -fx-font-size: 1.2em;
+}
+.field-add-item:focused{
+    -fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);
+}
+.field-add-item:disabled{
+    -fx-opacity: 1.0;
+}
+
+
+.text-area{
+    -fx-background-inset: 0;
+    -fx-effect: none;
+    -fx-background-radius: 8px;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-color: -fx-light-2-color;
+    -fx-border-radius: 8px;
+    -fx-padding: 3px;
+}
+
+.text-area .scroll-bar:vertical .thumb,
+.text-area .scroll-bar:horizontal .thumb {
+    -fx-background-color: -fx-light-accent-color; /* Warna thumb scrollbar */
+    -fx-background-radius: 5px;    /* Radius thumb scrollbar */
+}
+
+.text-area .scroll-bar .track {
+    -fx-background-color: transparent; /* Warna track scrollbar */
+}
+
+.text-area .scroll-bar {
+    -fx-background-color: transparent;
+/*    -fx-padding: 4px; *//* Menambahkan padding untuk scrollbar */
 }

@@ -17,7 +17,7 @@ public class Organization {
     private String email;
     private int noUrutInstansi;
     private int tahunOperasi;
-    private Personal personManagement;
+    private Personal personal;
 
     public Organization(){}
     public Organization(long id, String logo, String brandName, String description, String address, String email, int noUrutInstansi, int tahunOperasi) {
@@ -84,7 +84,7 @@ public class Organization {
                 tahunOperasi = :tahunOperasi 
                 WHERE id = :p1
                 """;
-        return DatabaseManager.updateData(query, organization, Long.toString(id));
+        return DatabaseManager.updateData(query, organization);
     }
     public Organization(String brand_name) {
         this.id = Instant.now().toEpochMilli();
@@ -155,11 +155,13 @@ public class Organization {
         this.tahunOperasi = tahunOperasi;
     }
 
-    public Personal getPersonManagement() {
-        return personManagement;
+    public Personal getPersonal() {
+        return Personal.getOneDataByOrganizeId(id);
     }
 
-    public void setPersonManagement(Personal personManagement) {
-        this.personManagement = personManagement;
+    public void setPersonal(Personal personManagement) {
+        if (personManagement != null && personManagement.getOrganization_id() == id){
+            Personal.addToDB(personManagement);
+        }
     }
 }

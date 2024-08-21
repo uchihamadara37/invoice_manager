@@ -1,20 +1,30 @@
 package com.andre.dojo.invoicemanager;
 
+import com.andre.dojo.Adapter.*;
 import com.andre.dojo.Models.*;
 import com.andre.dojo.Utils.DatabaseManager;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class HelloApplication extends Application {
 
-    Gson gson = new Gson();
+    public static Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
+            .registerTypeAdapter(Personal.class, new PersonAdapter())
+            .registerTypeAdapter(Customer.class, new CustomerAdapter())
+            .registerTypeAdapter(CustomJSON.class, new CustomJSONAdapter())
+            .registerTypeAdapter(InvoiceAdapter.class, new InvoiceAdapter())
+            .registerTypeAdapter(Item.class, new ItemAdapter())
+            .registerTypeAdapter(Organization.class, new OrganizationAdapter())
+            .create();
 
     private static Stage mainStage;
 
