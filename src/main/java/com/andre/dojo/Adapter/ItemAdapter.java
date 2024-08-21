@@ -17,9 +17,9 @@ public class ItemAdapter extends TypeAdapter<Item> {
         jsonWriter.beginObject();
         jsonWriter.name("id").value(item.getId());
         jsonWriter.name("name").value(item.getName());
-        jsonWriter.name("price").value(item.getName());
-        jsonWriter.name("qty").value(item.getName());
-        jsonWriter.name("totalPriceItem").value(item.getName());
+        jsonWriter.name("price").value(item.getPrice());
+        jsonWriter.name("qty").value(item.getQty());
+        jsonWriter.name("totalPriceItem").value(item.getTotal_price_item());
         jsonWriter.endObject();
     }
 

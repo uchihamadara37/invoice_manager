@@ -112,6 +112,14 @@ public class AddItemController implements Initializable {
         btnJsonBawah.setOnMouseClicked(e -> {
             openJsonPage();
         });
+        btnJrxml.setOnMouseClicked(e -> {
+            helloController.getAnchorPaneMain().getChildren().removeFirst();
+            helloController.getAnchorPaneMain().getChildren().add(helloController.getJrxmlController().getRootPane());
+        });
+        btnPreview.setOnMouseClicked(e -> {
+            helloController.getAnchorPaneMain().getChildren().removeFirst();
+            helloController.getAnchorPaneMain().getChildren().add(helloController.getPreviewController().getRootPane());
+        });
 
         itemName.setTooltip(tooltip);
         itemPrice.setTooltip(tooltip2);
@@ -282,6 +290,13 @@ public class AddItemController implements Initializable {
             Item.deleteOneById(item.getId());
             reloadTableItem();
             reloadTotalPrice();
+
+            String json = HelloApplication.gson.toJson(HelloController.customJSON, CustomJSON.class);
+            System.out.println(json);
+            // update json
+            helloController.getJsonDataController().setJsonText(json);
+            helloController.getInvoiceSelected().setJsonData(json);
+            Invoice.updateById(helloController.getInvoiceSelected());
         }else{
 
         }

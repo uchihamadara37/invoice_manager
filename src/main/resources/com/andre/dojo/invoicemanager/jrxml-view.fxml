@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.JrxmlController">
+<children>
+    <AnchorPane prefHeight="64.0" prefWidth="978.0" styleClass="top-panel">
+        <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@icon/sun.png" />
+                </image>
+            </ImageView>
+            <Label fx:id="btnInvoiceSelection" alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="39.0" prefWidth="157.0" text="Choose the Invoice">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnItem" alignment="CENTER" layoutX="171.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" text="Add Items">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnJsonData" alignment="CENTER" layoutX="263.0" layoutY="14.0" prefHeight="37.0" prefWidth="92.0" text="Json Data">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnJrxml" alignment="CENTER" layoutX="355.0" layoutY="14.0" prefHeight="37.0" prefWidth="101.0" styleClass="top-label-active" text="Jrxml String">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="btnPreview" alignment="CENTER" layoutX="456.0" layoutY="14.0" prefHeight="37.0" prefWidth="127.0" text="Preview Invoice">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </AnchorPane>
+    <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+        <children>
+            <Pane fx:id="btnGeneratePreview" layoutX="815.0" layoutY="558.0" prefHeight="42.0" prefWidth="149.0" styleClass="tombol-primary">
+                <children>
+                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icon/save.png" />
+                        </image>
+                    </ImageView>
+                    <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="110.0" text="Save Changes">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                </children>
+            </Pane>
+            <TextArea fx:id="jrxmlText" layoutX="229.0" layoutY="65.0" prefHeight="479.0" prefWidth="735.0" promptText="Paste your jrxml.file string on here!" styleClass="field-add-item" />
+            <ScrollPane layoutX="12.0" layoutY="64.0" prefHeight="479.0" prefWidth="204.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="178.0" prefWidth="200.0" />
+              </content>
+            </ScrollPane>
+            <Pane fx:id="btnGeneratePreview1" layoutX="11.0" layoutY="10.0" prefHeight="42.0" prefWidth="204.0" styleClass="tombol-primary">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/file-plus.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="137.0" text="Add Jrxml Design">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="btnGeneratePreview2" layoutX="653.0" layoutY="558.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/save.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="52.0" text="Cancel">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="14.0" layoutY="558.0" prefHeight="28.0" prefWidth="137.0" text="Select this Design">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+        </children>
+    </Pane>
+</children>
+</AnchorPane>

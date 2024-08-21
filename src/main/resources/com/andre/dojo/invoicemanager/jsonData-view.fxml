@@ -48,20 +48,20 @@
         <children>
             <Pane fx:id="btnCopy" layoutX="443.0" layoutY="14.0" prefHeight="42.0" prefWidth="92.0" styleClass="tombol-primary">
                 <children>
-                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="10.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@icon/copy.png" />
                         </image>
                     </ImageView>
-                    <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="42.0" text="Copy">
+                    <Label layoutX="42.0" layoutY="6.0" prefHeight="28.0" prefWidth="39.0" text="Copy">
                         <font>
                             <Font size="15.0" />
                         </font>
                     </Label>
                 </children>
             </Pane>
-            <TextArea fx:id="jsonText" editable="false" layoutX="13.0" layoutY="69.0" prefHeight="532.0" prefWidth="953.0" styleClass="field-add-item" />
-            <Label fx:id="btnInvoiceSelection1" layoutX="27.0" layoutY="16.0" prefHeight="39.0" prefWidth="387.0" text="Use this json to build up your JasperReport Design.">
+            <TextArea fx:id="jsonText" editable="false" layoutX="13.0" layoutY="69.0" prefHeight="532.0" prefWidth="953.0" styleClass="text-area" />
+            <Label fx:id="btnInvoiceSelection1" layoutX="27.0" layoutY="16.0" prefHeight="39.0" prefWidth="387.0" text="Please use this json to build up your JasperReport Design.">
                <font>
                   <Font size="15.0" />
                </font>

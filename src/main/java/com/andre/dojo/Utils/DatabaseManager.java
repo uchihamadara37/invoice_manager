@@ -213,7 +213,7 @@ public class DatabaseManager {
 //            stmt.execute("DROP TABLE IF EXISTS item;");
 //            stmt.execute("DROP TABLE IF EXISTS kode_surat;");
 //            stmt.execute("INSERT INTO item2 SELECT * FROM item;");
-            stmt.execute("ALTER TABLE personal ADD COLUMN urlTtd TEXT;");
+            stmt.execute("ALTER TABLE design ADD COLUMN first_invoice_id TEXT;");
             stmt.close();
             conn.close();
             System.out.println("Tabel telah dihapus.");

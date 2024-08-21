@@ -61,6 +61,9 @@ public class HelloController implements Initializable {
     private SetupController setupController;
     private AddItemController addItemController;
     private JsonDataController jsonDataController;
+    private JrxmlController jrxmlController;
+    private PreviewController previewController;
+
 
     private Invoice invoiceSelected;
     Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -142,15 +145,24 @@ public class HelloController implements Initializable {
             FXMLLoader setupLoader = new FXMLLoader(HelloApplication.class.getResource("setup-view.fxml"));
             FXMLLoader addLoader = new FXMLLoader(HelloApplication.class.getResource("addItem-view.fxml"));
             FXMLLoader jsonLoader = new FXMLLoader(HelloApplication.class.getResource("jsonData-view.fxml"));
+            FXMLLoader jrxmlLoader = new FXMLLoader(HelloApplication.class.getResource("jrxml-view.fxml"));
+            FXMLLoader previewLoader = new FXMLLoader(HelloApplication.class.getResource("preview-view.fxml"));
+
             setupLoader.load();
             addLoader.load();
             jsonLoader.load();
+            jrxmlLoader.load();
+            previewLoader.load();
             setupController = setupLoader.getController();
             setupController.setHelloController(this);
             addItemController = addLoader.getController();
             addItemController.setHelloController(this);
             jsonDataController = jsonLoader.getController();
             jsonDataController.setHelloController(this);
+            jrxmlController = jrxmlLoader.getController();
+            jrxmlController.setHelloController(this);
+            previewController = previewLoader.getController();
+            previewController.setHelloController(this);
 
 
             anchorPaneMain.getChildren().removeFirst();
@@ -240,6 +252,14 @@ public class HelloController implements Initializable {
 
     public JsonDataController getJsonDataController() {
         return jsonDataController;
+    }
+
+    public PreviewController getPreviewController() {
+        return previewController;
+    }
+
+    public JrxmlController getJrxmlController() {
+        return jrxmlController;
     }
 
     public void setJsonDataController(JsonDataController jsonDataController) {

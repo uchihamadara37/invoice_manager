@@ -1,6 +1,7 @@
 package com.andre.dojo.invoicemanager;
 
 import com.andre.dojo.Models.*;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -80,6 +81,7 @@ public class SetupController implements Initializable {
                 helloController.getAddItemController().reloadTableItem();
                 helloController.getAddItemController().reloadTotalPrice();
                 loadJsonData(newValue);
+                loadJrxmlString(newValue);
             });
 
         btnAdd.setOnMouseClicked(e -> {
@@ -89,15 +91,46 @@ public class SetupController implements Initializable {
             goToAddItem();
         });
         btnJsonData.setOnMouseClicked(e -> {
-            helloController.getAnchorPaneMain().getChildren().removeFirst();
-            helloController.getAnchorPaneMain().getChildren().add(helloController.getJsonDataController().getRootPane());
+            if (Objects.equals(showTimeStamp.getText(), "")){
+                showMessage.setVisible(true);
+            }else{
+                helloController.getAnchorPaneMain().getChildren().removeFirst();
+                helloController.getAnchorPaneMain().getChildren().add(helloController.getJsonDataController().getRootPane());
+            }
+        });
+        btnJrxml.setOnMouseClicked(e -> {
+            if (Objects.equals(showTimeStamp.getText(), "")){
+                showMessage.setVisible(true);
+            }else{
+                helloController.getAnchorPaneMain().getChildren().removeFirst();
+                helloController.getAnchorPaneMain().getChildren().add(helloController.getJrxmlController().getRootPane());
+            }
+        });
+        btnPreview.setOnMouseClicked(e -> {
+            if (Objects.equals(showTimeStamp.getText(), "")){
+                showMessage.setVisible(true);
+            }else{
+                helloController.getAnchorPaneMain().getChildren().removeFirst();
+                helloController.getAnchorPaneMain().getChildren().add(helloController.getPreviewController().getRootPane());
+            }
         });
 
     }
 
+    private void loadJrxmlString(Invoice newValue) {
+        if (helloController.getInvoiceSelected().getJrxml_id() != 0){
+            helloController.getJrxmlController().setJrxmlTextArea(Design.getOneData(newValue.getJrxml_id()).getJrxml());
+            Platform.runLater(() ->{
+                helloController.getJrxmlController().showPreview();
+            });
+        }else{
+            helloController.getJrxmlController().setJrxmlTextArea("");
+            helloController.getPreviewController().getPreviewPane().getChildren().clear();
+        }
+    }
+
     private void loadJsonData(Invoice invoice) {
         invoice.setTotalPriceAll(Item.getSumOfPriceByInvoiceId(invoice.getId()));
-        System.out.println("harga total : "+Item.getSumOfPriceByInvoiceId(invoice.getId()));
 
         HelloController.customJSON.setOrganization(Organization.getOneData(Customer.getOneData(invoice.getCustomer_id()).getOrganization_id()));
         HelloController.customJSON.setCustomer(Customer.getOneData(invoice.getCustomer_id()));

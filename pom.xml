@@ -102,6 +102,11 @@
             <artifactId>controlsfx</artifactId>
             <version>11.2.1</version>
         </dependency>
+        <dependency>
+            <groupId>win.zqxu</groupId>
+            <artifactId>jrviewer-fx</artifactId>
+            <version>latest-version</version>
+        </dependency>
 
 
 

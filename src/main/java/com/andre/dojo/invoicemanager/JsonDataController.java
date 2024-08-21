@@ -74,10 +74,12 @@ public class JsonDataController implements Initializable {
             helloController.getAnchorPaneMain().getChildren().add(helloController.getAddItemController().getRootPane());
         });
         btnJrxml.setOnMouseClicked(e -> {
-
+            helloController.getAnchorPaneMain().getChildren().removeFirst();
+            helloController.getAnchorPaneMain().getChildren().add(helloController.getJrxmlController().getRootPane());
         });
         btnPreview.setOnMouseClicked(e -> {
-
+            helloController.getAnchorPaneMain().getChildren().removeFirst();
+            helloController.getAnchorPaneMain().getChildren().add(helloController.getPreviewController().getRootPane());
         });
     }
 
