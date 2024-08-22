@@ -63,6 +63,8 @@ public class HelloController implements Initializable {
     private JsonDataController jsonDataController;
     private JrxmlController jrxmlController;
     private PreviewController previewController;
+    private ChangeDataInvoiceController changeDataInvoiceController;
+    private ChangeDataController changeDataController;
 
 
     private Invoice invoiceSelected;
@@ -220,6 +222,8 @@ public class HelloController implements Initializable {
 
         tableColumnCode.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceCode()));
         tableColumnDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));
+//        String id = "1724321917271";
+//        Invoice.deleteOneById(Long.parseLong(id));
         tableColumnCustomer.setCellValueFactory(e -> new SimpleStringProperty(Customer.getOneData(e.getValue().getCustomer_id()).getName()));
     }
 
@@ -234,9 +238,20 @@ public class HelloController implements Initializable {
     private void openChangeDataPane() {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("change-data.fxml"));
-            AnchorPane anchorPane = new AnchorPane((Node) fxmlLoader.load());
+//            AnchorPane anchorPane = new AnchorPane((Node) fxmlLoader.load());
+            FXMLLoader changeCustomerLoader = new FXMLLoader(HelloApplication.class.getResource("change-data-customer.fxml"));
+
+            fxmlLoader.load();
+            changeCustomerLoader.load();
+            changeDataController = fxmlLoader.getController();
+            changeDataController.setHelloController(this);
+            changeDataInvoiceController = changeCustomerLoader.getController();
+            changeDataInvoiceController.setHelloController(this);
+
+//            anchorPaneMain.getChildren().removeFirst();
+//            anchorPaneMain.getChildren().add(anchorPane);
             anchorPaneMain.getChildren().removeFirst();
-            anchorPaneMain.getChildren().add(anchorPane);
+            anchorPaneMain.getChildren().add(changeDataController.getAnchorPaneMain());
         }catch (IOException e1){
             e1.printStackTrace();
         }
@@ -264,6 +279,10 @@ public class HelloController implements Initializable {
 
     public void setJsonDataController(JsonDataController jsonDataController) {
         this.jsonDataController = jsonDataController;
+    }
+
+    public ChangeDataInvoiceController getChangeDataInvoiceController() {
+        return changeDataInvoiceController;
     }
 
     public boolean showConfirmationDialog(String message) {

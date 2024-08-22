@@ -24,6 +24,14 @@ public class Customer {
         this.organization_id = organization_id;
     }
 
+    public Customer(String name, String description, String phone_number, long organization_id, long id) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.phoneNumber = phone_number;
+        this.organization_id = organization_id;
+    }
+
     public static boolean addToDB(Customer customer){
         String query = """
                 INSERT INTO customer (
@@ -59,6 +67,14 @@ public class Customer {
                 """;
         return DatabaseManager.getOneData(query, Customer.class, Long.toString(cs_id));
     }
+
+    public static Customer getLastInsertedData() {
+        String query = """
+                SELECT * FROM customer ORDER BY id DESC LIMIT 1
+            """;
+        return DatabaseManager.getLastInsertedData(query, Customer.class);
+    }
+
     public static boolean deleteOneById(long id){
         String query = """
                 DELETE FROM customer WHERE id = :p1

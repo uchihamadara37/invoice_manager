@@ -32,14 +32,14 @@
                     <Font size="18.0" />
                 </font>
             </Label>
-            <TableView fx:id="tableViewInvoice" layoutX="14.0" layoutY="60.0" minHeight="290.0" prefHeight="458.0" prefWidth="937.0">
+            <TableView fx:id="tableViewInvoice" layoutX="14.0" layoutY="49.0" minHeight="290.0" prefHeight="496.0" prefWidth="951.0">
                 <columns>
                     <TableColumn fx:id="tableColumnCode" prefWidth="272.0" text="Invoice Code" />
                     <TableColumn fx:id="tableColumnDescription" prefWidth="374.0" text="Customer" />
                     <TableColumn fx:id="tableColumnCustomer" prefWidth="274.0" text="Total Item" />
                 </columns>
             </TableView>
-            <Pane fx:id="tombolExport11" layoutX="795.0" layoutY="539.0" prefHeight="42.0" prefWidth="154.0" styleClass="tombol-primary">
+            <Pane fx:id="tombolExport11" layoutX="810.0" layoutY="557.0" prefHeight="42.0" prefWidth="154.0" styleClass="tombol-primary">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                         <image>

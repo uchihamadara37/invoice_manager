@@ -39,25 +39,25 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="611.0" prefWidth="146.0">
                      <children>
-                        <Button layoutX="164.0" layoutY="215.0" mnemonicParsing="false" text="Change Logo" />
+                        <Button fx:id="changeLogo" layoutX="164.0" layoutY="215.0" mnemonicParsing="false" text="Change Logo" />
                         <Label layoutX="14.0" layoutY="306.0" text="Organization Name : ">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="14.0" layoutY="326.0" prefHeight="25.0" prefWidth="424.0" />
+                        <TextField fx:id="organizationName" layoutX="14.0" layoutY="326.0" prefHeight="25.0" prefWidth="424.0" styleClass="field-add-item" />
                         <Label layoutX="14.0" layoutY="361.0" text="Email :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="14.0" layoutY="381.0" prefHeight="25.0" prefWidth="424.0" />
+                        <TextField fx:id="email" layoutX="14.0" layoutY="381.0" prefHeight="25.0" prefWidth="424.0" styleClass="field-add-item" />
                         <Label layoutX="14.0" layoutY="416.0" text="Address :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="14.0" layoutY="436.0" prefHeight="25.0" prefWidth="424.0" />
+                        <TextField fx:id="address" layoutX="14.0" layoutY="436.0" prefHeight="25.0" prefWidth="424.0" styleClass="field-add-item" />
                         <Label layoutX="13.0" layoutY="472.0" text="Description :">
                            <font>
                               <Font size="14.0" />
@@ -73,15 +73,14 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextArea layoutX="13.0" layoutY="492.0" prefHeight="87.0" prefWidth="424.0" />
+                        <TextArea fx:id="desc" layoutX="13.0" layoutY="492.0" prefHeight="87.0" prefWidth="424.0" styleClass="field-add-item" />
                         <Separator layoutX="-5.0" layoutY="49.0" prefHeight="4.0" prefWidth="464.0" />
-                        <Button layoutX="164.0" layoutY="215.0" mnemonicParsing="false" text="Change Logo" />
-                        <Label layoutX="15.0" layoutY="251.0" text="Tahun Operasi :">
+                        <Label layoutX="15.0" layoutY="251.0" text="Year Operation :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="15.0" layoutY="271.0" prefHeight="25.0" prefWidth="130.0" />
+                        <TextField fx:id="year" layoutX="15.0" layoutY="271.0" prefHeight="25.0" prefWidth="130.0" styleClass="field-add-item" />
                      </children>
                   </AnchorPane>
                 <AnchorPane prefHeight="611.0" prefWidth="479.0">
@@ -91,26 +90,26 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="14.0" layoutY="272.0" prefHeight="25.0" prefWidth="485.0" />
+                        <TextField fx:id="personalName" layoutX="14.0" layoutY="272.0" prefHeight="25.0" prefWidth="485.0" styleClass="field-add-item" />
                         <Label layoutX="14.0" layoutY="307.0" text="Bank ID Name : ">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="14.0" layoutY="327.0" prefHeight="25.0" prefWidth="105.0" />
+                        <TextField fx:id="bankID" layoutX="14.0" layoutY="327.0" prefHeight="25.0" prefWidth="105.0" styleClass="field-add-item" />
                         <Label layoutX="16.0" layoutY="362.0" text="Bank Number : ">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="16.0" layoutY="382.0" prefHeight="25.0" prefWidth="485.0" />
+                        <TextField fx:id="bankNumber" layoutX="16.0" layoutY="382.0" prefHeight="25.0" prefWidth="485.0" styleClass="field-add-item" />
                         <Label layoutX="125.0" layoutY="307.0" text="Bank Name : ">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField layoutX="125.0" layoutY="327.0" prefHeight="25.0" prefWidth="372.0" />
-                        <Button layoutX="204.0" layoutY="215.0" mnemonicParsing="false" text="Change Signature" />
+                        <TextField fx:id="bankName" layoutX="125.0" layoutY="327.0" prefHeight="25.0" prefWidth="372.0" styleClass="field-add-item" />
+                        <Button fx:id="changeSignature" layoutX="204.0" layoutY="215.0" mnemonicParsing="false" text="Change Signature" />
                         <Separator layoutY="49.0" prefHeight="4.0" prefWidth="519.0" />
                         <Label layoutX="223.0" layoutY="14.0" text="Personal">
                            <font>
@@ -122,9 +121,48 @@
                               <Image url="@logo/seigan.jpg" />
                            </image>
                         </ImageView>
-                        <Button layoutX="440.0" layoutY="572.0" mnemonicParsing="false" text="Change" />
-                        <Button layoutX="369.0" layoutY="572.0" mnemonicParsing="false" text="Update" />
-                        <Button layoutX="301.0" layoutY="572.0" mnemonicParsing="false" text="Cancel" />
+                        <Pane fx:id="save" layoutX="20.0" layoutY="555.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/save.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="55.0" text="Save">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="edit" layoutX="414.0" layoutY="555.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="18.0">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/edit-item.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="55.0" text="Edit">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="cancel" layoutX="125.0" layoutY="555.0" prefHeight="42.0" prefWidth="99.0" styleClass="tombol-primary">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/cancel.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="55.0" text="Cancel">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
                      </children></AnchorPane>
               </items>
             </SplitPane>
