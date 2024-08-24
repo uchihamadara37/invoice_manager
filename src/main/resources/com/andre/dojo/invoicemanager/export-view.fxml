@@ -32,7 +32,7 @@
                     <Font size="18.0" />
                 </font>
             </Label>
-            <Pane fx:id="tombolExport11" layoutX="810.0" layoutY="557.0" prefHeight="42.0" prefWidth="154.0" styleClass="tombol-primary">
+            <Pane fx:id="export" layoutX="810.0" layoutY="557.0" prefHeight="42.0" prefWidth="154.0" styleClass="tombol-primary">
                 <children>
                     <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                         <image>
@@ -46,11 +46,6 @@
                     </Label>
                 </children>
             </Pane>
-            <Label layoutX="159.0" layoutY="15.0" prefHeight="27.0" prefWidth="33.0" text="0">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
             <TableView fx:id="tableViewExport" layoutX="13.0" layoutY="62.0" minHeight="467.0" prefHeight="489.0" prefWidth="952.0">
                <columns>
                   <TableColumn fx:id="tableColumnCode" prefWidth="203.0" text="Invoice Code" />
@@ -59,6 +54,11 @@
                   <TableColumn fx:id="tableColumnTotalItem" prefWidth="279.0" text="Total Item" />
                </columns>
             </TableView>
+            <Label fx:id="total" layoutX="154.0" layoutY="15.0" prefHeight="27.0" prefWidth="74.0" text="0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
         </children>
     </Pane>
 </children>

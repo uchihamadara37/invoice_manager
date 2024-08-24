@@ -80,7 +80,13 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="year" layoutX="15.0" layoutY="271.0" prefHeight="25.0" prefWidth="130.0" styleClass="field-add-item" />
+                        <TextField fx:id="year" layoutX="15.0" layoutY="271.0" prefHeight="25.0" prefWidth="105.0" styleClass="field-add-item" />
+                        <Label layoutX="135.0" layoutY="251.0" text="Agency Number :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="agency" layoutX="135.0" layoutY="271.0" prefHeight="36.0" prefWidth="111.0" styleClass="field-add-item" />
                      </children>
                   </AnchorPane>
                 <AnchorPane prefHeight="611.0" prefWidth="479.0">

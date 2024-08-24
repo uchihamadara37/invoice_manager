@@ -15,6 +15,8 @@ import javafx.scene.layout.Pane;
 import java.io.IOException;
 import java.util.List;
 
+import static java.lang.Integer.parseInt;
+
 public class ChangeDataController {
     @FXML
     private Label tombolCustomer;
@@ -44,6 +46,8 @@ public class ChangeDataController {
     private TextField bankName;
     @FXML
     private TextField bankNumber;
+    @FXML
+    private TextField agency;
     @FXML
     private Button changeLogo;
     @FXML
@@ -76,10 +80,12 @@ public class ChangeDataController {
         disable();
         edit.setOnMouseClicked(e -> {
             enable();
+            saveData(idOrganization,idPerson);
             textAccess(false);
         });
         cancel.setOnMouseClicked(e -> {
             disable();
+            loadData();
             textAccess(true);
         });
         save.setOnMouseClicked(e -> {
@@ -108,13 +114,13 @@ public class ChangeDataController {
     private void loadData(){
         List<Organization> allOrganizations = Organization.getAllData();
         System.out.println(allOrganizations);
-        System.out.println("tahun operasi : " + allOrganizations.get(0));
         Organization firstOrganization = allOrganizations.get(0);
         year.setText(String.valueOf(firstOrganization.getTahunOperasi()));
         organizationName.setText(firstOrganization.getBrandName());
         email.setText(firstOrganization.getEmail());
         address.setText(firstOrganization.getAddress());
         desc.setText(firstOrganization.getDescription());
+        agency.setText(String.valueOf(firstOrganization.getNoUrutInstansi()));
         idOrganization = firstOrganization.getId();
         List<Personal> personalList = Personal.getAllData();
         Personal firstPersonal = personalList.get(0);
@@ -138,6 +144,7 @@ public class ChangeDataController {
         bankNumber.setDisable(con);
         changeLogo.setDisable(con);
         changeSignature.setDisable(con);
+        agency.setDisable(con);
     }
 
     private void disable(){
@@ -150,5 +157,14 @@ public class ChangeDataController {
         save.setVisible(true);
         cancel.setVisible(true);
         edit.setVisible(false);
+    }
+
+    private void saveData(long idOrganization, long idPerson){
+        Organization.updateById(new Organization(
+                idOrganization, "",organizationName.getText(),desc.getText(),address.getText(), email.getText(),parseInt(agency.getText()),parseInt(year.getText()))
+        ,idOrganization);
+        Personal.updateById(new Personal(
+                personalName.getText(),bankName.getText(), bankNumber.getText(), bankID.getText(),"",idOrganization
+        ), idPerson);
     }
 }

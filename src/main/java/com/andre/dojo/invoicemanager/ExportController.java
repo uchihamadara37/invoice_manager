@@ -8,12 +8,14 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
 public class ExportController {
 
@@ -27,6 +29,10 @@ public class ExportController {
     private TableColumn<Invoice, String> tableColumnCustomer;
     @FXML
     private TableColumn<Invoice, String> tableColumnTotalItem;
+    @FXML
+    private Pane export;
+    @FXML
+    private Label total;
 
     public ObservableList<Invoice> dataExport = FXCollections.observableArrayList();
     public String message;
@@ -39,8 +45,15 @@ public class ExportController {
         return dataExport;
     }
 
+    public void initialize(){
+        export.setOnMouseClicked(e -> {
+            toPDF();
+        });
+    }
+
     public void customInitialize(){
         loadTableView();
+        total.setText(String.valueOf(dataExport.size()));
         System.out.println("hasil pesan dari hello : " + message);
     }
 
@@ -55,5 +68,10 @@ public class ExportController {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    private void toPDF(){
+        dataExport.clear();
+        loadTableView();
     }
 }
