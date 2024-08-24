@@ -41,12 +41,12 @@
                   <TableColumn fx:id="tableColumnDelete" minWidth="0.0" prefWidth="81.0" text="Action" />
               </columns>
             </TableView>
-            <Label layoutX="17.0" layoutY="374.0" text="Name :">
+            <Label layoutX="18.0" layoutY="372.0" text="Name :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="428.0" text="Description : ">
+            <Label layoutX="17.0" layoutY="428.0" text="Customer Description : ">
                <font>
                   <Font size="15.0" />
                </font>
@@ -56,17 +56,17 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="name" layoutX="17.0" layoutY="392.0" prefHeight="25.0" prefWidth="500.0" styleClass="field-add-item" />
-            <TextField fx:id="desc" layoutX="17.0" layoutY="449.0" prefHeight="25.0" prefWidth="500.0" styleClass="field-add-item" />
-            <TextField fx:id="phone" layoutX="17.0" layoutY="507.0" prefHeight="25.0" prefWidth="500.0" styleClass="field-add-item" />
-            <Label fx:id="inv" layoutX="536.0" layoutY="374.0" text="Invoice Number :">
+            <TextField fx:id="name" layoutX="17.0" layoutY="392.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <TextField fx:id="desc" layoutX="17.0" layoutY="449.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <TextField fx:id="phone" layoutX="17.0" layoutY="507.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <Label fx:id="inv" layoutX="507.0" layoutY="430.0" text="Invoice Number :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="no" layoutX="536.0" layoutY="396.0" text="hehe">
+            <Label fx:id="no" layoutX="507.0" layoutY="454.0" text="hehe">
                <font>
-                  <Font size="15.0" />
+                  <Font size="18.0" />
                </font>
             </Label>
             <TextField layoutX="333.0" layoutY="14.0" prefHeight="39.0" prefWidth="313.0" promptText="Search..." styleClass="field-search" />
@@ -112,6 +112,12 @@
                   </Label>
                </children>
             </Pane>
+            <Label layoutX="507.0" layoutY="372.0" text="Invoice Description : ">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="descInv" layoutX="507.0" layoutY="392.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
          </children></Pane>
 </children>
 </AnchorPane>

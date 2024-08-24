@@ -1,9 +1,6 @@
 package com.andre.dojo.invoicemanager;
 
-import com.andre.dojo.Models.CustomJSON;
-import com.andre.dojo.Models.Customer;
-import com.andre.dojo.Models.Invoice;
-import com.andre.dojo.Models.Item;
+import com.andre.dojo.Models.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -40,6 +37,8 @@ public class ChangeDataInvoiceController {
     private TextField desc;
     @FXML
     private TextField phone;
+    @FXML
+    private TextField descInv;
 
     @FXML
     private Label tombolOrganization;
@@ -153,8 +152,12 @@ public class ChangeDataInvoiceController {
             name.setText(customer.getName());
             desc.setText(customer.getDescription());
             phone.setText(customer.getPhoneNumber());
+//            Organization organization = Organization.getOneData(12);
+            Invoice invoice = Invoice.getOneDataByCustomer(customer.getId());
             idCustomer = customer.getId();
             idOrganization = customer.getOrganization_id();
+            descInv.setText(invoice.getDescription());
+            no.setText(invoice.getInvoiceCode());
             update.setVisible(true);
             add.setVisible(false);
             no.setVisible(true);
@@ -167,17 +170,19 @@ public class ChangeDataInvoiceController {
     }
 
     private void addCustomer(){
+        String cId = "1723509861951";
+        String designId = "1724121753816";
         Customer.addToDB(
                 new Customer(
                         name.getText(),
                         desc.getText(),
                         phone.getText(),
-                        1
+                        Long.parseLong(cId)
                 ));
         Customer cek = Customer.getLastInsertedData();
         System.out.println("Last id data after insert : "+ cek.getId());
         Invoice.addToDB(new Invoice(
-                null, null, "123/inv/www/hehe", null, 0, "", "", 1,cek.getId())
+                "Alfiander Comunity", descInv.getText(), "123/inv/www/hehe", "29 Agustus 2024", 0, "", "", Long.parseLong(designId),cek.getId())
         );
         loadTableView();
         reset();
@@ -200,6 +205,7 @@ public class ChangeDataInvoiceController {
         name.setText("");
         desc.setText("");
         phone.setText("");
+        descInv.setText("");
         no.setVisible(false);
         inv.setVisible(false);
         add.setVisible(true);
