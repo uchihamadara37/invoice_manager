@@ -7,6 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="rootPane" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.JrxmlController">
@@ -47,55 +48,78 @@
     </AnchorPane>
     <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
         <children>
-            <Pane fx:id="btnGeneratePreview" layoutX="815.0" layoutY="558.0" prefHeight="42.0" prefWidth="149.0" styleClass="tombol-primary">
+            <Pane fx:id="btnGeneratePreview" layoutX="845.0" layoutY="558.0" prefHeight="42.0" prefWidth="120.0" styleClass="tombol-primary">
                 <children>
-                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@icon/save.png" />
-                        </image>
-                    </ImageView>
-                    <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="110.0" text="Save Changes">
+                    <Label fx:id="labelSave" alignment="CENTER" layoutX="3.0" layoutY="7.0" prefHeight="28.0" prefWidth="110.0" text="Save Changes">
                         <font>
                             <Font size="15.0" />
                         </font>
                     </Label>
                 </children>
             </Pane>
-            <TextArea fx:id="jrxmlText" layoutX="229.0" layoutY="65.0" prefHeight="479.0" prefWidth="735.0" promptText="Paste your jrxml.file string on here!" styleClass="field-add-item" />
-            <ScrollPane layoutX="12.0" layoutY="64.0" prefHeight="479.0" prefWidth="204.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="178.0" prefWidth="200.0" />
-              </content>
+            <TextArea fx:id="jrxmlText" layoutX="246.0" layoutY="65.0" prefHeight="479.0" prefWidth="718.0" promptText="Paste your jrxml.file string on here!" styleClass="field-add-item" />
+            <ScrollPane layoutX="12.0" layoutY="64.0" prefHeight="479.0" prefWidth="224.0">
+               <content>
+                  <VBox fx:id="listDesign" prefWidth="202.0">
+                     <children>
+                        <Pane prefHeight="134.0" prefWidth="208.0">
+                           <children>
+                              <Label layoutX="12.0" layoutY="108.0" prefHeight="17.0" prefWidth="120.0" text="idOfDesign908098908" />
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="170.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/circle-minus.png" />
+                                 </image>
+                              </ImageView>
+                              <Pane layoutX="-1.0" layoutY="-1.0" prefHeight="99.0" prefWidth="204.0" />
+                              <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="139.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/layers-2.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </VBox>
+               </content>
             </ScrollPane>
-            <Pane fx:id="btnGeneratePreview1" layoutX="11.0" layoutY="10.0" prefHeight="42.0" prefWidth="204.0" styleClass="tombol-primary">
+            <Pane fx:id="btnAddJrxml" layoutX="801.0" layoutY="13.0" prefHeight="42.0" prefWidth="164.0" styleClass="tombol-primary">
                <children>
                   <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icon/file-plus.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="137.0" text="Add Jrxml Design">
+                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="120.0" text="Add new design">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Pane fx:id="btnGeneratePreview2" layoutX="653.0" layoutY="558.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
+            <Pane fx:id="btnCancel" layoutX="731.0" layoutY="558.0" prefHeight="42.0" prefWidth="101.0" styleClass="pane-cancel">
                <children>
-                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icon/save.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="52.0" text="Cancel">
+                  <Label fx:id="labelEdit" alignment="CENTER" layoutX="12.0" layoutY="6.0" prefHeight="28.0" prefWidth="77.0" text="Cancel">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Label layoutX="14.0" layoutY="558.0" prefHeight="28.0" prefWidth="137.0" text="Select this Design">
+            <Pane fx:id="btnSelectDesign" layoutX="245.0" layoutY="558.0" prefHeight="42.0" prefWidth="164.0" styleClass="pane-cancel">
+               <children>
+                  <Label alignment="CENTER" layoutX="12.0" layoutY="6.0" prefHeight="28.0" prefWidth="137.0" text="Select this design!">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label fx:id="information" layoutX="28.0" layoutY="15.0" prefHeight="39.0" prefWidth="753.0" text="You can choose the design by clicking on the image in the left sidebar.">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="information2" layoutX="245.0" layoutY="560.0" prefHeight="39.0" prefWidth="343.0" text="A design has been selected for this invoice.">
                <font>
                   <Font size="15.0" />
                </font>

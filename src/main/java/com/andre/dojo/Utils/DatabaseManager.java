@@ -1,6 +1,7 @@
 package com.andre.dojo.Utils;
 
 import com.andre.dojo.Models.Organization;
+import com.andre.dojo.invoicemanager.HelloApplication;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 import org.sqlite.SQLiteException;
@@ -14,7 +15,8 @@ import java.util.List;
 
 public class DatabaseManager {
     private static final String DB_NAME = "mydatabase.db";
-    private static final String DB_URL = "jdbc:sqlite:" + DB_NAME;
+//    private static final String DB_URL = "jdbc:sqlite:"+ HelloApplication.dirSource +"\\"+ DB_NAME;
+    private static final String DB_URL = "jdbc:sqlite:"+ DB_NAME;
     private static final Sql2o sql2o = new Sql2o(DB_URL, "", "");
 
     public static void createNewDatabase() {
@@ -157,7 +159,9 @@ public class DatabaseManager {
     public static void createTableDesign() {
         String sql = "CREATE TABLE IF NOT EXISTS design (\n" +
                 "    id INTEGER PRIMARY KEY,\n" +
-                "    jrxml TEXT NOT NULL\n" +
+                "    jrxml TEXT,\n" +
+                "    dirImage TEXT,\n" +
+                "    dirPdf TEXT" +
                 ");";
 
         try (
@@ -211,9 +215,9 @@ public class DatabaseManager {
 //            stmt.execute("DROP TABLE IF EXISTS customer;");
 //            stmt.execute("ALTER TABLE item2 RENAME TO item;");
 //            stmt.execute("DROP TABLE IF EXISTS item;");
-//            stmt.execute("DROP TABLE IF EXISTS kode_surat;");
+            stmt.execute("DROP TABLE IF EXISTS design;");
 //            stmt.execute("INSERT INTO item2 SELECT * FROM item;");
-            stmt.execute("ALTER TABLE design ADD COLUMN first_invoice_id TEXT;");
+//            stmt.execute("ALTER TABLE design ADD COLUMN first_invoice_id TEXT;");
             stmt.close();
             conn.close();
             System.out.println("Tabel telah dihapus.");

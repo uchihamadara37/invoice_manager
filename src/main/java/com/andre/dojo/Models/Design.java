@@ -8,14 +8,17 @@ import java.util.List;
 public class Design {
     private long id;
     private String jrxml;
-    private String first_invoice_id;
+    private String dirImage;
+    private String dirPdf;
 
     public Design(){}
 
-    public Design(String jrxml, String invoice_id) {
+    public Design(String jrxml, String dirImage, String dirPdf) {
         this.id = Instant.now().toEpochMilli();
         this.jrxml = jrxml;
-        this.first_invoice_id = invoice_id;
+        this.dirImage = dirImage;
+        this.dirPdf = dirPdf;
+
     }
 
     public static boolean addToDB(Design design){
@@ -23,11 +26,13 @@ public class Design {
                 INSERT INTO design (
                 id, 
                 jrxml,
-                first_invoice_id
+                dirImage,
+                dirPdf
                 ) VALUES (
                 :id, 
                 :jrxml,
-                :first_invoie_id
+                :dirImage,
+                :dirPdf
                 )""";
         return DatabaseManager.addOneData(query, design);
     }
@@ -60,18 +65,39 @@ public class Design {
         String query = """
                 UPDATE design SET 
                 jrxml = :jrxml,
-                first_invoice_id = :first_invoice_id
+                dirImage = :dirImage,
+                dirPdf = :dirPdf
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, design);
     }
 
-    public String getFirst_invoice_id() {
-        return first_invoice_id;
+    public static boolean isAnyInvoiceUseThisDesign(long id_design){
+        String query = """
+                SELECT * FROM invoice WHERE jrxml_id = :p1
+                """;
+        Invoice in= DatabaseManager.getOneData(query, Invoice.class, Long.toString(id_design));
+        if (in != null){
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public void setFirst_invoice_id(String first_invoice_id) {
-        this.first_invoice_id = first_invoice_id;
+    public String getDirImage() {
+        return dirImage;
+    }
+
+    public void setDirImage(String dirImage) {
+        this.dirImage = dirImage;
+    }
+
+    public String getDirPdf() {
+        return dirPdf;
+    }
+
+    public void setDirPdf(String dirPdf) {
+        this.dirPdf = dirPdf;
     }
 
     public long getId() {
