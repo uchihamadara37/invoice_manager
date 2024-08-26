@@ -105,6 +105,19 @@ public class Invoice {
                 """;
         return DatabaseManager.getOneData(query, Invoice.class, Long.toString(id));
     }
+    public static Invoice getOneDataByCustomer(long id){
+        String query = """
+                SELECT * FROM invoice WHERE customer_id = :p1
+                """;
+        return DatabaseManager.getOneData(query, Invoice.class, Long.toString(id));
+    }
+    public static boolean deleteOneByIdCustomer(long id){
+        String query = """
+                DELETE FROM invoice WHERE customer_id = :p1
+                """;
+        return DatabaseManager.deleteData(query, Long.toString(id));
+    }
+
     public static boolean deleteOneById(long id){
         String query = """
                 DELETE FROM invoice WHERE id = :p1

@@ -268,6 +268,14 @@ public class DatabaseManager {
             return null;
         }
     }
+    public static <T> T getLastInsertedData(String query, Class<T> classe){
+        try(org.sql2o.Connection con = sql2o.open()){
+            return con.createQuery(query).executeAndFetchFirst(classe);
+        }catch (Sql2oException e1){
+            e1.printStackTrace();
+            return null;
+        }
+    }
     public static boolean deleteData(String query, String... params){
         try(org.sql2o.Connection con = sql2o.open()){
             con.createQuery(query).withParams((Object) params).executeUpdate();

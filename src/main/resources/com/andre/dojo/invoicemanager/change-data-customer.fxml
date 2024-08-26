@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPaneMain" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.ChangeDataInvoiceController">
+<children>
+   <AnchorPane prefHeight="64.0" prefWidth="978.0" styleClass="top-panel">
+      <children>
+         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@icon/sun.png" />
+            </image>
+         </ImageView>
+         <Label fx:id="tombolOrganization" alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="39.0" prefWidth="157.0" text="Lettter">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+         <Label alignment="CENTER" layoutX="184.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" styleClass="top-label-active" text="Customer">
+            <font>
+               <Font size="15.0" />
+            </font>
+         </Label>
+      </children>
+   </AnchorPane>
+   <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+         <children>
+            <TableView fx:id="tableViewCustomer" layoutX="14.0" layoutY="66.0" prefHeight="297.0" prefWidth="951.0">
+              <columns>
+                <TableColumn fx:id="tableColumnName" prefWidth="299.0" text="Name" />
+                <TableColumn fx:id="tableColumnDesc" prefWidth="292.0" text="Description" />
+                  <TableColumn fx:id="tableColumnPhone" prefWidth="273.0" text="Phone Number" />
+                  <TableColumn fx:id="tableColumnDelete" minWidth="0.0" prefWidth="81.0" text="Action" />
+              </columns>
+            </TableView>
+            <Label layoutX="18.0" layoutY="372.0" text="Name :">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="428.0" text="Customer Description : ">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="17.0" layoutY="486.0" text="Phone Number : ">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="name" layoutX="17.0" layoutY="392.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <TextField fx:id="desc" layoutX="17.0" layoutY="449.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <TextField fx:id="phone" layoutX="17.0" layoutY="507.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <Label fx:id="inv" layoutX="507.0" layoutY="430.0" text="Invoice Number :">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="no" layoutX="507.0" layoutY="454.0" text="hehe">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="333.0" layoutY="14.0" prefHeight="39.0" prefWidth="313.0" promptText="Search..." styleClass="field-search" />
+            <Pane fx:id="add" layoutX="18.0" layoutY="557.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/add-customer.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="33.0" text="Add">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="update" layoutX="203.0" layoutY="557.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
+               <children>
+                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/edit-item.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="54.0" text="Update">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="reset" layoutX="108.0" layoutY="557.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
+               <children>
+                  <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/reset.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="45.0" text="Reset">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label layoutX="507.0" layoutY="372.0" text="Invoice Description : ">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TextField fx:id="descInv" layoutX="507.0" layoutY="392.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+         </children></Pane>
+</children>
+</AnchorPane>
