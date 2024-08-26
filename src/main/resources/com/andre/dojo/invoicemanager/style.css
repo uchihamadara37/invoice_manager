@@ -285,3 +285,44 @@
     -fx-background-color: transparent;
 /*    -fx-padding: 4px; *//* Menambahkan padding untuk scrollbar */
 }
+
+/* awal scrollPane */
+.scroll-pane {
+    -fx-background-color: transparent; /* Set background transparent */
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent; /* Set viewport background transparent */
+}
+
+.scroll-pane .scroll-bar {
+/*    -fx-background-color: derive(#1d1d1d, 30%); *//* Set scroll bar background color */
+    -fx-background-color: -fx-light-background-color; /* Set scroll bar background color */
+}
+
+.scroll-pane .scroll-bar:horizontal .track,
+.scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: -fx-light-background-color; /* Set track background transparent */
+    -fx-border-color: transparent; /* Remove track border */
+    -fx-background-radius: 0em; /* Remove track rounded corners */
+}
+
+.scroll-pane .scroll-bar:horizontal .thumb,
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-light-accent-color; /* Set thumb (scrollbar handle) color */
+    -fx-background-insets: 3, 0, 0; /* Adjust thumb insets */
+    -fx-background-radius: 2em; /* Set thumb rounded corners */
+}
+/* akhir scrollPane */
+
+.pane-cancel{
+    -fx-background-color: -fx-light-2-color;
+    -fx-background-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-border-color: -fx-light-accent-color;
+    -fx-border-radius: 8px;
+}
+.pane-cancel .label{
+    -fx-text-fill: -fx-light-accent-color;
+    -fx-font-weight: 700;
+}

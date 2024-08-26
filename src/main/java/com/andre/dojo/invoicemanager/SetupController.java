@@ -80,8 +80,12 @@ public class SetupController implements Initializable {
                 helloController.getAddItemController().showInvoiceSelected(helloController.getInvoiceSelected());
                 helloController.getAddItemController().reloadTableItem();
                 helloController.getAddItemController().reloadTotalPrice();
+                helloController.getJrxmlController().loadDesignSideBar();
+                helloController.getJrxmlController().setState("lihat");
+
                 loadJsonData(newValue);
                 loadJrxmlString(newValue);
+                helloController.getPreviewController().setLabelDesignSelected("Design "+helloController.getInvoiceSelected().getJrxml_id()+" has been selected for this invoice. Lets start preview!");
             });
 
         btnAdd.setOnMouseClicked(e -> {
@@ -119,7 +123,7 @@ public class SetupController implements Initializable {
 
     private void loadJrxmlString(Invoice newValue) {
         if (helloController.getInvoiceSelected().getJrxml_id() != 0){
-            helloController.getJrxmlController().setJrxmlTextArea(Design.getOneData(newValue.getJrxml_id()).getJrxml());
+            // helloController.getJrxmlController().setJrxmlTextArea(Design.getOneData(newValue.getJrxml_id()).getJrxml());
             Platform.runLater(() ->{
                 helloController.getJrxmlController().showPreview();
             });

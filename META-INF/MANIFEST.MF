@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven 3.8.5
+Built-By: andre
+Build-Jdk: 21.0.1
+Class-Path: javafx-controls-21.jar javafx-controls-21-win.jar javafx-gra
+ phics-21.jar javafx-graphics-21-win.jar javafx-base-21.jar javafx-base-
+ 21-win.jar javafx-fxml-21.jar javafx-fxml-21-win.jar gson-2.11.0.jar er
+ ror_prone_annotations-2.27.0.jar jasperreports-6.21.3.jar commons-beanu
+ tils-1.9.4.jar commons-collections-3.2.2.jar commons-digester-2.1.jar c
+ ommons-logging-1.1.1.jar commons-collections4-4.2.jar openpdf-1.3.32.ja
+ r jcommon-1.0.23.jar jfreechart-1.0.19.jar ecj-3.21.0.jar jackson-core-
+ 2.15.3.jar jackson-databind-2.15.3.jar jackson-annotations-2.15.3.jar j
+ ackson-dataformat-xml-2.15.3.jar stax2-api-4.2.1.jar woodstox-core-6.5.
+ 1.jar javafx-swing-17.0.1.jar javafx-swing-17.0.1-win.jar javafx-web-23
+ -ea+22.jar javafx-web-23-ea+22-win.jar javafx-media-23-ea+22.jar javafx
+ -media-23-ea+22-win.jar pdfviewfx-3.1.0.jar unitfx-1.0.10.jar indriya-2
+ .1.2.jar unit-api-2.1.2.jar uom-lib-common-2.1.jar javax.inject-1.jar i
+ konli-core-12.3.1.jar ikonli-materialdesign-pack-12.3.1.jar ikonli-java
+ fx-12.3.1.jar commons-lang3-3.13.0.jar pdfbox-3.0.2.jar pdfbox-io-3.0.2
+ .jar fontbox-3.0.2.jar sqlite-jdbc-3.46.0.1.jar sql2o-1.8.0.jar slf4j-a
+ pi-1.7.32.jar slf4j-simple-1.7.32.jar controlsfx-11.2.1.jar
+Main-Class: com.andre.dojo.invoicemanager.HelloApplication
+

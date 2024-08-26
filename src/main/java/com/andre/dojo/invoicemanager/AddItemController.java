@@ -213,10 +213,12 @@ public class AddItemController implements Initializable {
     public void reloadAfterChangeData(){
         reloadTableItem();
         reloadTotalPrice();
+        itemName.setText("");
+        itemPrice.setText("");
+        itemQty.setText("");
         // update harga total
         helloController.getInvoiceSelected().setTotalPriceAll(Item.getSumOfPriceByInvoiceId(helloController.getInvoiceSelected().getId()));
         String json = HelloApplication.gson.toJson(HelloController.customJSON, CustomJSON.class);
-        System.out.println(json);
         // update json
         helloController.getInvoiceSelected().setJsonData(json);
         Invoice.updateById(helloController.getInvoiceSelected());
@@ -292,7 +294,6 @@ public class AddItemController implements Initializable {
             reloadTotalPrice();
 
             String json = HelloApplication.gson.toJson(HelloController.customJSON, CustomJSON.class);
-            System.out.println(json);
             // update json
             helloController.getJsonDataController().setJsonText(json);
             helloController.getInvoiceSelected().setJsonData(json);

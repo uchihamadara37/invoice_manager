@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Main-Class: com.andre.dojo.invoicemanager.HelloApplication
+Class-Path: ikonli-materialdesign-pack-12.3.1.jar javafx-media-23-ea+22.
+ jar jackson-core-2.15.3.jar pdfbox-io-3.0.2.jar javax.inject-1.jar java
+ fx-media-23-ea+22-win.jar sql2o-1.8.0.jar slf4j-simple-1.7.32.jar javaf
+ x-base-21.jar controlsfx-11.2.1.jar jasperreports-6.21.3.jar pdfbox-3.0
+ .2.jar gson-2.11.0.jar pdfviewfx-3.1.0.jar commons-collections4-4.2.jar
+  indriya-2.1.2.jar commons-lang3-3.13.0.jar javafx-fxml-21-win.jar unit
+ -api-2.1.2.jar jackson-databind-2.15.3.jar openpdf-1.3.32.jar uom-lib-c
+ ommon-2.1.jar javafx-swing-17.0.1.jar commons-beanutils-1.9.4.jar unitf
+ x-1.0.10.jar ikonli-core-12.3.1.jar jfreechart-1.0.19.jar commons-loggi
+ ng-1.1.1.jar woodstox-core-6.5.1.jar sqlite-jdbc-3.46.0.1.jar slf4j-api
+ -1.7.32.jar javafx-fxml-21.jar commons-digester-2.1.jar jackson-annotat
+ ions-2.15.3.jar javafx-controls-21-win.jar error_prone_annotations-2.27
+ .0.jar javafx-base-21-win.jar javafx-controls-21.jar javafx-graphics-21
+ -win.jar javafx-web-23-ea+22-win.jar javafx-graphics-21.jar ikonli-java
+ fx-12.3.1.jar jcommon-1.0.23.jar javafx-swing-17.0.1-win.jar javafx-web
+ -23-ea+22.jar stax2-api-4.2.1.jar ecj-3.21.0.jar commons-collections-3.
+ 2.2.jar fontbox-3.0.2.jar jackson-dataformat-xml-2.15.3.jar
+

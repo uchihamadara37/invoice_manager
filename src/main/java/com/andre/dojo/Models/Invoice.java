@@ -111,6 +111,8 @@ public class Invoice {
                 """;
         return DatabaseManager.deleteData(query, Long.toString(id));
     }
+
+
     public static boolean updateById(Invoice invoice){
         String query = """
                 UPDATE invoice SET 
