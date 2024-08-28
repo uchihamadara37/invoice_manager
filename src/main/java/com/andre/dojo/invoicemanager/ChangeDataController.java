@@ -165,6 +165,6 @@ public class ChangeDataController {
         ,idOrganization);
         Personal.updateById(new Personal(
                 personalName.getText(),bankName.getText(), bankNumber.getText(), bankID.getText(),"",idOrganization
-        ), idPerson);
+        ));
     }
 }

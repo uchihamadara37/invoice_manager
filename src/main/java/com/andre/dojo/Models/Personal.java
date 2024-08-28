@@ -75,17 +75,16 @@ public class Personal {
                 """;
         return DatabaseManager.deleteData(query, Long.toString(id));
     }
-    public static boolean updateById(Personal personal, long id){
+    public static boolean updateById(Personal personal){
         String query = """
                 UPDATE personal SET 
-                id = :id, 
                 name = :name, 
                 bankName = :bankName, 
                 bankIDNumber = :bankIDNumber, 
                 bankIDName = :bankIDName, 
                 organization_id = :organization_id,
                 urlTtd = :urlTtd 
-                WHERE id = :p1
+                WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, personal);
     }
