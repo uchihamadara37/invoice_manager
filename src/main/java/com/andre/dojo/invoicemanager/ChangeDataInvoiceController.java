@@ -171,7 +171,7 @@ public class ChangeDataInvoiceController {
 
     private void addCustomer(){
         String cId = "1723509861951";
-        String designId = "1724121753816";
+        String designId = "1724579728640";
         Customer.addToDB(
                 new Customer(
                         name.getText(),
