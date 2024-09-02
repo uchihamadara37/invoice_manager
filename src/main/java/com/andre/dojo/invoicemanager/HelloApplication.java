@@ -13,6 +13,9 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Properties;
 
@@ -37,12 +40,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-//        Invoice n = Invoice.getOneData(1723600791007L);
-//        n.setJrxml_id(0);
-//        Invoice.updateById(n);
-//
-//        Design.deleteOneById(1724505942174L);
-//        Design.deleteOneById(1724548759968L);
+//        Design.deleteOneById(1724809118405L);
 
         mainStage = stage;
 
@@ -54,9 +52,6 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-
-        DatabaseManager.createTableDesign();
-
         // memilih direktory file.properties
         String userHome = System.getProperty("user.home");
         File filePropDir = new File(userHome, ".invoiceGenerator");
@@ -77,7 +72,6 @@ public class HelloApplication extends Application {
         }
 
         Properties prop = new Properties();
-//
 
         for (int i = 0; i < args.length; i++){
             switch (args[i]){
@@ -91,6 +85,13 @@ public class HelloApplication extends Application {
                     // jika next string ada input
                     if (i + 1 < args.length){
                         String input = args[i+1];
+
+                        // menghapus backslash dan slash terakhir
+                        while (!input.isEmpty() && (input.endsWith("\\") || input.endsWith("/"))) {
+                            input = input.substring(0, input.length() - 1);
+                        }
+
+                        // mulai membaca config.file
                         File fileConfig = new File(input);
                         if (fileConfig.exists()){
 
@@ -99,11 +100,9 @@ public class HelloApplication extends Application {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
                             File dirImage = new File(fileConfig, "image");
                             File dirPdf = new File(fileConfig, "pdf");
                             File dirLogo = new File(fileConfig, "logo");
-
                             if (!dirImage.exists()){
                                 dirImage.mkdir();
                             }
@@ -113,8 +112,7 @@ public class HelloApplication extends Application {
                             if (!dirLogo.exists()){
                                 dirLogo.mkdir();
                             }
-
-                            if (!prop.containsKey("dir.image")){
+                            if (!prop.containsKey("dir.src")  ){
                                 // ganti val
                                 // confirmasi
                                 prop.setProperty("dir.src", fileConfig.getAbsolutePath());
@@ -126,27 +124,56 @@ public class HelloApplication extends Application {
                                     // Simpan ke file config.properties
                                     try (FileOutputStream out = new FileOutputStream(fileProp)) {
                                         prop.store(out, "Invoice Generator Configuration");
-                                        System.out.println("Properties berhasil disimpan ke " + fileProp.getAbsolutePath());
+//                                        System.out.println("Properties berhasil disimpan ke " + fileProp.getAbsolutePath());
                                     }
                                 } catch (IOException e) {
-                                    showAlert("Gagal menyimpan properties ke file!");
+                                    Platform.runLater(() -> {
+                                        showAlert("Gagal menyimpan properties ke file!");
+                                    });
                                     e.printStackTrace();
                                 }
 
                             }else{
-                                System.out.println("prop sudah diset confignya");
+                                // belum diset perbedaannya
+                                prop.setProperty("dir.src", fileConfig.getAbsolutePath());
+                                prop.setProperty("dir.image", dirImage.getAbsolutePath());
+                                prop.setProperty("dir.pdf", dirPdf.getAbsolutePath());
+                                prop.setProperty("dir.logo", dirLogo.getAbsolutePath());
+
+                                try {
+                                    // Simpan ke file config.properties
+                                    try (FileOutputStream out = new FileOutputStream(fileProp)) {
+                                        prop.store(out, "Invoice Generator Configuration");
+//                                        System.out.println("Properties berhasil disimpan ke " + fileProp.getAbsolutePath());
+                                    }
+                                } catch (IOException e) {
+                                    Platform.runLater(() -> {
+                                        showAlert("Gagal menyimpan properties ke file!");
+                                    });
+                                    e.printStackTrace();
+                                }
+
                             }
                         }else{
+                            Platform.runLater(() -> {
+                                HelloApplication.showAlert("this "+fileConfig+" directory is not exist! please fill with correct path directory!");
+                            });
                             System.out.println("this "+fileConfig+" directory is not exist! please fill with correct path directory!");
+                            return;
                         }
                         i++;
                     }else{
-                        System.out.println("--url-source \"need_some_input\"");
+                        Platform.runLater(() -> {
+                            HelloApplication.showAlert("--url-source \"need_some_input\" please use --help for more information");
+                        });
+                        System.out.println("--url-source \"need_some_input\" please use --help for more information");
+                        return;
                     }
                     break;
                 default:
                     System.out.println(" Please use --help to show all syntax configuration!");
-                    break;
+                    return;
+
             }
         }
 
@@ -158,11 +185,31 @@ public class HelloApplication extends Application {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
+        System.out.println("okokok");
+        System.out.println(fileProp.getAbsolutePath());
         if (prop.containsKey("dir.image") && prop.containsKey("dir.pdf") && prop.containsKey("dir.logo") && prop.containsKey("dir.src")){
             dirImage = prop.getProperty("dir.image");
             dirPdf = prop.getProperty("dir.pdf");
             dirLogo = prop.getProperty("dir.logo");
             dirSource = prop.getProperty("dir.src");
+            File fileDirImage = new File(dirImage);
+            File fileDirPdf = new File(dirPdf);
+            File fileDirLogo = new File(dirLogo);
+            File fileDirSrc = new File(dirSource);
+            if (!fileDirSrc.exists()){
+                fileDirSrc.mkdir();
+            }
+            if (!fileDirImage.exists()){
+                fileDirImage.mkdir();
+            }
+            if (!fileDirPdf.exists()){
+                fileDirPdf.mkdir();
+            }
+            if (!fileDirLogo.exists()){
+                fileDirLogo.mkdir();
+            }
             launch();
 
         }else{
@@ -170,6 +217,7 @@ public class HelloApplication extends Application {
             Platform.runLater(() -> {
                 showAlert("Nilai directory tidak ditemukan dalam file config.properties!");
             });
+
         }
 
     }
@@ -181,8 +229,8 @@ public class HelloApplication extends Application {
     public static void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information");
-        alert.setHeaderText(message);
-//        alert.setContentText("Ini adalah contoh pesan alert di JavaFX.");
+        alert.setHeaderText("");
+        alert.setContentText(message);
         alert.showAndWait();
     }
 }

@@ -1,19 +1,24 @@
 package com.andre.dojo.invoicemanager;
 
 import com.andre.dojo.Models.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -89,14 +94,25 @@ public class SetupController implements Initializable {
             });
 
         btnAdd.setOnMouseClicked(e -> {
-            goToAddItem();
+            if (Objects.equals(showTimeStamp.getText(), "")){
+                showMessage.setVisible(true);
+                showTooltip(btnAdd);
+            }else{
+                openAddItems();
+            }
         });
         btnItems.setOnMouseClicked(e -> {
-            goToAddItem();
+            if (Objects.equals(showTimeStamp.getText(), "")){
+                showMessage.setVisible(true);
+                showTooltip(btnItems);
+            }else{
+                openAddItems();
+            }
         });
         btnJsonData.setOnMouseClicked(e -> {
             if (Objects.equals(showTimeStamp.getText(), "")){
                 showMessage.setVisible(true);
+                showTooltip(btnJsonData);
             }else{
                 helloController.getAnchorPaneMain().getChildren().removeFirst();
                 helloController.getAnchorPaneMain().getChildren().add(helloController.getJsonDataController().getRootPane());
@@ -105,6 +121,7 @@ public class SetupController implements Initializable {
         btnJrxml.setOnMouseClicked(e -> {
             if (Objects.equals(showTimeStamp.getText(), "")){
                 showMessage.setVisible(true);
+                showTooltip(btnJrxml);
             }else{
                 helloController.getAnchorPaneMain().getChildren().removeFirst();
                 helloController.getAnchorPaneMain().getChildren().add(helloController.getJrxmlController().getRootPane());
@@ -113,12 +130,50 @@ public class SetupController implements Initializable {
         btnPreview.setOnMouseClicked(e -> {
             if (Objects.equals(showTimeStamp.getText(), "")){
                 showMessage.setVisible(true);
+                showTooltip(btnPreview);
             }else{
                 helloController.getAnchorPaneMain().getChildren().removeFirst();
                 helloController.getAnchorPaneMain().getChildren().add(helloController.getPreviewController().getRootPane());
             }
         });
 
+    }
+
+    private void showTooltip(Pane Component) {
+        Tooltip tooltip = new Tooltip();
+        tooltip.setText("Please select one invoice first!");
+        tooltip.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 15px;");
+        Point2D p = Component.localToScene(0.0, 0.0);
+        tooltip.show(
+                Component,
+                p.getX() + HelloApplication.getMainStage().getX()
+                        + Component.getScene().getX() + 30,
+                p.getY() + HelloApplication.getMainStage().getY()
+                        + Component.getScene().getY() - 35
+        );
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(3),
+                ae -> tooltip.hide()
+        ));
+        timeline.play();
+    }
+    private void showTooltip(Label Component) {
+        Tooltip tooltip = new Tooltip();
+        tooltip.setText("Please select one invoice first!");
+        tooltip.setStyle("-fx-background-color: red; -fx-text-fill: white; -fx-font-size: 15px;");
+        Point2D p = Component.localToScene(0.0, 0.0);
+        tooltip.show(
+                Component,
+                p.getX() + HelloApplication.getMainStage().getX()
+                        + Component.getScene().getX() + 30,
+                p.getY() + HelloApplication.getMainStage().getY()
+                        + Component.getScene().getY() - 35
+        );
+        Timeline timeline = new Timeline(new KeyFrame(
+                Duration.seconds(3),
+                ae -> tooltip.hide()
+        ));
+        timeline.play();
     }
 
     private void loadJrxmlString(Invoice newValue) {
@@ -148,11 +203,7 @@ public class SetupController implements Initializable {
     }
 
     private void goToAddItem() {
-        if (Objects.equals(showTimeStamp.getText(), "")){
-            showMessage.setVisible(true);
-        }else{
-            openAddItems();
-        }
+
     }
 
     private void openAddItems() {

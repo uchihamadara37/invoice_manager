@@ -18,11 +18,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JsonDataSource;
@@ -37,8 +40,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -94,24 +96,13 @@ public class JrxmlController implements Initializable {
         btnGeneratePreview.setOnMouseClicked(e -> {
             if (Objects.equals(labelSave.getText(), "Add Now")){
                 Design design2 = new Design(jrxmlText.getText(), "", "");
-                try {
-                    generateFirstReportImage(jrxmlText.getText(), helloController.getInvoiceSelected().getJsonData(), design2);
-                } catch (Exception e1) {
-                    throw new RuntimeException(e1);
-                }
-                Design.addToDB(design2);
-                loadDesignSideBar();
-                HelloApplication.showAlert("Design has been added!");
+                generateFirstReportImage(jrxmlText.getText(), helloController.getInvoiceSelected().getJsonData(), design2);
+
             } else if (Objects.equals(labelSave.getText(), "Save Changes")) {
                 Design design = Design.getOneData(designSelected.getId());
                 design.setJrxml(jrxmlText.getText());
-//                try {
-//                    generateReportImage(jrxmlText.getText(), helloController.getInvoiceSelected().getJsonData(), design);
-//                } catch (Exception e1) {
-//                    throw new RuntimeException(e1);
-//                }
-                Design.updateById(design);
-                HelloApplication.showAlert("The design has been successfully edited!");
+                generateReportImage(jrxmlText.getText(), helloController.getInvoiceSelected().getJsonData(), design);
+
             } else if (Objects.equals(labelSave.getText(), "Cancel")) {
                 setState("lihat");
             }
@@ -292,8 +283,21 @@ public class JrxmlController implements Initializable {
 
             ImageView imageView2 = new ImageView();
             if (!Objects.equals(d.getDirImage(), "") || d.getDirImage() != null){
-                Image img = new Image("file:/"+d.getDirImage());
-                imageView2.setImage(img);
+                File checkImg = new File(d.getDirImage());
+                if (checkImg.exists()){
+                    Image img = new Image("file:/"+d.getDirImage());
+                    imageView2.setImage(img);
+                }else{
+//                    WritableImage blankImg = new WritableImage(100, 100);
+//                    PixelWriter pw = blankImg.getPixelWriter();
+//
+//                    for (int x = 0; x < 100; x++) {
+//                        for (int y = 0; y < 100; y++) {
+//                            pw.setColor(x, y, Color.TRANSPARENT);
+//                        }
+//                    }
+//                    imageView2.setImage(blankImg);
+                }
             }
             imageView2.setFitWidth(204.0); // Atur lebar ImageView
             imageView2.setFitHeight(95.0); // Atur tinggi ImageView
@@ -302,7 +306,9 @@ public class JrxmlController implements Initializable {
             imageView2.setViewport(new Rectangle2D(0,0,600, 289));
             imageView2.setLayoutX(3.0);
             imageView2.setLayoutY(3.0);
-            imageView2.setOnMouseClicked(e -> {
+            Pane wrapper = new Pane(imageView2);
+            wrapper.setPrefSize(204.0, 95.0);
+            wrapper.setOnMouseClicked(e -> {
                 setState("select");
                 designSelected = d;
                 if (!Objects.equals(d.getJrxml(), "")){
@@ -311,7 +317,8 @@ public class JrxmlController implements Initializable {
                 loadDesignSideBar();
             });
 
-            pane.getChildren().addAll(label, imageView, imageView2, imageView1);
+
+            pane.getChildren().addAll(label, imageView, wrapper, imageView1);
 
             listDesign.getChildren().add(pane);
         }
@@ -325,9 +332,27 @@ public class JrxmlController implements Initializable {
             if (Design.isAnyInvoiceUseThisDesign(d.getId())){
                 HelloApplication.showAlert("This design is being used by another invoice!");
             }else{
+                // delete file img dan pdfnya dulu
+                deleteFile(d.getDirImage());
+                deleteFile(d.getDirPdf());
                 Design.deleteOneById(d.getId());
                 loadDesignSideBar();
             }
+        }
+    }
+
+    public void deleteFile(String absolutePath) {
+        try {
+            Path path = Paths.get(absolutePath);
+            Files.delete(path);
+            System.out.println("File deleted successfully: " + absolutePath);
+        } catch (NoSuchFileException e) {
+            System.err.println("The file does not exist: " + absolutePath);
+        } catch (DirectoryNotEmptyException e) {
+            System.err.println("The file is a directory and is not empty: " + absolutePath);
+        } catch (IOException e) {
+            System.err.println("Failed to delete the file: " + absolutePath);
+//            e.printStackTrace();
         }
     }
 
@@ -355,41 +380,57 @@ public class JrxmlController implements Initializable {
 
 
 
-    private void saveDesign() {
-        System.out.println("jr id = "+helloController.getInvoiceSelected().getJrxml_id());
-        if (helloController.getInvoiceSelected().getJrxml_id() == 0 ){
-            Design design2 = new Design(jrxmlText.getText(), "", "");
-            helloController.getInvoiceSelected().setJrxml_id(design2.getId());
-            Invoice.updateById(helloController.getInvoiceSelected());
+//    private void saveDesign() {
+//        System.out.println("jr id = "+helloController.getInvoiceSelected().getJrxml_id());
+//        if (helloController.getInvoiceSelected().getJrxml_id() == 0 ){
+//            Design design2 = new Design(jrxmlText.getText(), "", "");
+//            helloController.getInvoiceSelected().setJrxml_id(design2.getId());
+//            Invoice.updateById(helloController.getInvoiceSelected());
+//
+//            try {
+//                generateFirstReportImage(jrxmlText.getText(), helloController.getInvoiceSelected().getJsonData(), design2);
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//            Design.addToDB(design2);
+//        }else{
+//            Design design = Design.getOneData(helloController.getInvoiceSelected().getJrxml_id());
+//            design.setJrxml(jrxmlText.getText());
+//            Design.updateById(design);
+//            try {
+//                generateReportImage(jrxmlText.getText(), helloController.getInvoiceSelected().getJsonData(), design);
+//            } catch (Exception e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//
+//        Platform.runLater(() ->{
+//            helloController.getJrxmlController().showPreview();
+//        });
+//    }
 
-            try {
-                generateFirstReportImage(jrxmlText.getText(), helloController.getInvoiceSelected().getJsonData(), design2);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-            Design.addToDB(design2);
-        }else{
-            Design design = Design.getOneData(helloController.getInvoiceSelected().getJrxml_id());
-            design.setJrxml(jrxmlText.getText());
-            Design.updateById(design);
-            try {
-                generateReportImage(jrxmlText.getText(), helloController.getInvoiceSelected().getJsonData(), design);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+    public void generateFirstReportImage(String jrxmlString, String jsonData, Design design){
+        JasperReport jasperReport = null;
+        try {
+            jasperReport = JasperCompileManager.compileReport(new ByteArrayInputStream(jrxmlString.getBytes()));
+        } catch (JRException e) {
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
         }
-
-        Platform.runLater(() ->{
-            helloController.getJrxmlController().showPreview();
-        });
-
-
-    }
-
-    public static void generateFirstReportImage(String jrxmlString, String jsonData, Design design) throws Exception{
-        JasperReport jasperReport = JasperCompileManager.compileReport(new ByteArrayInputStream(jrxmlString.getBytes()));
-        JsonDataSource dataSource = new JsonDataSource(new ByteArrayInputStream(jsonData.getBytes()));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
+        JsonDataSource dataSource = null;
+        try {
+            dataSource = new JsonDataSource(new ByteArrayInputStream(jsonData.getBytes()));
+        } catch (JRException e) {
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
+        }
+        JasperPrint jasperPrint = null;
+        try {
+            jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
+        } catch (JRException e) {
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
+        }
 
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"));
         String baseFileName = "report_" + timestamp;
@@ -409,9 +450,70 @@ public class JrxmlController implements Initializable {
 
         System.out.println("PNG exported to: " + pngFullPath);
         System.out.println("PDF exported to: " + pdfFullPath);
+
+        Design.addToDB(design);
+        loadDesignSideBar();
+        HelloApplication.showAlert("Design has been added!");
     }
 
-    private static void exportToPng(JasperPrint jasperPrint, String fullPath) throws JRException {
+    public void generateReportImage(String jrxmlString, String jsonData, Design design){
+        // Compile JRXML
+        JasperReport jasperReport = null;
+        try {
+            jasperReport = JasperCompileManager.compileReport(new ByteArrayInputStream(jrxmlString.getBytes()));
+        } catch (JRException e) {
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
+        }
+        JsonDataSource dataSource = null;
+        try {
+            dataSource = new JsonDataSource(new ByteArrayInputStream(jsonData.getBytes()));
+        } catch (JRException e) {
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
+        }
+        JasperPrint jasperPrint = null;
+        try {
+            jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
+        } catch (JRException e) {
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
+        }
+
+        // check if dataDir berbeda
+        File dirInDBImg = new File(design.getDirImage());
+        File dirInDBPdf = new File(design.getDirPdf());
+        File dirUpdate = new File(HelloApplication.dirSource);
+
+        System.out.println("dir parent : "+dirInDBImg.getParent());
+        System.out.println("dir update : "+dirUpdate.getAbsolutePath());
+
+        if (Objects.equals(dirInDBImg.getParent(), dirUpdate.getAbsolutePath())){
+            replaceImage(jasperPrint, design.getDirImage());
+            replacePdf(jasperPrint, design.getDirPdf());
+        }else{
+            String pngFullPath = HelloApplication.dirImage + File.separator + dirInDBImg.getName();
+            String pdfFullPath = HelloApplication.dirPdf + File.separator + dirInDBPdf.getName();
+
+            // Export to PNG
+            exportToPng(jasperPrint, pngFullPath);
+
+            // Export to PDF
+            exportToPdf(jasperPrint, pdfFullPath);
+
+            System.out.println("PNG exported to ganti folder: " + pngFullPath);
+            System.out.println("PDF exported to ganti folder: " + pdfFullPath);
+
+            design.setDirImage(pngFullPath);
+            design.setDirPdf(pdfFullPath);
+
+            loadDesignSideBar();
+        }
+        Design.updateById(design);
+        HelloApplication.showAlert("The design has been successfully edited!");
+    }
+
+    private static void exportToPng(JasperPrint jasperPrint, String fullPath){
         int pageIndex = 0;
         int pageWidth = (int) jasperPrint.getPageWidth();
         int pageHeight = (int) jasperPrint.getPageHeight();
@@ -419,18 +521,29 @@ public class JrxmlController implements Initializable {
         BufferedImage image = new BufferedImage(pageWidth, pageHeight, BufferedImage.TYPE_INT_ARGB);
 
         Graphics2D g2d = image.createGraphics();
-        JRGraphics2DExporter exporter = getJrGraphics2DExporter(jasperPrint, g2d, pageIndex);
-        exporter.exportReport();
+        JRGraphics2DExporter exporter = null;
+        try {
+            exporter = getJrGraphics2DExporter(jasperPrint, g2d, pageIndex);
+        } catch (JRException e) {
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
+        }
+        try {
+            exporter.exportReport();
+        } catch (JRException e) {
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
+        }
         g2d.dispose();
 
         try {
             ImageIO.write(image, "png", new File(fullPath));
         } catch (Exception e) {
-            throw new JRException("Error writing PNG file", e);
+            HelloApplication.showAlert("Error writing PNG file : "+e.getMessage());
         }
     }
 
-    private static void exportToPdf(JasperPrint jasperPrint, String fullPath) throws JRException {
+    private static void exportToPdf(JasperPrint jasperPrint, String fullPath){
         JRPdfExporter exporter = new JRPdfExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(fullPath));
@@ -438,20 +551,15 @@ public class JrxmlController implements Initializable {
         SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
         exporter.setConfiguration(configuration);
 
-        exporter.exportReport();
+        try {
+            exporter.exportReport();
+        } catch (JRException e) {
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
+        }
     }
 
-    public static void generateReportImage(String jrxmlString, String jsonData, Design design) throws Exception{
-        // Compile JRXML
-        JasperReport jasperReport = JasperCompileManager.compileReport(new ByteArrayInputStream(jrxmlString.getBytes()));
-        JsonDataSource dataSource = new JsonDataSource(new ByteArrayInputStream(jsonData.getBytes()));
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
 
-        replaceImage(jasperPrint, design.getDirImage());
-        // Export to PNG
-        replacePdf(jasperPrint, design.getDirPdf());
-
-    }
 
     private static void replacePdf(JasperPrint jasperPrint, String dirImage) {
 
@@ -476,9 +584,11 @@ public class JrxmlController implements Initializable {
 
         } catch (IOException e) {
             System.err.println("Terjadi kesalahan saat mengganti file: " + e.getMessage());
-            e.printStackTrace();
+            HelloApplication.showAlert("Terjadi kesalahan saat mengganti file: "+e.getMessage());
+            return;
         } catch (JRException e) {
-            throw new RuntimeException(e);
+            HelloApplication.showAlert("Terjadi kesalahan saat mengganti file: "+e.getMessage());
+            return;
         } finally {
             // Hapus file temporary jika masih ada
             if (tempFile != null && tempFile.exists()) {
@@ -515,7 +625,7 @@ public class JrxmlController implements Initializable {
 
         } catch (IOException e) {
             System.err.println("Terjadi kesalahan saat mengganti file: " + e.getMessage());
-            e.printStackTrace();
+//            e.printStackTrace();
         } catch (JRException e) {
             throw new RuntimeException(e);
         } finally {
@@ -565,7 +675,8 @@ public class JrxmlController implements Initializable {
             helloController.getPreviewController().getPreviewPane().getChildren().add(pdfView);
 
         } catch (JRException e) {
-            throw new RuntimeException(e);
+            HelloApplication.showAlert("There is some error : "+e.getMessage());
+            return;
         }
     }
 
