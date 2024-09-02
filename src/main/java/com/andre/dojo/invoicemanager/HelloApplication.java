@@ -36,11 +36,16 @@ public class HelloApplication extends Application {
     public static String dirImage;
     public static String dirPdf;
     public static String dirLogo;
+    public static File filePropDir;
+    public static String dirExport;
 
     @Override
     public void start(Stage stage) throws IOException {
 
 //        Design.deleteOneById(1724809118405L);
+
+        Invoice i = Invoice.getOneDataByCustomer(1723596664832L);
+        System.out.println(i.getDescription());
 
         mainStage = stage;
 
@@ -54,7 +59,8 @@ public class HelloApplication extends Application {
     public static void main(String[] args) {
         // memilih direktory file.properties
         String userHome = System.getProperty("user.home");
-        File filePropDir = new File(userHome, ".invoiceGenerator");
+        filePropDir = new File(userHome, ".invoiceGenerator");
+
         if (!filePropDir.exists()) {
             filePropDir.mkdir();
         }

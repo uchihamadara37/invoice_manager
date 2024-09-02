@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.ExportController">
+<AnchorPane fx:id="mainPage" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.ExportController">
 <children>
     <AnchorPane prefHeight="64.0" prefWidth="978.0" styleClass="top-panel">
         <children>
@@ -18,45 +20,67 @@
                     <Image url="@icon/sun.png" />
                 </image>
             </ImageView>
-            <Label fx:id="tombolHistory" alignment="CENTER" layoutX="21.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" styleClass="top-label-active" text="Export">
+            <Label fx:id="btnPrepareExport" alignment="CENTER" layoutX="21.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Prepare to Export">
                 <font>
                     <Font size="15.0" />
                 </font>
+            </Label>
+            <Label fx:id="tombolHistory" alignment="CENTER" layoutX="171.0" layoutY="14.0" prefHeight="37.0" prefWidth="74.0" styleClass="top-label-active" text="Export">
+               <font>
+                  <Font size="15.0" />
+               </font>
             </Label>
         </children>
     </AnchorPane>
     <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
         <children>
-            <Label layoutX="14.0" layoutY="15.0" prefHeight="27.0" prefWidth="154.0" text="Total Customer : ">
+            <Label layoutX="14.0" layoutY="15.0" prefHeight="27.0" prefWidth="201.0" text="Total Invoice selected  : ">
                 <font>
                     <Font size="18.0" />
                 </font>
             </Label>
-            <Pane fx:id="export" layoutX="810.0" layoutY="557.0" prefHeight="42.0" prefWidth="154.0" styleClass="tombol-primary">
+            <Pane fx:id="btnExport" layoutX="810.0" layoutY="564.0" prefHeight="37.0" prefWidth="154.0" styleClass="tombol-primary">
                 <children>
-                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@icon/toPDF.png" />
                         </image>
                     </ImageView>
-                    <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="114.0" text="Export Now!">
+                    <Label layoutX="39.0" layoutY="5.0" prefHeight="28.0" prefWidth="107.0" text="Export Now!">
                         <font>
                             <Font size="15.0" />
                         </font>
                     </Label>
                 </children>
             </Pane>
-            <TableView fx:id="tableViewExport" layoutX="13.0" layoutY="62.0" minHeight="467.0" prefHeight="489.0" prefWidth="952.0">
+            <TableView fx:id="tableViewExport" layoutX="13.0" layoutY="55.0" minHeight="467.0" prefHeight="495.0" prefWidth="952.0">
                <columns>
                   <TableColumn fx:id="tableColumnCode" prefWidth="203.0" text="Invoice Code" />
-                  <TableColumn fx:id="tableColumnDesc" prefWidth="334.0" text="Description" />
-                  <TableColumn fx:id="tableColumnCustomer" prefWidth="279.0" text="Customer" />
-                  <TableColumn fx:id="tableColumnTotalItem" prefWidth="279.0" text="Total Item" />
+                  <TableColumn fx:id="tableColumnDesc" prefWidth="303.0" text="Description" />
+                  <TableColumn fx:id="tableColumnCustomer" prefWidth="184.0" text="Customer" />
+                  <TableColumn fx:id="tableColumnTotalItem" prefWidth="240.0" text="Total Item" />
                </columns>
             </TableView>
-            <Label fx:id="total" layoutX="154.0" layoutY="15.0" prefHeight="27.0" prefWidth="74.0" text="0">
+            <Label fx:id="total" layoutX="207.0" layoutY="15.0" prefHeight="27.0" prefWidth="74.0" text="0">
                <font>
                   <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="345.0" layoutY="15.0" prefHeight="27.0" prefWidth="107.0" text="For Month : ">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Spinner fx:id="spinner" layoutX="452.0" layoutY="10.0" prefHeight="36.0" prefWidth="194.0" />
+            <TextField fx:id="fieldFolder" editable="false" layoutX="132.0" layoutY="564.0" prefHeight="37.0" prefWidth="385.0" styleClass="field-add-item" />
+            <Label layoutX="14.0" layoutY="569.0" prefHeight="27.0" prefWidth="118.0" text="Folder Export">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="btnChangeFolder" alignment="CENTER" layoutX="526.0" layoutY="564.0" prefHeight="37.0" prefWidth="130.0" styleClass="pane-cancel" text="Change Folder">
+               <font>
+                  <Font size="15.0" />
                </font>
             </Label>
         </children>

@@ -20,9 +20,9 @@ import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class HelloController implements Initializable {
     @FXML
@@ -56,6 +56,10 @@ public class HelloController implements Initializable {
     private AnchorPane anchorPaneMain;
     @FXML
     private AnchorPane paneInvoice;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Label infoReady;
 
 
     private SetupController setupController;
@@ -66,6 +70,7 @@ public class HelloController implements Initializable {
     private ChangeDataInvoiceController changeDataInvoiceController;
     private ChangeDataController changeDataController;
     private ExportController exportController;
+    private PrepareExportController prepareExportController;
 
 
     private Invoice invoiceSelected;
@@ -75,9 +80,17 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("jangkrik");
+        System.out.println("helloView jangkrik");
 
-        loadTableView();
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH);
+        DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMMM", Locale.ENGLISH);
+        String formattedDate = today.format(formatter);
+        tombolTanggal.setText(formattedDate);
+
+        infoReady.setText("Invoice for this "+today.format(formatter2)+" is ready to generate.");
+
+        loadTableView(Invoice.getAllData());
 
         // event tombol
         tombolChangeData.setOnMouseClicked(e -> {
@@ -122,7 +135,11 @@ public class HelloController implements Initializable {
             tombolExport.getStyleClass().add("side-button-active");
             tombolSetup.getStyleClass().removeFirst();
             tombolSetup.getStyleClass().add("side-button");
-            openExportPane();
+            openPrepareExportPane();
+
+        });
+        searchField.setOnKeyReleased(e -> {
+            searchNow();
         });
 
 
@@ -156,6 +173,43 @@ public class HelloController implements Initializable {
 
                 });
     }
+
+    private void openPrepareExportPane() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("prepareExport-view.fxml"));
+            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("export-view.fxml"));
+            AnchorPane prepareExportPane = fxmlLoader.load();
+            AnchorPane exportPane = fxmlLoader2.load();
+
+            prepareExportController = fxmlLoader.getController();
+            exportController = fxmlLoader2.getController();
+            prepareExportController.setHelloController(this);
+            exportController.setHelloController(this);
+
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(prepareExportPane);
+
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+    }
+
+    private void searchNow() {
+        if (!Objects.equals(searchField.getText(), "")){
+            loadTableView(Invoice.searchInvoice(searchField.getText()));
+        }else{
+            loadTableView(Invoice.getAllData());
+        }
+    }
+
+    public PrepareExportController getPrepareExportController() {
+        return prepareExportController;
+    }
+
+    public ExportController getExportController() {
+        return exportController;
+    }
+
 
     private void openSetupPane() {
         try {
@@ -208,19 +262,18 @@ public class HelloController implements Initializable {
 
     private void openExportPane() {
         try{
-//            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("export-view.fxml"));
-////            fxmlLoader.load();
-//            ExportController exportController = fxmlLoader.getController();
-//            exportController.setDataExport(getSelectedInvoices());
-//            AnchorPane anchorPane = new AnchorPane((Node) fxmlLoader.load());
-//            anchorPaneMain.getChildren().removeFirst();
-//            anchorPaneMain.getChildren().add(anchorPane);
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("prepareExport-view.fxml"));
+            FXMLLoader fxmlLoader2 = new FXMLLoader(getClass().getResource("export-view.fxml"));
+            AnchorPane prepareExportPane = fxmlLoader.load();
+            AnchorPane exportPane = fxmlLoader2.load();
 
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("export-view.fxml"));
-            AnchorPane exportPane = fxmlLoader.load();
+            prepareExportController = fxmlLoader.getController();
+            exportController = fxmlLoader2.getController();
+            prepareExportController.setHelloController(this);
+            exportController.setHelloController(this);
 
-            ExportController exportController = fxmlLoader.getController();
             exportController.setDataExport(getSelectedInvoices());
+
             exportController.setMessage("masukkah?");
             System.out.println("dari export pane open : " + selectedInvoices);
             exportController.customInitialize();
@@ -236,7 +289,7 @@ public class HelloController implements Initializable {
     private void openInvoicePane() {
         anchorPaneMain.getChildren().removeFirst();
         anchorPaneMain.getChildren().add(paneInvoice);
-        loadTableView();
+        loadTableView(Invoice.getAllData());
     }
     public AnchorPane getAnchorPaneMain(){
         return anchorPaneMain;
@@ -245,9 +298,9 @@ public class HelloController implements Initializable {
         return paneInvoice;
     }
 
-    public void loadTableView() {
+    public void loadTableView(Collection<Invoice> data) {
         tableViewInvoice.setEditable(true);
-        tableViewInvoice.setItems(FXCollections.observableArrayList(Invoice.getAllData()));
+        tableViewInvoice.setItems(FXCollections.observableArrayList(data));
         tableColumnCheckbox.setCellValueFactory(e -> e.getValue().getChecked());
         tableColumnCheckbox.setCellFactory(e -> new CheckBoxTableCell<>());
 
@@ -310,14 +363,15 @@ public class HelloController implements Initializable {
         return changeDataInvoiceController;
     }
 
-    public boolean showConfirmationDialog(String message) {
+    public static boolean showConfirmationDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Konfirmasi");
         alert.setHeaderText(null);
         alert.setContentText(message);
+        alert.getButtonTypes().setAll(ButtonType.YES, ButtonType.CANCEL);
 
         Optional<ButtonType> result = alert.showAndWait();
-        return result.isPresent() && result.get() == ButtonType.OK;
+        return result.isPresent() && result.get() == ButtonType.YES;
     }
     public boolean showInformationDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

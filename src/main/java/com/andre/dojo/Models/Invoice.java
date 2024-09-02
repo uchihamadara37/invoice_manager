@@ -105,11 +105,11 @@ public class Invoice {
                 """;
         return DatabaseManager.getOneData(query, Invoice.class, Long.toString(id));
     }
-    public static Invoice getOneDataByCustomer(long id){
+    public static Invoice getOneDataByCustomer(long customer_id){
         String query = """
                 SELECT * FROM invoice WHERE customer_id = :p1
                 """;
-        return DatabaseManager.getOneData(query, Invoice.class, Long.toString(id));
+        return DatabaseManager.getOneData(query, Invoice.class, Long.toString(customer_id));
     }
     public static boolean deleteOneByIdCustomer(long id){
         String query = """
@@ -123,6 +123,27 @@ public class Invoice {
                 DELETE FROM invoice WHERE id = :p1
                 """;
         return DatabaseManager.deleteData(query, Long.toString(id));
+    }
+
+    public static List<Invoice> searchInvoice(String text){
+        String query = """
+                SELECT DISTINCT
+                    a.id,
+                    a.invoiceCode,
+                    a.invoiceMarkText,
+                    a.date,
+                    a.description,
+                    a.totalPriceAll,
+                    a.customer_id
+               
+                FROM invoice a LEFT JOIN customer b ON a.customer_id = b.id
+                WHERE (a.invoiceMarkText LIKE :p1)
+                   OR (a.date LIKE :p1)
+                   OR (a.description LIKE :p1)
+                   OR (a.invoiceCode LIKE :p1)
+                   OR (b.name LIKE :p1)
+                """;
+        return DatabaseManager.getListData(query, Invoice.class, "%"+text+"%");
     }
 
 

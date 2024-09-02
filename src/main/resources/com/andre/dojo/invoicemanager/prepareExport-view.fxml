@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPage" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.PrepareExportController">
+<children>
+    <AnchorPane prefHeight="64.0" prefWidth="978.0" styleClass="top-panel">
+        <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@icon/sun.png" />
+                </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" prefHeight="37.0" prefWidth="154.0" styleClass="top-label-active" text="Prepare to Export">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+            <Label fx:id="exportPage" alignment="CENTER" layoutX="171.0" layoutY="14.0" prefHeight="37.0" prefWidth="74.0" text="Export">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Label>
+        </children>
+    </AnchorPane>
+    <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+        <children>
+            <Label layoutX="14.0" layoutY="15.0" prefHeight="27.0" prefWidth="594.0" text="Please confirm by choosing the correct invoice you would like to export!">
+                <font>
+                    <Font size="18.0" />
+                </font>
+            </Label>
+            <Pane fx:id="exportPage2" layoutX="826.0" layoutY="564.0" prefHeight="37.0" prefWidth="139.0" styleClass="tombol-primary">
+                <children>
+                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                        <image>
+                            <Image url="@icon/toPDF.png" />
+                        </image>
+                    </ImageView>
+                    <Label layoutX="39.0" layoutY="5.0" prefHeight="28.0" prefWidth="96.0" text="Export Page">
+                        <font>
+                            <Font size="15.0" />
+                        </font>
+                    </Label>
+                </children>
+            </Pane>
+            <TableView fx:id="tableViewInvoice" layoutX="13.0" layoutY="55.0" minHeight="467.0" prefHeight="496.0" prefWidth="952.0">
+                <columns>
+                    <TableColumn fx:id="tableColumnCheckbox" prefWidth="203.0" text="Choose!" />
+                    <TableColumn fx:id="tableColumnCode" prefWidth="174.0" text="Invoice Code" />
+                    <TableColumn fx:id="tableColumnDescription" prefWidth="254.0" text="Description" />
+                    <TableColumn fx:id="tableColumnCustomer" prefWidth="298.0" text="Customer" />
+                </columns>
+            </TableView>
+        </children>
+    </Pane>
+</children>
+</AnchorPane>
