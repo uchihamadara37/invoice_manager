@@ -22,6 +22,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
+import net.sf.jasperreports.engine.data.JsonDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.ByteArrayInputStream;
@@ -104,21 +105,22 @@ public class ExportController {
     }
 
     private void toPDF() throws JRException {
-        String cek = "1724503671986", cek2 = "1724897200823";
+        String cek = "1724503671986", cek2 = "1725261116673";
         for (Invoice invoice : dataExport) {
             long id = invoice.getId(); // Assuming the id is an int and there's a getId() method
             if(id == Long.parseLong(cek2)){
                 System.out.println("Invoice ID: " + id);
                 System.out.println("with jxrml : " + Design.getOneData(invoice.getJrxml_id()));
                 Design design = Design.getOneData(invoice.getJrxml_id());
+                JsonDataSource dataSource = new JsonDataSource(new ByteArrayInputStream(invoice.getJsonData().getBytes()));
                 String jrxmlContent = design.getJrxml();
                 ByteArrayInputStream jrxmlInputStream = new ByteArrayInputStream(jrxmlContent.getBytes(StandardCharsets.UTF_8));
                 JasperReport jasperReport = JasperCompileManager.compileReport(jrxmlInputStream);
                 // Prepare a Map-based data source, ensuring all required fields are present
                 Map<String, Object> data = new HashMap<>();
-                JRDataSource dataSource = new JRMapArrayDataSource(new Map[] { data });
+//                JRDataSource dataSource = new JRMapArrayDataSource(new Map[] { data });
                 Map<String, Object> parameters = new HashMap<>();
-                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
                 JasperViewer viewer = new JasperViewer(jasperPrint, false);
                 viewer.setVisible(true);
             }
@@ -225,6 +227,14 @@ public class ExportController {
                         "\t\t<property name=\"net.sf.jasperreports.json.field.expression\" value=\"invoice.listItem\"/>\n" +
                         "\t\t<fieldDescription><![CDATA[invoice.listItem]]></fieldDescription>\n" +
                         "\t</field>\n" +
+                        "\t<field name=\"logo\" class=\"java.lang.String\">\n" +
+                        "\t\t<property name=\"net.sf.jasperreports.json.field.expression\" value=\"organization.logo\"/>\n" +
+                        "\t\t<fieldDescription><![CDATA[organization.logo]]></fieldDescription>\n" +
+                        "\t</field>\n" +
+                        "\t<field name=\"urlTtd\" class=\"java.lang.String\">\n" +
+                        "\t\t<property name=\"net.sf.jasperreports.json.field.expression\" value=\"organization.personal.urlTtd\"/>\n" +
+                        "\t\t<fieldDescription><![CDATA[organization.personal.urlTtd]]></fieldDescription>\n" +
+                        "\t</field>\n" +
                         "\t<background>\n" +
                         "\t\t<band splitType=\"Stretch\"/>\n" +
                         "\t</background>\n" +
@@ -249,7 +259,7 @@ public class ExportController {
                         "\t\t\t</staticText>\n" +
                         "\t\t\t<image hAlign=\"Center\">\n" +
                         "\t\t\t\t<reportElement x=\"0\" y=\"10\" width=\"65\" height=\"60\" uuid=\"1accd4fe-7d17-4988-87c5-92cd88483784\"/>\n" +
-                        "\t\t\t\t<imageExpression><![CDATA[\"D:/Downloads/WhatsApp Image 2024-08-02 at 16.24.24_e389c7d3.jpg\"]]></imageExpression>\n" +
+                        "\t\t\t\t<imageExpression><![CDATA[$F{logo}]]></imageExpression>\n" +
                         "\t\t\t</image>\n" +
                         "\t\t\t<staticText>\n" +
                         "\t\t\t\t<reportElement x=\"382\" y=\"40\" width=\"60\" height=\"20\" uuid=\"55ffa9bf-74f9-45a0-b519-0a11537db91b\"/>\n" +
@@ -437,6 +447,10 @@ public class ExportController {
                         "\t\t\t\t<text><![CDATA[Tagihan dapat ditransfer ke rekening :\n" +
                         "BSI (Bank Syariah Indonesia) 4828625660 a.n Joko Munandar]]></text>\n" +
                         "\t\t\t</staticText>\n" +
+                        "\t\t\t<image hAlign=\"Center\">\n" +
+                        "\t\t\t\t<reportElement x=\"470\" y=\"70\" width=\"80\" height=\"80\" uuid=\"56428993-2ca5-4308-a1fb-09e134f50ca6\"/>\n" +
+                        "\t\t\t\t<imageExpression><![CDATA[$F{urlTtd}]]></imageExpression>\n" +
+                        "\t\t\t</image>\n" +
                         "\t\t</band>\n" +
                         "\t</lastPageFooter>\n" +
                         "</jasperReport>\n","",""
