@@ -30,6 +30,16 @@ public class Personal {
         this.urlTtd = urlTtd;
     }
 
+    public Personal(String name, String bank_name, String bank_id_number, String bank_id_name, String urlTtd, long organization_id, long id) {
+        this.id = id;
+        this.name = name;
+        this.bankName = bank_name;
+        this.bankIDNumber = bank_id_number;
+        this.bankIDName = bank_id_name;
+        this.organization_id = organization_id;
+        this.urlTtd = urlTtd;
+    }
+
     public static boolean addToDB(Personal personal){
         String query = """
                 INSERT INTO personal (
@@ -85,7 +95,7 @@ public class Personal {
                 bankIDName = :bankIDName, 
                 organization_id = :organization_id,
                 urlTtd = :urlTtd 
-                WHERE id = :p1
+                WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, personal);
     }

@@ -1,5 +1,6 @@
 package com.andre.dojo.invoicemanager;
 
+import com.andre.dojo.Models.KodeSurat;
 import com.andre.dojo.Models.Organization;
 import com.andre.dojo.Models.Personal;
 import javafx.fxml.FXML;
@@ -29,8 +30,6 @@ public class ChangeDataController {
     @FXML
     private Pane cancel;
     @FXML
-    private TextField year;
-    @FXML
     private TextField organizationName;
     @FXML
     private TextField email;
@@ -47,17 +46,23 @@ public class ChangeDataController {
     @FXML
     private TextField bankNumber;
     @FXML
-    private TextField agency;
-    @FXML
     private Button changeLogo;
     @FXML
     private Button changeSignature;
+    @FXML
+    private TextField totalLetter;
+    @FXML
+    private TextField totalInvoice;
 
     private ChangeDataInvoiceController changeDataInvoiceController;
     private HelloController helloController;
     private Personal personal;
     private long idPerson;
     private long idOrganization;
+    private long idKode;
+    private int yearOr;
+    private int agencyNum;
+    private String idSurat = "1723596852024";
 //    private Organization organization;
 
     public void setHelloController(HelloController helloController) {
@@ -80,7 +85,6 @@ public class ChangeDataController {
         disable();
         edit.setOnMouseClicked(e -> {
             enable();
-            saveData(idOrganization,idPerson);
             textAccess(false);
         });
         cancel.setOnMouseClicked(e -> {
@@ -90,11 +94,10 @@ public class ChangeDataController {
         });
         save.setOnMouseClicked(e -> {
             disable();
+            saveData(idOrganization,idPerson);
             textAccess(true);
         });
     }
-
-
 
     private void openCustomerPane() {
         try{
@@ -115,12 +118,13 @@ public class ChangeDataController {
         List<Organization> allOrganizations = Organization.getAllData();
         System.out.println(allOrganizations);
         Organization firstOrganization = allOrganizations.get(0);
-        year.setText(String.valueOf(firstOrganization.getTahunOperasi()));
+        totalLetter.setText(String.valueOf(firstOrganization.getTotalLetter()));
+        yearOr = firstOrganization.getTahunOperasi();
         organizationName.setText(firstOrganization.getBrandName());
         email.setText(firstOrganization.getEmail());
         address.setText(firstOrganization.getAddress());
         desc.setText(firstOrganization.getDescription());
-        agency.setText(String.valueOf(firstOrganization.getNoUrutInstansi()));
+        agencyNum = firstOrganization.getNoUrutInstansi();
         idOrganization = firstOrganization.getId();
         List<Personal> personalList = Personal.getAllData();
         Personal firstPersonal = personalList.get(0);
@@ -129,11 +133,13 @@ public class ChangeDataController {
         bankName.setText(firstPersonal.getBankName());
         bankNumber.setText(String.valueOf(firstPersonal.getBankIDNumber()));
         idPerson = firstPersonal.getId();
+        KodeSurat kodeSurats = KodeSurat.getOneData(Long.parseLong(idSurat));
+        totalInvoice.setText(String.valueOf(kodeSurats.getNoUrut()));
+        idKode = kodeSurats.getId();
         textAccess(true);
     }
 
     private void textAccess(boolean con){
-        year.setDisable(con);
         organizationName.setDisable(con);
         email.setDisable(con);
         address.setDisable(con);
@@ -144,7 +150,8 @@ public class ChangeDataController {
         bankNumber.setDisable(con);
         changeLogo.setDisable(con);
         changeSignature.setDisable(con);
-        agency.setDisable(con);
+        totalInvoice.setDisable(con);
+        totalLetter.setDisable(con);
     }
 
     private void disable(){
@@ -161,10 +168,15 @@ public class ChangeDataController {
 
     private void saveData(long idOrganization, long idPerson){
         Organization.updateById(new Organization(
-                idOrganization, "",organizationName.getText(),desc.getText(),address.getText(), email.getText(),parseInt(agency.getText()),parseInt(year.getText()))
+                idOrganization, "",organizationName.getText(),desc.getText(),address.getText(), email.getText(),agencyNum,yearOr,parseInt(totalLetter.getText()))
         ,idOrganization);
+        System.out.println("total letter : " + totalLetter.getText());
         Personal.updateById(new Personal(
-                personalName.getText(),bankName.getText(), bankNumber.getText(), bankID.getText(),"",idOrganization
+                personalName.getText(),bankName.getText(), bankNumber.getText(), bankID.getText(),"",idOrganization, idPerson
         ), idPerson);
+        KodeSurat.updateById(new KodeSurat(
+                idKode,"INV",parseInt(totalInvoice.getText()), idOrganization
+        ), Long.parseLong(idSurat));
+        System.out.println("total invoice : " + totalInvoice.getText());
     }
 }

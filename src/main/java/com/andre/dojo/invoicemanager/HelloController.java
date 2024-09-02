@@ -122,7 +122,7 @@ public class HelloController implements Initializable {
             tombolExport.getStyleClass().add("side-button-active");
             tombolSetup.getStyleClass().removeFirst();
             tombolSetup.getStyleClass().add("side-button");
-            openExportPane();
+            prepareExport();
         });
 
 
@@ -348,4 +348,24 @@ public class HelloController implements Initializable {
         tombolSetup.getStyleClass().removeFirst();
         tombolSetup.getStyleClass().add("side-button");
     }
+
+    public void prepareExport(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("export-prepare-view.fxml"));
+            AnchorPane exportPane = fxmlLoader.load();
+//            ExportController exportController = fxmlLoader.getController();
+//            exportController.setDataExport(getSelectedInvoices());
+//            exportController.setMessage("masukkah?");
+//            System.out.println("dari export pane open : " + selectedInvoices);
+//            exportController.customInitialize();
+
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(exportPane);
+
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+
+    }
+
 }

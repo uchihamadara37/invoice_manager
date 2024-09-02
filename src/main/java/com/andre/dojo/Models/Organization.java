@@ -17,10 +17,18 @@ public class Organization {
     private String email;
     private int noUrutInstansi;
     private int tahunOperasi;
+    private int totalLetter;
     private Personal personal;
 
     public Organization(){}
-    public Organization(long id, String logo, String brandName, String description, String address, String email, int noUrutInstansi, int tahunOperasi) {
+
+    public Organization(long id, int totalLetter, String brandName){
+        this.id = id;
+        this.totalLetter = totalLetter;
+        this.brandName = brandName;
+    }
+
+    public Organization(long id, String logo, String brandName, String description, String address, String email, int noUrutInstansi, int tahunOperasi, int totalLetter) {
         this.id = id;
         this.logo = logo;
         this.brandName = brandName;
@@ -29,6 +37,7 @@ public class Organization {
         this.email = email;
         this.noUrutInstansi = noUrutInstansi;
         this.tahunOperasi = tahunOperasi;
+        this.totalLetter = totalLetter;
     }
 
     public static boolean addToDB(Organization organization){
@@ -41,7 +50,8 @@ public class Organization {
                 address, 
                 email, 
                 noUrutInstansi, 
-                tahunOperasi
+                tahunOperasi.
+                totalLetter
                 ) VALUES (
                 :id, 
                 :logo, 
@@ -50,7 +60,8 @@ public class Organization {
                 :address, 
                 :email, 
                 :noUrutInstansi, 
-                :tahunOperasi
+                :tahunOperasi,
+                :totalLetter
                 )""";
         return DatabaseManager.addOneData(query, organization);
     }
@@ -74,15 +85,24 @@ public class Organization {
     }
     public static boolean updateById(Organization organization, long id){
         String query = """
-                UPDATE organization SET 
+                UPDATE organization SET
                 logo = :logo, 
                 brandName = :brandName, 
                 description = :description, 
                 address = :address, 
                 email = :email, 
                 noUrutInstansi = :noUrutInstansi, 
-                tahunOperasi = :tahunOperasi 
-                WHERE id = :p1
+                tahunOperasi = :tahunOperasi,
+                totalLetter = :totalLetter
+                WHERE id = :id
+                """;
+        return DatabaseManager.updateData(query, organization);
+    }
+    public static boolean updateTotalLetter(Organization organization, long id){
+        String query = """
+                UPDATE organization SET
+                totalLetter = :totalLetter
+                WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, organization);
     }
@@ -153,6 +173,14 @@ public class Organization {
 
     public void setTahunOperasi(int tahunOperasi) {
         this.tahunOperasi = tahunOperasi;
+    }
+
+    public int getTotalLetter() {
+        return totalLetter;
+    }
+
+    public void setTotalLetter(int totalLetter) {
+        this.totalLetter = totalLetter;
     }
 
     public Personal getPersonal() {
