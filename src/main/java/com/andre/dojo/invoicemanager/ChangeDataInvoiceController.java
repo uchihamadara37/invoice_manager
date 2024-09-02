@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.time.Year;
 
 public class ChangeDataInvoiceController {
 
@@ -171,7 +172,7 @@ public class ChangeDataInvoiceController {
 
     private void addCustomer(){
         String cId = "1723509861951";
-        String designId = "1724579728640";
+        String designId = "1725261011387";
         Customer.addToDB(
                 new Customer(
                         name.getText(),
@@ -181,8 +182,23 @@ public class ChangeDataInvoiceController {
                 ));
         Customer cek = Customer.getLastInsertedData();
         System.out.println("Last id data after insert : "+ cek.getId());
+        String idSurat = "1723596852024";
+        KodeSurat kodeSurat = KodeSurat.getOneData(Long.parseLong(idSurat));
+        String year = String.valueOf(Year.now().getValue());
+        String yearCode = year.substring(year.length() - 2);
+        int urutanInvoice = kodeSurat.getNoUrut()+1;
+        String idOr = "1723509861951";
+        Organization organization = Organization.getOneData(Long.parseLong(idOr));
+        int urutanSurat = organization.getTotalLetter() + 1;
+        String invoiceCode = urutanSurat + "/SG/INV/" + urutanInvoice + "/" + yearCode;
+        KodeSurat.updateById(new KodeSurat(
+                Long.parseLong(idSurat), kodeSurat.getKode(),urutanInvoice,kodeSurat.getOrganization_id()
+        ), Long.parseLong(idSurat));
+        Organization.updateTotalLetter(new Organization(
+                Long.parseLong(idOr), urutanSurat, organization.getBrandName()
+        ), Long.parseLong(idOr));
         Invoice.addToDB(new Invoice(
-                "Alfiander Comunity", descInv.getText(), "123/inv/www/hehe", "29 Agustus 2024", 0, "", "", Long.parseLong(designId),cek.getId())
+                "Alfiander Comunity", descInv.getText(), invoiceCode, "29 Agustus 2024", 0, "", "", Long.parseLong(designId),cek.getId())
         );
         loadTableView();
         reset();
@@ -213,12 +229,6 @@ public class ChangeDataInvoiceController {
     }
 
     private void handleDelete(Customer customer){
-//        if (helloController.showConfirmationDialog("Are you really want to delete this "+customer.getName()+"?")){
-//            Customer.deleteOneById(customer.getId());
-//            loadTableView();
-//        }else{
-//            System.out.println("Delete operation was cancelled. wiht id you just clicked is = " + customer.getId());
-//        }
         Invoice.deleteOneByIdCustomer(customer.getId());
         Customer.deleteOneById(customer.getId());
         System.out.println("Delete operation with id you just clicked is = " + customer.getId());

@@ -63,9 +63,9 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="135.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="logoImage" fitHeight="150.0" fitWidth="200.0" layoutX="135.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@logo/seigan.jpg" />
+                              <Image url="@../../../../../../../../../invoiceManagerSource/logo/logo.png" />
                            </image>
                         </ImageView>
                         <Label layoutX="153.0" layoutY="14.0" text="Organization">
@@ -75,18 +75,23 @@
                         </Label>
                         <TextArea fx:id="desc" layoutX="13.0" layoutY="492.0" prefHeight="87.0" prefWidth="424.0" styleClass="field-add-item" />
                         <Separator layoutX="-5.0" layoutY="49.0" prefHeight="4.0" prefWidth="464.0" />
-                        <Label layoutX="15.0" layoutY="251.0" text="Year Operation :">
+                        <Label layoutX="16.0" layoutY="250.0" text="Invoice Code :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="year" layoutX="15.0" layoutY="271.0" prefHeight="25.0" prefWidth="105.0" styleClass="field-add-item" />
-                        <Label layoutX="135.0" layoutY="251.0" text="Agency Number :">
+                        <TextField fx:id="totalLetter" layoutX="16.0" layoutY="270.0" prefHeight="36.0" prefWidth="55.0" styleClass="field-add-item" />
+                        <Label layoutX="75.0" layoutY="278.0" text="/SG/INV/">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="agency" layoutX="135.0" layoutY="271.0" prefHeight="36.0" prefWidth="111.0" styleClass="field-add-item" />
+                        <TextField fx:id="totalInvoice" layoutX="135.0" layoutY="270.0" prefHeight="36.0" prefWidth="55.0" styleClass="field-add-item" />
+                        <Label layoutX="193.0" layoutY="278.0" text="/24">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
                      </children>
                   </AnchorPane>
                 <AnchorPane prefHeight="611.0" prefWidth="479.0">
@@ -122,9 +127,9 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="184.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="signatureImage" fitHeight="150.0" fitWidth="200.0" layoutX="184.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@logo/seigan.jpg" />
+                              <Image url="@../../../../../../../../../invoiceManagerSource/logo/signature.png" />
                            </image>
                         </ImageView>
                         <Pane fx:id="save" layoutX="20.0" layoutY="555.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">

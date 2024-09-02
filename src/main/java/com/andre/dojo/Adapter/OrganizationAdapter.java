@@ -36,6 +36,7 @@ public class OrganizationAdapter extends TypeAdapter<Organization> {
             jsonWriter.name("email").value(organization.getEmail());
             jsonWriter.name("noUrutInstansi").value(organization.getNoUrutInstansi());
             jsonWriter.name("tahunOperasi").value(organization.getTahunOperasi());
+            jsonWriter.name("totalLetter").value(organization.getTotalLetter());
             jsonWriter.name("personal");
             if (organization.getPersonal() != null){
                 personAdapter.write(jsonWriter, organization.getPersonal());
@@ -74,6 +75,9 @@ public class OrganizationAdapter extends TypeAdapter<Organization> {
                     break;
                 case "tahunOperasi":
                     organization.setTahunOperasi(jsonReader.nextInt());
+                    break;
+                case "totalLetter":
+                    organization.setTotalLetter(jsonReader.nextInt());
                     break;
                 default:
                     jsonReader.skipValue();

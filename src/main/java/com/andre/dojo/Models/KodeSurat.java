@@ -16,6 +16,18 @@ public class KodeSurat {
 
     }
 
+    public KodeSurat(long id, int noUrut){
+        this.id = id;
+        this.noUrut = noUrut;
+    }
+
+    public KodeSurat(long id, String kode, int noUrut, long organization_id){
+        this.id = id;
+        this.kode = kode;
+        this.noUrut = noUrut;
+        this.organization_id = organization_id;
+    }
+
     public KodeSurat(String kode, int no_urut, long organization_id) {
         this.id = Instant.now().toEpochMilli();
         this.kode = kode;
@@ -56,13 +68,22 @@ public class KodeSurat {
                 """;
         return DatabaseManager.deleteData(query, Long.toString(id));
     }
-    public static boolean updateById(KodeSurat kodeSurat){
+    public static boolean updateById(KodeSurat kodeSurat, long id){
         String query = """
-                UPDATE kode_surat SET 
-                id = :id, 
-                kode = :kode, 
-                noUrut = :noUrut, 
+                UPDATE kode_surat SET
+                id = :id,
+                kode = :kode,
+                noUrut = :noUrut,
                 organization_id = :organization_id
+                WHERE id = :id
+                """;
+        return DatabaseManager.updateData(query, kodeSurat);
+    }
+    public static boolean updateNumber(KodeSurat kodeSurat, long id){
+        String query = """
+                UPDATE kode_surat SET
+                id = :id,
+                noUrut = :noUrut
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, kodeSurat);

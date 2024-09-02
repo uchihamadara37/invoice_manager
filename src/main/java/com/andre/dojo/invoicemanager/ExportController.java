@@ -8,9 +8,18 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+
 import javafx.scene.control.*;
+
+import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -23,7 +32,11 @@ import net.sf.jasperreports.engine.data.JRMapArrayDataSource;
 import net.sf.jasperreports.engine.data.JsonDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
+
 import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -35,6 +48,8 @@ import java.util.*;
 public class ExportController {
     @FXML
     private AnchorPane mainPage;
+    @FXML
+    private AnchorPane anchorPaneMain;
     @FXML
     private TableView<Invoice> tableViewExport;
     @FXML
@@ -49,6 +64,8 @@ public class ExportController {
     private Pane btnExport;
     @FXML
     private Label total;
+    @FXML
+    private Label prepare;
 
     @FXML
     private Spinner<String> spinner ;
@@ -61,6 +78,11 @@ public class ExportController {
 
     public List<Invoice> dataExport = new ArrayList<>();
     public String message;
+    private ExportPrepareController exportPrepareController;
+
+    public void setExportPrepareController(ExportPrepareController exportPrepareController) {
+        this.exportPrepareController = exportPrepareController;
+    }
 
     public void setDataExport(List<Invoice> dataExport) {
         this.dataExport = dataExport;
@@ -78,6 +100,7 @@ public class ExportController {
     private String folderWithSubFolder ;
 
     public void initialize(){
+
         setupSpinner();
         spinner.valueProperty().addListener((obs, oldValue, newValue) -> {
             System.out.println("Bulan dipilih: " + newValue);
@@ -191,6 +214,7 @@ public class ExportController {
 
         spinner.setValueFactory(val);
 
+
     }
 
     public void customInitialize(){
@@ -212,6 +236,7 @@ public class ExportController {
     public void setMessage(String message) {
         this.message = message;
     }
+
 
     private void startExportOneByOne(File folderAsli){
 //        String cek = "1724503671986", cek2 = "1724656789071";
@@ -260,10 +285,24 @@ public class ExportController {
         loadTableView();
     }
 
-    private void insertDesign(){
-        Design.addToDB(new Design(
+    private void openPreparePane() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("export-prepare-view.fxml"));
+            Pane anchorPane = new Pane((Node) fxmlLoader.load());
 
-        ));
+            ExportPrepareController test = fxmlLoader.getController();
+            test.setExportController(this);
+
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(anchorPane);
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+    }
+
+    private void insertDesign(){
+//        Design.addToDB(new Design(
+
     }
 
     public void setHelloController(HelloController helloController) {
