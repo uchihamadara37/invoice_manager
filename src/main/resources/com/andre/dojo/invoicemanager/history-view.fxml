@@ -20,7 +20,7 @@
                     <Image url="@icon/sun.png" />
                 </image>
             </ImageView>
-            <TextField layoutX="710.0" layoutY="13.0" prefHeight="39.0" prefWidth="212.0" promptText="Search..." styleClass="field-search" />
+            <TextField fx:id="searchField" layoutX="710.0" layoutY="13.0" prefHeight="39.0" prefWidth="212.0" promptText="Search..." styleClass="field-search" />
             <Label fx:id="tombolTanggal" alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="39.0" prefWidth="157.0" text="29 Agustus 2024">
                 <font>
                     <Font size="15.0" />
@@ -40,27 +40,13 @@
                     <Font size="18.0" />
                 </font>
             </Label>
-            <TableView fx:id="tableViewInvoice" layoutX="14.0" layoutY="60.0" minHeight="467.0" prefHeight="467.0" prefWidth="937.0">
+            <TableView fx:id="tableViewInvoice" layoutX="14.0" layoutY="60.0" minHeight="467.0" prefHeight="536.0" prefWidth="949.0">
                 <columns>
                     <TableColumn fx:id="tableColumnCode" prefWidth="272.0" text="Invoice Code" />
                     <TableColumn fx:id="tableColumnDescription" prefWidth="374.0" text="Description" />
                     <TableColumn fx:id="tableColumnCustomer" prefWidth="274.0" text="Customer" />
                 </columns>
             </TableView>
-            <Pane fx:id="tombolExport11" layoutX="795.0" layoutY="539.0" prefHeight="42.0" prefWidth="154.0" styleClass="tombol-primary">
-                <children>
-                    <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                            <Image url="@icon/image-down.png" />
-                        </image>
-                    </ImageView>
-                    <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="114.0" text="History">
-                        <font>
-                            <Font size="15.0" />
-                        </font>
-                    </Label>
-                </children>
-            </Pane>
             <Spinner fx:id="spinner" layoutX="164.0" layoutY="12.0" prefHeight="36.0" prefWidth="217.0" />
         </children>
     </Pane>

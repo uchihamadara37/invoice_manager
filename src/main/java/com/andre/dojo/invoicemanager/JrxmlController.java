@@ -543,7 +543,7 @@ public class JrxmlController implements Initializable {
         }
     }
 
-    private static void exportToPdf(JasperPrint jasperPrint, String fullPath){
+    public static void exportToPdf(JasperPrint jasperPrint, String fullPath){
         JRPdfExporter exporter = new JRPdfExporter();
         exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
         exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(fullPath));
