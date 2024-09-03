@@ -17,14 +17,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 import static java.lang.Integer.parseInt;
@@ -32,6 +28,8 @@ import static java.lang.Integer.parseInt;
 public class ChangeDataController {
     @FXML
     private Label tombolCustomer;
+    @FXML
+    private Label tombolInvoice;
     @FXML
     private AnchorPane anchorPaneMain;
     @FXML
@@ -69,6 +67,7 @@ public class ChangeDataController {
     @FXML
     private ImageView signatureImage;
 
+    private ChangeDataCustomerController changeDataCustomerController;
     private ChangeDataInvoiceController changeDataInvoiceController;
     private HelloController helloController;
     private Personal personal;
@@ -90,13 +89,20 @@ public class ChangeDataController {
         return anchorPaneMain;
     }
 
-    public void setChangeDataInvoiceController(ChangeDataInvoiceController changeDataInvoiceController){
+    public void setChangeDataCustomerController(ChangeDataCustomerController changeDataInvoiceController){
+        this.changeDataCustomerController = changeDataInvoiceController;
+    }
+
+    public void setChangeDataInvoiceController(ChangeDataInvoiceController changeDataInvoiceController) {
         this.changeDataInvoiceController = changeDataInvoiceController;
     }
 
     public void initialize(){
         tombolCustomer.setOnMouseClicked(e -> {
             openCustomerPane();
+        });
+        tombolInvoice.setOnMouseClicked(e -> {
+            openInvoicePane();
         });
         loadData();
         disable();
@@ -130,8 +136,23 @@ public class ChangeDataController {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("change-data-customer.fxml"));
             Pane anchorPane = new Pane((Node) fxmlLoader.load());
 
-            ChangeDataInvoiceController test = fxmlLoader.getController();
+            ChangeDataCustomerController test = fxmlLoader.getController();
             test.setChangedataController(this);
+
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(anchorPane);
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+    }
+
+    private void openInvoicePane() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("change-data-invoice.fxml"));
+            Pane anchorPane = new Pane((Node) fxmlLoader.load());
+
+            ChangeDataInvoiceController changeDataInvoiceController = fxmlLoader.getController();
+            changeDataInvoiceController.setChangeDataController(this);
 
             anchorPaneMain.getChildren().removeFirst();
             anchorPaneMain.getChildren().add(anchorPane);

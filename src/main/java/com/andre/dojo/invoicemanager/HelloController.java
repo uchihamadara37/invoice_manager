@@ -16,7 +16,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -67,7 +66,7 @@ public class HelloController implements Initializable {
     private JsonDataController jsonDataController;
     private JrxmlController jrxmlController;
     private PreviewController previewController;
-    private ChangeDataInvoiceController changeDataInvoiceController;
+    private ChangeDataCustomerController changeDataInvoiceController;
     private ChangeDataController changeDataController;
     private ExportController exportController;
     private PrepareExportController prepareExportController;
@@ -361,7 +360,7 @@ public class HelloController implements Initializable {
         this.jsonDataController = jsonDataController;
     }
 
-    public ChangeDataInvoiceController getChangeDataInvoiceController() {
+    public ChangeDataCustomerController getChangeDataInvoiceController() {
         return changeDataInvoiceController;
     }
 

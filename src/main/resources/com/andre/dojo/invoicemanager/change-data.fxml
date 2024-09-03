@@ -14,25 +14,6 @@
 
 <AnchorPane fx:id="anchorPaneMain" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.ChangeDataController">
 <children>
-   <AnchorPane prefHeight="64.0" prefWidth="978.0" styleClass="top-panel">
-      <children>
-         <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@icon/sun.png" />
-            </image>
-         </ImageView>
-         <Label fx:id="tombolTanggal" alignment="CENTER" layoutX="14.0" layoutY="13.0" prefHeight="39.0" prefWidth="157.0" styleClass="top-label-active" text="Letter">
-            <font>
-               <Font size="15.0" />
-            </font>
-         </Label>
-         <Label fx:id="tombolCustomer" alignment="CENTER" layoutX="184.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Customer">
-            <font>
-               <Font size="15.0" />
-            </font>
-         </Label>
-      </children>
-   </AnchorPane>
    <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
          <children>
             <SplitPane dividerPositions="0.4651639344262295" layoutY="-3.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
@@ -178,5 +159,29 @@
               </items>
             </SplitPane>
          </children></Pane>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/sun.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="13.0" layoutY="13.0" prefHeight="39.0" prefWidth="101.0" styleClass="top-label-active" text="Lettter">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tombolCustomer" alignment="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Customer">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tombolInvoice" alignment="CENTER" layoutX="300.0" layoutY="14.0" prefHeight="37.0" prefWidth="113.0" text="Invoice">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
 </children>
 </AnchorPane>
