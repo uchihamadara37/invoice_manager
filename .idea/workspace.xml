@@ -11,11 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8adacacf-1080-473a-8e1a-343262ed38e4" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mydatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/mydatabase.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataInvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataInvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ExportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ExportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataInvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCustomerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-customer.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-customer.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,7 +98,7 @@
       <module name="invoiceManager" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.andre.dojo.invoicemanager.*" />
+          <option name="PATTERN" value="com.andre.dojo.invoicemanager.ChangeDataInvoiceController" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
