@@ -82,6 +82,7 @@ public class ChangeDataInvoiceController {
         });
         loadBox();
         loadData();
+        conButton(true);
         custName.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             handleSelection();
         });

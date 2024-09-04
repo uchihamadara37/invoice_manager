@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
@@ -62,13 +63,19 @@
                            </font>
                         </Label>
                         <TextField fx:id="totalLetter" layoutX="16.0" layoutY="270.0" prefHeight="36.0" prefWidth="55.0" styleClass="field-add-item" />
-                        <Label layoutX="75.0" layoutY="278.0" text="/SG/INV/">
+                        <Label layoutX="75.0" layoutY="278.0" text="/SG/">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="totalInvoice" layoutX="135.0" layoutY="270.0" prefHeight="36.0" prefWidth="55.0" styleClass="field-add-item" />
-                        <Label layoutX="193.0" layoutY="278.0" text="/24">
+                        <TextField fx:id="totalInvoice" layoutX="177.0" layoutY="270.0" prefHeight="36.0" prefWidth="55.0" styleClass="field-add-item" />
+                        <Label layoutX="235.0" layoutY="278.0" text="/24">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="letterCode" layoutX="108.0" layoutY="274.0" prefHeight="28.0" prefWidth="55.0" />
+                        <Label layoutX="167.0" layoutY="278.0" text="/">
                            <font>
                               <Font size="14.0" />
                            </font>
