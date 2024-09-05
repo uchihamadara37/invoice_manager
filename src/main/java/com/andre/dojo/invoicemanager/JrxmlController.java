@@ -378,8 +378,6 @@ public class JrxmlController implements Initializable {
         timeline.play();
     }
 
-
-
 //    private void saveDesign() {
 //        System.out.println("jr id = "+helloController.getInvoiceSelected().getJrxml_id());
 //        if (helloController.getInvoiceSelected().getJrxml_id() == 0 ){

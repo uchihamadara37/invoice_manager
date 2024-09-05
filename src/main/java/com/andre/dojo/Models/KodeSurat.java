@@ -62,13 +62,19 @@ public class KodeSurat {
                 """;
         return DatabaseManager.getOneData(query, KodeSurat.class, Long.toString(id));
     }
+    public static KodeSurat getOneDataByCode(String kode){
+        String query = """
+                SELECT DISTINCT * FROM kode_surat WHERE kode = :p1
+                """;
+        return DatabaseManager.getOneData(query, KodeSurat.class, kode);
+    }
     public static boolean deleteOneById(long id){
         String query = """
                 DELETE FROM kode_surat WHERE id = :p1
                 """;
         return DatabaseManager.deleteData(query, Long.toString(id));
     }
-    public static boolean updateById(KodeSurat kodeSurat, long id){
+    public static boolean updateById(KodeSurat kodeSurat){
         String query = """
                 UPDATE kode_surat SET
                 id = :id,
@@ -79,7 +85,7 @@ public class KodeSurat {
                 """;
         return DatabaseManager.updateData(query, kodeSurat);
     }
-    public static boolean updateNumber(KodeSurat kodeSurat, long id){
+    public static boolean updateNumber(KodeSurat kodeSurat){
         String query = """
                 UPDATE kode_surat SET
                 id = :id,

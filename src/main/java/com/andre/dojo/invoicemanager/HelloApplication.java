@@ -16,6 +16,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -39,13 +40,19 @@ public class HelloApplication extends Application {
     public static File filePropDir;
     public static String dirExport;
 
+    public static Organization organization = Organization.getOneData(1723509861951L);
+    public static List<KodeSurat> kodeSurats = KodeSurat.getAllData();
+
     @Override
     public void start(Stage stage) throws IOException {
 
 //        Design.deleteOneById(1724809118405L);
+//        for (Invoice i : Invoice.getAllDataBetweenTime()){
+//            System.out.println(i.getTimeStamp()+" descript : "+i.getDescription());
+//        }
+//        System.out.println(Invoice.getAllDataBetweenTime());
 
-        Invoice i = Invoice.getOneDataByCustomer(1723596664832L);
-        System.out.println(i.getDescription());
+//        System.out.println("kode surat : "+kodeSurats.getFirst().getKode());
 
         mainStage = stage;
 

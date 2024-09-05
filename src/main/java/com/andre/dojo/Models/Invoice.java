@@ -4,7 +4,9 @@ import com.andre.dojo.Utils.DatabaseManager;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Calendar;
 import java.util.List;
 
 public class Invoice {
@@ -92,6 +94,18 @@ public class Invoice {
                 SELECT * FROM invoice
                 """;
         return DatabaseManager.getListData(query, Invoice.class);
+    }
+    public static List<Invoice> getAllDataBetweenTime(){
+        Timestamp timeNow = new Timestamp(System.currentTimeMillis());
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(2024, Calendar.JANUARY, 1, 0, 0, 0);
+        Timestamp januari = new Timestamp(calendar.getTimeInMillis());
+        String query = """
+                SELECT * FROM invoice WHERE timestamp BETWEEN :q1 AND :q2
+                """;
+
+        System.out.println("kampretor");
+        return DatabaseManager.getListData(query, Invoice.class, januari.toInstant().toString(), timeNow.toInstant().toString());
     }
     public static List<Invoice> getListByCustomerID(long cs_id){
         String query = """

@@ -113,7 +113,7 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="tombolHistory" alignment="CENTER" layoutX="184.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Invoice History">
+                        <Label fx:id="tombolHistory" alignment="CENTER" layoutX="184.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Export History">
                            <font>
                               <Font size="15.0" />
                            </font>

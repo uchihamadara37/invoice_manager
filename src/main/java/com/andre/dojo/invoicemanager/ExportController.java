@@ -1,8 +1,6 @@
 package com.andre.dojo.invoicemanager;
 
-import com.andre.dojo.Models.Customer;
-import com.andre.dojo.Models.Design;
-import com.andre.dojo.Models.Invoice;
+import com.andre.dojo.Models.*;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -98,6 +96,8 @@ public class ExportController {
     Properties properties = new Properties();
     File fileProp = new File(HelloApplication.filePropDir, "config.properties");
     private String folderWithSubFolder ;
+
+    DateTimeFormatter tglBulanTahun = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("id", "ID"));
 
     public void initialize(){
 
@@ -243,46 +243,97 @@ public class ExportController {
 
         for (Invoice invoice : dataExport) {
             // cek jika data lengkap
-            if (Objects.equals(invoice.getJsonData(), "") || invoice.getJrxml_id() == 0){
+            if (Objects.equals(invoice.getJsonData(), "") || invoice.getJrxml_id() == 0 ){
                 HelloApplication.showAlert("There is invoice don`t has complete data, so it is ignored during export. code : "+invoice.getInvoiceCode());
             }else{
+//                invoiceMarkText,
+//                date,
+//                totalPriceAll,
+                // jsonData,
+//                pdfUrl,
+//                timestamp,
+//                jrxml_id,
+//                customer_id,
+//                description,
+                // invoiceCode
+
+                // generate file baru
+                Invoice invBaru = new Invoice();
+                invBaru.setJrxml_id(invoice.getJrxml_id());
+                invBaru.setDescription(invoice.getDescription());
+                invBaru.setTotalPriceAll(invoice.getTotalPriceAll());
+                invBaru.setInvoiceMarkText(invoice.getInvoiceMarkText());
+                invBaru.setDate(LocalDate.now().format(tglBulanTahun));
+                invBaru.setCustomer_id(invoice.getCustomer_id());
+
+
+                String[] kodes = invoice.getInvoiceCode().split("/");
+                for (KodeSurat ks : HelloApplication.kodeSurats){
+                    if (Objects.equals(ks.getKode(), kodes[2])){
+                        ks.setNoUrut(ks.getNoUrut()+1);
+                        // jika ganti tahun maka reset ke 1
+                        // mengecek ada berapa invoice dalam setahun ini
+
+                        List<Invoice> invSebelum = Invoice.getAllDataBetweenTime();
+                        if (invSebelum == null || invSebelum.isEmpty()){
+                            HelloApplication.organization.setNoUrutInstansi(1);
+                            HelloApplication.organization.setTahunOperasi(LocalDate.now().getYear());
+                        }else{
+                            HelloApplication.organization.setNoUrutInstansi(HelloApplication.organization.getNoUrutInstansi()+1);
+                        }
+                        Organization.updateById(HelloApplication.organization);
+                        KodeSurat.updateNumber(ks);
+
+                        
+                        break;
+                    }
+                }
+//                invBaru.setInvoiceCode(HelloApplication.organization.getNoUrutInstansi()+"/"+HelloApplication.organization.get);
+                // generate jsonData
+                invBaru.setJsonData(invoice.getJsonData());
+
+
+                // update data invoice
+                // update data kode_surat
+                // update data noUrutInstansi di organization
+                // update data item
 
                 System.out.println("Invoice ID: " + invoice.getId());
                 System.out.println("with jxrml ID : " + invoice.getJrxml_id());
 
-                JasperReport jasperReport = null;
-                try {
-                    jasperReport = JasperCompileManager.compileReport(new ByteArrayInputStream(Design.getOneData(invoice.getJrxml_id()).getJrxml().getBytes()));
-                } catch (JRException e) {
-                    HelloApplication.showAlert("There is some error : "+e.getMessage());
-                    return;
-                }
-                JsonDataSource dataSource = null;
-                try {
-                    dataSource = new JsonDataSource(new ByteArrayInputStream(invoice.getJsonData().getBytes()));
-                } catch (JRException e) {
-                    HelloApplication.showAlert("There is some error : "+e.getMessage());
-                    return;
-                }
-                JasperPrint jasperPrint = null;
-                try {
-                    jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
-                } catch (JRException e) {
-                    HelloApplication.showAlert("There is some error : "+e.getMessage());
-                    return;
-                }
-
-                // setting nama file
-                String fileName = "report_" + invoice.getId()+".pdf";
-                String pdfFullPath = folderAsli + File.separator + fileName;
-
-                JrxmlController.exportToPdf(jasperPrint, pdfFullPath);
+//                JasperReport jasperReport = null;
+//                try {
+//                    jasperReport = JasperCompileManager.compileReport(new ByteArrayInputStream(Design.getOneData(invoice.getJrxml_id()).getJrxml().getBytes()));
+//                } catch (JRException e) {
+//                    HelloApplication.showAlert("There is some error : "+e.getMessage());
+//                    return;
+//                }
+//                JsonDataSource dataSource = null;
+//                try {
+//                    dataSource = new JsonDataSource(new ByteArrayInputStream(invoice.getJsonData().getBytes()));
+//                } catch (JRException e) {
+//                    HelloApplication.showAlert("There is some error : "+e.getMessage());
+//                    return;
+//                }
+//                JasperPrint jasperPrint = null;
+//                try {
+//                    jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
+//                } catch (JRException e) {
+//                    HelloApplication.showAlert("There is some error : "+e.getMessage());
+//                    return;
+//                }
+//
+//                // setting nama file
+//                String fileName = "report_" + invoice.getId()+".pdf";
+//                String pdfFullPath = folderAsli + File.separator + fileName;
+//
+//                JrxmlController.exportToPdf(jasperPrint, pdfFullPath);
 
             }
         }
-        dataExport.clear();
-        total.setText(String.valueOf(dataExport.size()));
-        loadTableView();
+//        dataExport.clear();
+//        total.setText(String.valueOf(dataExport.size()));
+//        loadTableView();
     }
 
     private void openPreparePane() {
@@ -300,10 +351,6 @@ public class ExportController {
         }
     }
 
-    private void insertDesign(){
-//        Design.addToDB(new Design(
-
-    }
 
     public void setHelloController(HelloController helloController) {
         this.helloController = helloController;

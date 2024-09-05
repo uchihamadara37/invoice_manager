@@ -2,16 +2,20 @@ package com.andre.dojo.Utils;
 
 import com.andre.dojo.Models.Organization;
 import com.andre.dojo.invoicemanager.HelloApplication;
+import org.sql2o.Query;
 import org.sql2o.Sql2o;
 import org.sql2o.Sql2oException;
 import org.sqlite.SQLiteException;
 
+import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DatabaseManager {
     private static final String DB_NAME = "mydatabase.db";
@@ -215,9 +219,9 @@ public class DatabaseManager {
 //            stmt.execute("DROP TABLE IF EXISTS customer;");
 //            stmt.execute("ALTER TABLE item2 RENAME TO item;");
 //            stmt.execute("DROP TABLE IF EXISTS item;");
-            stmt.execute("DROP TABLE IF EXISTS design;");
+//            stmt.execute("DROP TABLE IF EXISTS design;");
 //            stmt.execute("INSERT INTO item2 SELECT * FROM item;");
-//            stmt.execute("ALTER TABLE design ADD COLUMN first_invoice_id TEXT;");
+            stmt.execute("ALTER TABLE organization ADD COLUMN kodeInstansi TEXT;");
             stmt.close();
             conn.close();
             System.out.println("Tabel telah dihapus.");
@@ -254,7 +258,27 @@ public class DatabaseManager {
         List<T> listData = new ArrayList<>();
 
         try(org.sql2o.Connection con = sql2o.open()){
-            return con.createQuery(query).withParams((Object) params).executeAndFetch(classe);
+            Query sql = con.createQuery(query);
+
+            // mencari :q1 dst
+            List<String> parame = new ArrayList<>();
+            for (int i = 0; i < query.length(); i++) {
+                if (query.startsWith(":q", i)){
+                    StringBuilder sb = new StringBuilder();
+                    while(i < query.length() && query.charAt(i) != 32){
+                        sb.append(query.charAt(i));
+                        i++;
+                    }
+                    parame.add(sb.toString());
+                }
+            }
+            // add param
+            for (String s : parame) {
+                // System.out.println(s.substring(1, 3) + " :>> " + params[Integer.parseInt(s.substring(2, 3))-1]);
+                sql.addParameter(s.substring(1, 3), params[Integer.parseInt(s.substring(2, 3))-1]);
+            }
+
+            return sql.executeAndFetch(classe);
         }catch (Sql2oException e1){
             e1.printStackTrace();
             return listData;

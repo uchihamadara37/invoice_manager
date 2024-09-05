@@ -191,12 +191,16 @@ public class ChangeDataInvoiceController {
         Organization organization = Organization.getOneData(Long.parseLong(idOr));
         int urutanSurat = organization.getTotalLetter() + 1;
         String invoiceCode = urutanSurat + "/SG/INV/" + urutanInvoice + "/" + yearCode;
-        KodeSurat.updateById(new KodeSurat(
-                Long.parseLong(idSurat), kodeSurat.getKode(),urutanInvoice,kodeSurat.getOrganization_id()
-        ), Long.parseLong(idSurat));
-        Organization.updateTotalLetter(new Organization(
-                Long.parseLong(idOr), urutanSurat, organization.getBrandName()
-        ), Long.parseLong(idOr));
+        KodeSurat.updateById(
+                new KodeSurat(
+                    Long.parseLong(idSurat), kodeSurat.getKode(),urutanInvoice,kodeSurat.getOrganization_id()
+                )
+        );
+        Organization.updateTotalLetter(
+                new Organization(
+                    Long.parseLong(idOr), urutanSurat, organization.getBrandName()
+                )
+        );
         Invoice.addToDB(new Invoice(
                 "Alfiander Comunity", descInv.getText(), invoiceCode, "29 Agustus 2024", 0, "", "", Long.parseLong(designId),cek.getId())
         );

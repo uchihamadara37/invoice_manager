@@ -193,16 +193,16 @@ public class ChangeDataController {
     }
 
     private void saveData(long idOrganization, long idPerson){
-        Organization.updateById(new Organization(
-                idOrganization, "D:\\invoiceManagerSource\\logo\\logo.png",organizationName.getText(),desc.getText(),address.getText(), email.getText(),agencyNum,yearOr,parseInt(totalLetter.getText()))
-        ,idOrganization);
+//        Organization.updateById(new Organization(
+//                idOrganization, "D:\\invoiceManagerSource\\logo\\logo.png",organizationName.getText(),desc.getText(),address.getText(), email.getText(),agencyNum,yearOr,parseInt(totalLetter.getText()))
+//        ,idOrganization);
         System.out.println("total letter : " + totalLetter.getText());
         Personal.updateById(new Personal(
                 personalName.getText(),bankName.getText(), bankNumber.getText(), bankID.getText(),"D:\\invoiceManagerSource\\logo\\signature.png",idOrganization, idPerson)
         );
         KodeSurat.updateById(new KodeSurat(
                 idKode,"INV",parseInt(totalInvoice.getText()), idOrganization
-        ), Long.parseLong(idSurat));
+        ));
         System.out.println("total invoice : " + totalInvoice.getText());
     }
 

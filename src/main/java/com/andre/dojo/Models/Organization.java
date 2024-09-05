@@ -16,6 +16,7 @@ public class Organization {
     private String address;
     private String email;
     private int noUrutInstansi;
+    private String kodeInstansi;
     private int tahunOperasi;
     private int totalLetter;
     private Personal personal;
@@ -28,7 +29,7 @@ public class Organization {
         this.brandName = brandName;
     }
 
-    public Organization(long id, String logo, String brandName, String description, String address, String email, int noUrutInstansi, int tahunOperasi, int totalLetter) {
+    public Organization(long id, String logo, String brandName, String description, String address, String email, int noUrutInstansi, String kodeInstansi, int tahunOperasi) {
         this.id = id;
         this.logo = logo;
         this.brandName = brandName;
@@ -37,7 +38,8 @@ public class Organization {
         this.email = email;
         this.noUrutInstansi = noUrutInstansi;
         this.tahunOperasi = tahunOperasi;
-        this.totalLetter = totalLetter;
+        this.totalLetter = 0;
+        this.kodeInstansi = kodeInstansi;
     }
 
     public static boolean addToDB(Organization organization){
@@ -83,7 +85,7 @@ public class Organization {
                 """;
         return DatabaseManager.deleteData(query, Long.toString(id));
     }
-    public static boolean updateById(Organization organization, long id){
+    public static boolean updateById(Organization organization){
         String query = """
                 UPDATE organization SET
                 logo = :logo, 
@@ -98,7 +100,7 @@ public class Organization {
                 """;
         return DatabaseManager.updateData(query, organization);
     }
-    public static boolean updateTotalLetter(Organization organization, long id){
+    public static boolean updateTotalLetter(Organization organization){
         String query = """
                 UPDATE organization SET
                 totalLetter = :totalLetter
@@ -157,6 +159,14 @@ public class Organization {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public void setKodeInstansi(String kodeInstansi) {
+        this.kodeInstansi = kodeInstansi;
+    }
+
+    public String getKodeInstansi() {
+        return kodeInstansi;
     }
 
     public int getNoUrutInstansi() {
