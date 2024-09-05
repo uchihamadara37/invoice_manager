@@ -266,11 +266,16 @@ public class ExportController {
                 invBaru.setDate(LocalDate.now().format(tglBulanTahun));
                 invBaru.setCustomer_id(invoice.getCustomer_id());
 
+                String kodeSurat = "";
+                int nomorSurat = 0;
 
                 String[] kodes = invoice.getInvoiceCode().split("/");
                 for (KodeSurat ks : HelloApplication.kodeSurats){
                     if (Objects.equals(ks.getKode(), kodes[2])){
                         ks.setNoUrut(ks.getNoUrut()+1);
+
+                        kodeSurat = ks.getKode();
+                        nomorSurat = ks.getNoUrut();
                         // jika ganti tahun maka reset ke 1
                         // mengecek ada berapa invoice dalam setahun ini
 
@@ -288,7 +293,14 @@ public class ExportController {
                         break;
                     }
                 }
-//                invBaru.setInvoiceCode(HelloApplication.organization.getNoUrutInstansi()+"/"+HelloApplication.organization.get);
+                invBaru.setInvoiceCode(
+                        HelloApplication.organization.getNoUrutInstansi()+
+                        "/"+HelloApplication.organization.getKodeInstansi()+
+                        "/"+kodeSurat+
+                        "/"+nomorSurat+
+                        LocalDate.now().getYear()
+                );
+
                 // generate jsonData
                 invBaru.setJsonData(invoice.getJsonData());
 

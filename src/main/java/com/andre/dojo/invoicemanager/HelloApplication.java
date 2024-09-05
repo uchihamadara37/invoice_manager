@@ -54,6 +54,10 @@ public class HelloApplication extends Application {
 
 //        System.out.println("kode surat : "+kodeSurats.getFirst().getKode());
 
+//        organization.setKodeInstansi("SG");
+//        Organization.updateById(organization);
+        System.out.println(organization.getKodeInstansi());
+
         mainStage = stage;
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));

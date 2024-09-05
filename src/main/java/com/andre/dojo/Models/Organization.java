@@ -52,8 +52,9 @@ public class Organization {
                 address, 
                 email, 
                 noUrutInstansi, 
-                tahunOperasi.
-                totalLetter
+                tahunOperasi,
+                totalLetter,
+                kodeInstansi
                 ) VALUES (
                 :id, 
                 :logo, 
@@ -63,7 +64,8 @@ public class Organization {
                 :email, 
                 :noUrutInstansi, 
                 :tahunOperasi,
-                :totalLetter
+                :totalLetter,
+                :kodeInstansi
                 )""";
         return DatabaseManager.addOneData(query, organization);
     }
@@ -95,7 +97,8 @@ public class Organization {
                 email = :email, 
                 noUrutInstansi = :noUrutInstansi, 
                 tahunOperasi = :tahunOperasi,
-                totalLetter = :totalLetter
+                totalLetter = :totalLetter,
+                kodeInstansi = :kodeInstansi
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, organization);

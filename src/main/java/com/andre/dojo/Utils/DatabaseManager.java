@@ -263,7 +263,7 @@ public class DatabaseManager {
             // mencari :q1 dst
             List<String> parame = new ArrayList<>();
             for (int i = 0; i < query.length(); i++) {
-                if (query.startsWith(":q", i)){
+                if (query.startsWith(":p", i)){
                     StringBuilder sb = new StringBuilder();
                     while(i < query.length() && query.charAt(i) != 32){
                         sb.append(query.charAt(i));
@@ -272,6 +272,7 @@ public class DatabaseManager {
                     parame.add(sb.toString());
                 }
             }
+
             // add param
             for (String s : parame) {
                 // System.out.println(s.substring(1, 3) + " :>> " + params[Integer.parseInt(s.substring(2, 3))-1]);

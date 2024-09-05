@@ -127,7 +127,7 @@ public class Invoice {
         calendar.set(2024, Calendar.JANUARY, 1, 0, 0, 0);
         Timestamp januari = new Timestamp(calendar.getTimeInMillis());
         String query = """
-                SELECT * FROM invoice WHERE timestamp BETWEEN :q1 AND :q2
+                SELECT * FROM invoice WHERE timestamp BETWEEN :p1 AND :p2
                 """;
 
         System.out.println("kampretor");

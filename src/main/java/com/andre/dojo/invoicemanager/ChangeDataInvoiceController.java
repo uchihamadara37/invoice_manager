@@ -234,7 +234,7 @@ public class ChangeDataInvoiceController {
         Organization organization = Organization.getOneData(Long.parseLong(idOr));
         int urutanSurat = organization.getTotalLetter() + 1;
         String invoiceCode = urutanSurat + "/SG/INV/" + urutanInvoice + "/" + yearCode;
-<<<<<<< HEAD
+
         KodeSurat.updateById(
                 new KodeSurat(
                     Long.parseLong(idSurat), kodeSurat.getKode(),urutanInvoice,kodeSurat.getOrganization_id()
@@ -245,22 +245,11 @@ public class ChangeDataInvoiceController {
                     Long.parseLong(idOr), urutanSurat, organization.getBrandName()
                 )
         );
-        Invoice.addToDB(new Invoice(
-                "Alfiander Comunity", descInv.getText(), invoiceCode, "29 Agustus 2024", 0, "", "", Long.parseLong(designId),cek.getId())
-        );
-        loadTableView();
-=======
-        Invoice.addToDB(new Invoice(
-                name.getText(), desc.getText(), invoiceCode, "29 Agustus 2024", 0,"","",Long.parseLong(designId), customerId
-        ));
-        Organization.updateTotalLetter(new Organization(
-                Long.parseLong(idOr), urutanSurat, organization.getBrandName()
-        ), Long.parseLong(idOr));
-        KodeSurat.updateById(new KodeSurat(
-                Long.parseLong(idSurat), kodeSurat.getKode(),urutanInvoice,kodeSurat.getOrganization_id()
-        ), Long.parseLong(idSurat));
-        loadData();
->>>>>>> ad6c29f3dab1aa03396d36f64ac56432445a8eca
+//        Invoice.addToDB(new Invoice(
+//                "Alfiander Comunity", descInv.getText(), invoiceCode, "29 Agustus 2024", 0, "", "", Long.parseLong(designId),cek.getId())
+//        );
+//        loadTableView();
+
         reset();
     }
 
