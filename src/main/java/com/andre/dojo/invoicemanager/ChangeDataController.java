@@ -1,15 +1,13 @@
 package com.andre.dojo.invoicemanager;
 
+import com.andre.dojo.Models.Customer;
 import com.andre.dojo.Models.KodeSurat;
 import com.andre.dojo.Models.Organization;
 import com.andre.dojo.Models.Personal;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -17,21 +15,21 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.lang.Integer.parseInt;
 
 public class ChangeDataController {
     @FXML
     private Label tombolCustomer;
+    @FXML
+    private Label tombolInvoice;
     @FXML
     private AnchorPane anchorPaneMain;
     @FXML
@@ -68,7 +66,10 @@ public class ChangeDataController {
     private ImageView logoImage;
     @FXML
     private ImageView signatureImage;
+    @FXML
+    private ChoiceBox<String> letterCode;
 
+    private ChangeDataCustomerController changeDataCustomerController;
     private ChangeDataInvoiceController changeDataInvoiceController;
     private HelloController helloController;
     private Personal personal;
@@ -81,6 +82,9 @@ public class ChangeDataController {
     private Image previousLogoImage, previousSignatureImage, logoFix, signatureFix;
     private static final String PREDEFINED_SAVE_PATH = "D:\\invoiceManagerSource\\logo\\";
     private File selectedLogo, selectedSignature;
+    private long idKodeSurat;
+    private String nameKodeSurat;
+    private Map<String, KodeSurat> suratMap = new HashMap<>();
 
     public void setHelloController(HelloController helloController) {
         this.helloController = helloController;
@@ -90,7 +94,11 @@ public class ChangeDataController {
         return anchorPaneMain;
     }
 
-    public void setChangeDataInvoiceController(ChangeDataInvoiceController changeDataInvoiceController){
+    public void setChangeDataCustomerController(ChangeDataCustomerController changeDataInvoiceController){
+        this.changeDataCustomerController = changeDataInvoiceController;
+    }
+
+    public void setChangeDataInvoiceController(ChangeDataInvoiceController changeDataInvoiceController) {
         this.changeDataInvoiceController = changeDataInvoiceController;
     }
 
@@ -98,7 +106,11 @@ public class ChangeDataController {
         tombolCustomer.setOnMouseClicked(e -> {
             openCustomerPane();
         });
+        tombolInvoice.setOnMouseClicked(e -> {
+            openInvoicePane();
+        });
         loadData();
+        loadBox();
         disable();
         edit.setOnMouseClicked(e -> {
             enable();
@@ -119,6 +131,9 @@ public class ChangeDataController {
             saveImage(getSelectedLogo(), getSelectedSignature());
             textAccess(true);
         });
+        letterCode.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            handleSelection();
+        });
 
         changeLogo.setOnAction(event -> changeLogoOrganization());
 
@@ -130,8 +145,23 @@ public class ChangeDataController {
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("change-data-customer.fxml"));
             Pane anchorPane = new Pane((Node) fxmlLoader.load());
 
-            ChangeDataInvoiceController test = fxmlLoader.getController();
+            ChangeDataCustomerController test = fxmlLoader.getController();
             test.setChangedataController(this);
+
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(anchorPane);
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+    }
+
+    private void openInvoicePane() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("change-data-invoice.fxml"));
+            Pane anchorPane = new Pane((Node) fxmlLoader.load());
+
+            ChangeDataInvoiceController changeDataInvoiceController = fxmlLoader.getController();
+            changeDataInvoiceController.setChangeDataController(this);
 
             anchorPaneMain.getChildren().removeFirst();
             anchorPaneMain.getChildren().add(anchorPane);
@@ -178,6 +208,7 @@ public class ChangeDataController {
         changeSignature.setDisable(con);
         totalInvoice.setDisable(con);
         totalLetter.setDisable(con);
+        letterCode.setDisable(con);
     }
 
     private void disable(){
@@ -201,8 +232,10 @@ public class ChangeDataController {
                 personalName.getText(),bankName.getText(), bankNumber.getText(), bankID.getText(),"D:\\invoiceManagerSource\\logo\\signature.png",idOrganization, idPerson)
         );
         KodeSurat.updateById(new KodeSurat(
+
                 idKode,"INV",parseInt(totalInvoice.getText()), idOrganization
         ));
+
         System.out.println("total invoice : " + totalInvoice.getText());
     }
 
@@ -293,6 +326,29 @@ public class ChangeDataController {
             System.out.println("File saved to: " + destinationFile.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void loadBox(){
+        List<KodeSurat> kodeSurats = KodeSurat.getAllData();
+
+        for (KodeSurat kodeSurat : kodeSurats) {
+            String name = kodeSurat.getKode(); // Assuming getName() returns the customer's name
+            letterCode.getItems().add(name);
+            suratMap.put(name, kodeSurat); // Map the name to the Customer object
+        }
+        letterCode.getSelectionModel().select("INV");
+    }
+
+    private void handleSelection() {
+        String selectedName = letterCode.getSelectionModel().getSelectedItem();
+        if (selectedName != null) {
+            KodeSurat kodeSurat = suratMap.get(selectedName);
+            if (kodeSurat != null) {
+                idKodeSurat = kodeSurat.getId();
+                nameKodeSurat = kodeSurat.getKode();
+                totalInvoice.setText(String.valueOf(kodeSurat.getNoUrut()));
+            }
         }
     }
 

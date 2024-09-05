@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -10,36 +11,35 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPaneMain" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.ChangeDataCustomerController">
-<children>
-   <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+<AnchorPane fx:id="anchorPaneMain" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.ChangeDataInvoiceController">
+   <children>
+      <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
          <children>
-            <TableView fx:id="tableViewCustomer" layoutX="14.0" layoutY="66.0" prefHeight="297.0" prefWidth="951.0">
-              <columns>
-                <TableColumn fx:id="tableColumnName" prefWidth="299.0" text="Name" />
-                <TableColumn fx:id="tableColumnDesc" prefWidth="292.0" text="Description" />
-                  <TableColumn fx:id="tableColumnPhone" prefWidth="273.0" text="Phone Number" />
-                  <TableColumn fx:id="tableColumnDelete" minWidth="0.0" prefWidth="81.0" text="Action" />
-              </columns>
+            <TableView fx:id="tableViewInvoice" layoutX="14.0" layoutY="66.0" prefHeight="297.0" prefWidth="951.0">
+               <columns>
+                  <TableColumn fx:id="tableColumnCode" prefWidth="200.0" text="Invoice Number" />
+                  <TableColumn fx:id="tableColumnName" prefWidth="274.0" text="Invoice Name" />
+                  <TableColumn fx:id="tableColumnDesc" minWidth="0.0" prefWidth="399.0" text="Invoice Description" />
+                  <TableColumn fx:id="tableColumnDelete" minWidth="0.0" prefWidth="76.0" text="Action" />
+               </columns>
             </TableView>
-            <Label layoutX="18.0" layoutY="372.0" text="Name :">
+            <Label layoutX="18.0" layoutY="372.0" text="Customer Name :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="428.0" text="Customer Description : ">
+            <Label layoutX="17.0" layoutY="428.0" text="Invoice Name :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="486.0" text="Phone Number : ">
+            <Label layoutX="17.0" layoutY="486.0" text="Invoice Description :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="name" layoutX="17.0" layoutY="392.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
-            <TextField fx:id="desc" layoutX="17.0" layoutY="449.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
-            <TextField fx:id="phone" layoutX="17.0" layoutY="507.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <TextField fx:id="name" layoutX="17.0" layoutY="449.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <TextField fx:id="desc" layoutX="17.0" layoutY="507.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
             <TextField layoutX="333.0" layoutY="14.0" prefHeight="39.0" prefWidth="313.0" promptText="Search..." styleClass="field-search" />
             <Pane fx:id="add" layoutX="18.0" layoutY="557.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
                <children>
@@ -83,7 +83,9 @@
                   </Label>
                </children>
             </Pane>
-         </children></Pane>
+            <ChoiceBox fx:id="custName" layoutX="17.0" layoutY="393.0" prefHeight="36.0" prefWidth="457.0" />
+         </children>
+      </Pane>
       <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
@@ -91,22 +93,22 @@
                   <Image url="@icon/sun.png" />
                </image>
             </ImageView>
-            <Label fx:id="tombolOrganization" alignment="CENTER" layoutX="13.0" layoutY="13.0" prefHeight="39.0" prefWidth="101.0" text="Lettter">
+            <Label fx:id="tombolLetter" alignment="CENTER" layoutX="13.0" layoutY="13.0" prefHeight="39.0" prefWidth="101.0" text="Lettter">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" styleClass="top-label-active" text="Customer">
+            <Label fx:id="tombolCustomer" alignment="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Customer">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="tombolInvoice" alignment="CENTER" layoutX="300.0" layoutY="14.0" prefHeight="37.0" prefWidth="113.0" text="Invoice">
+            <Label alignment="CENTER" layoutX="300.0" layoutY="14.0" prefHeight="37.0" prefWidth="113.0" styleClass="top-label-active" text="Invoice">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-</children>
+   </children>
 </AnchorPane>

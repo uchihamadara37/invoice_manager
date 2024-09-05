@@ -51,6 +51,32 @@ public class Invoice {
         this.jrxml_id = design_id;
         this.customer_id = customer_id;
     }
+
+    public Invoice(
+            String invoiceMarkText,
+            String description,
+            String invoiceCode,
+            String date,
+            int totalPriceAll,
+            String jsonData,
+            String pdfUrl,
+            long design_id,
+            long customer_id,
+            long id
+    ) {
+        this.id = id;
+        this.invoiceMarkText = invoiceMarkText;
+        this.date = date;
+        this.totalPriceAll = totalPriceAll;
+        this.jsonData = jsonData;
+        this.pdfUrl = pdfUrl;
+        this.timestamp = Instant.now().toString();
+        this.description = description;
+        this.invoiceCode = invoiceCode;
+        this.jrxml_id = design_id;
+        this.customer_id = customer_id;
+    }
+
     public static boolean addToDB(Invoice invoice){
         String query = """
                 INSERT INTO invoice (

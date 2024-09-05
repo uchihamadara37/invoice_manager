@@ -1,6 +1,9 @@
 package com.andre.dojo.invoicemanager;
 
-import com.andre.dojo.Models.*;
+import com.andre.dojo.Models.Customer;
+import com.andre.dojo.Models.Invoice;
+import com.andre.dojo.Models.KodeSurat;
+import com.andre.dojo.Models.Organization;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -9,7 +12,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -18,38 +20,35 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 import java.time.Year;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ChangeDataInvoiceController {
+    @FXML
+    private AnchorPane anchorPaneMain;
+    @FXML
+    private TableView<Invoice> tableViewInvoice;
+    @FXML
+    private TableColumn<Invoice, String> tableColumnCode;
+    @FXML
+    private TableColumn<Invoice, String> tableColumnName;
+    @FXML
+    private TableColumn<Invoice, String> tableColumnDesc;
+    @FXML
+    private TableColumn<Invoice, Void> tableColumnDelete;
 
     @FXML
-    private TableView<Customer> tableViewCustomer;
+    private Label tombolCustomer;
     @FXML
-    private TableColumn<Customer, String> tableColumnName;
-    @FXML
-    private TableColumn<Customer, String> tableColumnDesc;
-    @FXML
-    private TableColumn<Customer, String> tableColumnPhone;
-    @FXML
-    private TableColumn<Customer, Void> tableColumnDelete;
+    private Label tombolLetter;
 
     @FXML
-    private TextField name;
+    private ChoiceBox<String> custName;
     @FXML
     private TextField desc;
     @FXML
-    private TextField phone;
-    @FXML
-    private TextField descInv;
-
-    @FXML
-    private Label tombolOrganization;
-    @FXML
-    private Label inv;
-    @FXML
-    private Label no;
-
-    @FXML
-    private AnchorPane anchorPaneMain;
+    private TextField name;
 
     @FXML
     private Pane add;
@@ -58,53 +57,59 @@ public class ChangeDataInvoiceController {
     @FXML
     private Pane reset;
 
-    private ChangeDataController changedataController;
-    private HelloController helloController;
-    private long idCustomer;
-    private long idOrganization;
-
-    public void setChangedataController(ChangeDataController changedataController){
-        this.changedataController = changedataController;
-    }
-
-    public void setHelloController(HelloController helloController) {
-        this.helloController = helloController;
-    }
+    private ChangeDataCustomerController changeDataCustomerController;
+    private ChangeDataController changeDataController;
+    private Map<String, Customer> customerMap = new HashMap<>();
+    private long customerId;
+    private String invCode;
+    private long invId;
 
     public void initialize(){
-        update.setVisible(false);
-        no.setVisible(false);
-        inv.setVisible(false);
-
-        tombolOrganization.setOnMouseClicked(e -> {
-            openOrganizationPane();
+        tombolLetter.setOnMouseClicked(e -> {
+            openLetterPane();
         });
-        loadTableView();
-
-        // Clear person details.
-        showDataCustomer(null);
-
-        // Listen for selection changes and show the person details when changed.
-        tableViewCustomer.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> showDataCustomer(newValue));
-
+        tombolCustomer.setOnMouseClicked(e -> {
+            openCustomerPane();
+        });
         reset.setOnMouseClicked(event -> {
             reset();
         });
-        add.setOnMouseClicked(event->{
-            addCustomer();
+        update.setOnMouseClicked(event -> {
+            handleUpdate();
         });
-        update.setOnMouseClicked(event->{
-            editCustomer();
+        add.setOnMouseClicked(event -> {
+            handleAdd();
         });
+        loadBox();
+        loadData();
+        conButton(true);
+        custName.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            handleSelection();
+        });
+        tableViewInvoice.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> showDetail(newValue));
     }
 
-    private void openOrganizationPane() {
+    public AnchorPane getAnchorPaneMain() {
+        return anchorPaneMain;
+    }
+
+    public void setChangeDataCustomerController(ChangeDataCustomerController changeDataCustomerController) {
+        this.changeDataCustomerController = changeDataCustomerController;
+    }
+
+    public void setChangeDataController(ChangeDataController changeDataController) {
+        this.changeDataController = changeDataController;
+    }
+
+    private void openLetterPane() {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("change-data.fxml"));
             Pane anchorPane = new Pane((Node) fxmlLoader.load());
+
             ChangeDataController changeDataController = fxmlLoader.getController();
             changeDataController.setChangeDataInvoiceController(this);
+
             anchorPaneMain.getChildren().removeFirst();
             anchorPaneMain.getChildren().add(anchorPane);
         }catch (IOException e1){
@@ -112,14 +117,35 @@ public class ChangeDataInvoiceController {
         }
     }
 
-    public void loadTableView() {
-        tableViewCustomer.setEditable(true);
-        tableViewCustomer.setItems(FXCollections.observableArrayList(Customer.getAllData()));
+    private void openCustomerPane() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("change-data-customer.fxml"));
+            Pane anchorPane = new Pane((Node) fxmlLoader.load());
 
-        tableColumnName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getName()));
+            ChangeDataCustomerController changeDataCustomerController = fxmlLoader.getController();
+            changeDataCustomerController.setChangeDataInvoiceController(this);
+
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(anchorPane);
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+    }
+
+    private void loadData(){
+//        List<Customer> customers = Customer.getAllData();
+//
+//        for (Customer customer : customers) {
+//            String name = customer.getName(); // Assuming getName() returns the customer's name
+//            custName.getItems().add(name);
+//            customerMap.put(name, customer); // Map the name to the Customer object
+//        }
+        tableViewInvoice.setEditable(true);
+        tableViewInvoice.setItems(FXCollections.observableArrayList(Invoice.getAllData()));
+        tableColumnName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceMarkText()));
         tableColumnDesc.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));
-        tableColumnPhone.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getPhoneNumber()));
-        tableColumnDelete.setCellFactory(e -> new TableCell<Customer, Void>() {
+        tableColumnCode.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceCode()));
+        tableColumnDelete.setCellFactory(e -> new TableCell<Invoice, Void>() {
             ImageView icon = new ImageView(new Image(getClass().getResourceAsStream("icon/circle-minus.png")));
             private final HBox container = new HBox();
             {
@@ -131,8 +157,8 @@ public class ChangeDataInvoiceController {
                 container.setPadding(new Insets(0,0,0,20));
 
                 container.setOnMouseClicked(event -> {
-                    Customer customer = getTableView().getItems().get(getIndex());
-                    handleDelete(customer);
+                    Invoice invoice = getTableView().getItems().get(getIndex());
+                    handleDelete(invoice);
                 });
             }
             @Override
@@ -145,44 +171,61 @@ public class ChangeDataInvoiceController {
                 }
             }
         });
-
     }
 
-    private void showDataCustomer(Customer customer) {
-        if (customer != null) {
-            name.setText(customer.getName());
-            desc.setText(customer.getDescription());
-            phone.setText(customer.getPhoneNumber());
-//            Organization organization = Organization.getOneData(12);
-            Invoice invoice = Invoice.getOneDataByCustomer(customer.getId());
-            idCustomer = customer.getId();
-            idOrganization = customer.getOrganization_id();
-            descInv.setText(invoice.getDescription());
-            no.setText(invoice.getInvoiceCode());
-            update.setVisible(true);
-            add.setVisible(false);
-            no.setVisible(true);
-            inv.setVisible(true);
-        } else {
-            name.setText("");
-            desc.setText("");
-            phone.setText("");
+    private void handleDelete(Invoice invoice){
+        Invoice.deleteOneById(invoice.getId());
+        loadData();
+        reset();
+    }
+
+    private void handleSelection() {
+        String selectedName = custName.getSelectionModel().getSelectedItem();
+        if (selectedName != null) {
+            Customer selectedCustomer = customerMap.get(selectedName);
+            if (selectedCustomer != null) {
+                customerId = selectedCustomer.getId();
+            }
         }
     }
 
-    private void addCustomer(){
-        String cId = "1723509861951";
+    private void showDetail(Invoice invoice){
+        if (invoice != null) {
+            name.setText(invoice.getInvoiceMarkText());
+            desc.setText(invoice.getDescription());
+            invCode = invoice.getInvoiceCode();
+            invId = invoice.getId();
+            selectCustomerById(invoice.getCustomer_id());
+            conButton(false);
+        } else {
+            name.setText("");
+            desc.setText("");
+        }
+
+    }
+
+    private void selectCustomerById(long customerId) {
+        for (Map.Entry<String, Customer> entry : customerMap.entrySet()) {
+            Customer customer = entry.getValue();
+            if (customer.getId() == customerId) { // Check if the customer ID matches
+                custName.getSelectionModel().select(entry.getKey()); // Select the corresponding name
+                break;
+            }
+        }
+    }
+
+    private void handleUpdate(){
         String designId = "1725261011387";
-        Customer.addToDB(
-                new Customer(
-                        name.getText(),
-                        desc.getText(),
-                        phone.getText(),
-                        Long.parseLong(cId)
-                ));
-        Customer cek = Customer.getLastInsertedData();
-        System.out.println("Last id data after insert : "+ cek.getId());
+        Invoice.updateById(new Invoice(
+                name.getText(), desc.getText(), invCode, "29 Agustus 2024", 0,"","",Long.parseLong(designId), customerId, invId
+        ));
+        loadData();
+        reset();
+    }
+
+    private void handleAdd(){
         String idSurat = "1723596852024";
+        String designId = "1725261011387";
         KodeSurat kodeSurat = KodeSurat.getOneData(Long.parseLong(idSurat));
         String year = String.valueOf(Year.now().getValue());
         String yearCode = year.substring(year.length() - 2);
@@ -191,6 +234,7 @@ public class ChangeDataInvoiceController {
         Organization organization = Organization.getOneData(Long.parseLong(idOr));
         int urutanSurat = organization.getTotalLetter() + 1;
         String invoiceCode = urutanSurat + "/SG/INV/" + urutanInvoice + "/" + yearCode;
+<<<<<<< HEAD
         KodeSurat.updateById(
                 new KodeSurat(
                     Long.parseLong(idSurat), kodeSurat.getKode(),urutanInvoice,kodeSurat.getOrganization_id()
@@ -205,38 +249,40 @@ public class ChangeDataInvoiceController {
                 "Alfiander Comunity", descInv.getText(), invoiceCode, "29 Agustus 2024", 0, "", "", Long.parseLong(designId),cek.getId())
         );
         loadTableView();
+=======
+        Invoice.addToDB(new Invoice(
+                name.getText(), desc.getText(), invoiceCode, "29 Agustus 2024", 0,"","",Long.parseLong(designId), customerId
+        ));
+        Organization.updateTotalLetter(new Organization(
+                Long.parseLong(idOr), urutanSurat, organization.getBrandName()
+        ), Long.parseLong(idOr));
+        KodeSurat.updateById(new KodeSurat(
+                Long.parseLong(idSurat), kodeSurat.getKode(),urutanInvoice,kodeSurat.getOrganization_id()
+        ), Long.parseLong(idSurat));
+        loadData();
+>>>>>>> ad6c29f3dab1aa03396d36f64ac56432445a8eca
         reset();
     }
 
-    private void editCustomer(){
-        Customer.updateById(new Customer(
-                name.getText(),
-                desc.getText(),
-                phone.getText(),
-                idOrganization,
-                idCustomer
-        ));
-        System.out.println("is clikced?");
-        loadTableView();
-        reset();
+    private void conButton(boolean con){
+        add.setVisible(con);
+        update.setVisible(!con);
     }
 
     private void reset(){
         name.setText("");
         desc.setText("");
-        phone.setText("");
-        descInv.setText("");
-        no.setVisible(false);
-        inv.setVisible(false);
-        add.setVisible(true);
-        update.setVisible(false);
+        custName.getSelectionModel().clearSelection();
+        conButton(true);
     }
 
-    private void handleDelete(Customer customer){
-        Invoice.deleteOneByIdCustomer(customer.getId());
-        Customer.deleteOneById(customer.getId());
-        System.out.println("Delete operation with id you just clicked is = " + customer.getId());
-        loadTableView();
-        reset();
+    private void loadBox(){
+        List<Customer> customers = Customer.getAllData();
+
+        for (Customer customer : customers) {
+            String name = customer.getName(); // Assuming getName() returns the customer's name
+            custName.getItems().add(name);
+            customerMap.put(name, customer); // Map the name to the Customer object
+        }
     }
 }
