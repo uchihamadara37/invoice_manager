@@ -161,7 +161,7 @@ public class AddItemController implements Initializable {
             showCode.setText(invoiceSelected.getInvoiceCode());
             showDescription.setText(invoiceSelected.getDescription());
             showCustomer.setText(Customer.getOneData(invoiceSelected.getCustomer_id()).getName()+ " | "+Customer.getOneData(invoiceSelected.getCustomer_id()).getDescription());
-            showTimeStamp.setText(ZonedDateTime.parse(invoiceSelected.getTimeStamp()).format(formatter));
+            showTimeStamp.setText(ZonedDateTime.parse(invoiceSelected.getTimestamp()).format(formatter));
         }else{
             showCode.setText("");
             showDescription.setText("");
@@ -235,7 +235,7 @@ public class AddItemController implements Initializable {
                 e.getValue().setFillNameWithMonth(t1);
 
                 String bulanTahun = LocalDateTime.parse(
-                        Invoice.getOneData(e.getValue().getInvoice_id()).getTimeStamp(),
+                        Invoice.getOneData(e.getValue().getInvoice_id()).getTimestamp(),
                         DateTimeFormatter.ISO_DATE_TIME
                 ).format(formatter2);
 

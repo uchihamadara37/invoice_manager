@@ -16,6 +16,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -46,17 +48,23 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-//        Design.deleteOneById(1724809118405L);
-//        for (Invoice i : Invoice.getAllDataBetweenTime()){
-//            System.out.println(i.getTimeStamp()+" descript : "+i.getDescription());
-//        }
-//        System.out.println(Invoice.getAllDataBetweenTime());
+//        Organization org = Organization.getOneData(1723509861951L);
+//        org.setTahunOperasi(2024);
+//        Organization.updateById(org);
 
-//        System.out.println("kode surat : "+kodeSurats.getFirst().getKode());
+        DatabaseManager.dropTable();
 
-//        organization.setKodeInstansi("SG");
-//        Organization.updateById(organization);
-        System.out.println(organization.getKodeInstansi());
+//        Invoice inv = new Invoice();
+//        inv.setId(Instant.now().toEpochMilli());
+//        inv.setTimestamp(Instant.now().toString());
+//
+//        inv.setDescription("ok description");
+//        inv.setTotalPriceAll(1000);
+//        inv.setInvoiceMarkText("okok/okok/ok");
+//        inv.setDate(LocalDate.now().getMonth().toString());
+//        System.out.println(inv.getTimestamp());
+//        Invoice.addToDB(inv);
+
 
         mainStage = stage;
 

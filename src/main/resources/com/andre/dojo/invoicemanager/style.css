@@ -326,3 +326,11 @@
     -fx-text-fill: -fx-light-accent-color;
     -fx-font-weight: 700;
 }
+.pane-cancel .label:hover{
+    -fx-text-fill: white;
+}
+.pane-cancel:hover{
+    -fx-border-width: 0px;
+    -fx-background-color: -fx-light-accent-color;
+    -fx-text-fill: white;
+}

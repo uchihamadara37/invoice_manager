@@ -221,7 +221,9 @@ public class DatabaseManager {
 //            stmt.execute("DROP TABLE IF EXISTS item;");
 //            stmt.execute("DROP TABLE IF EXISTS design;");
 //            stmt.execute("INSERT INTO item2 SELECT * FROM item;");
-            stmt.execute("ALTER TABLE organization ADD COLUMN kodeInstansi TEXT;");
+            stmt.execute("DELETE FROM item WHERE invoice_id = 0;");
+//            stmt.execute("DELETE FROM invoice WHERE id = 1726207571539;");
+//            stmt.execute("ALTER TABLE organization ADD COLUMN kodeInstansi TEXT;");
             stmt.close();
             conn.close();
             System.out.println("Tabel telah dihapus.");
@@ -234,7 +236,7 @@ public class DatabaseManager {
     public static <T> boolean addOneData (String query, T object) {
         try (org.sql2o.Connection conn = sql2o.beginTransaction()) {
             conn.createQuery(query).bind(object).executeUpdate();
-            System.out.println("query masuk telah dijalankan");
+//            System.out.println("query masuk telah dijalankan");
             conn.commit();
             return true;
 
