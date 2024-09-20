@@ -29,6 +29,7 @@ public class Item {
     }
 
     public static boolean addToDB(Item item){
+        System.out.println("Item.tambhkan item"+item.getName());
         String query = """
                 INSERT INTO item (
                 id, 

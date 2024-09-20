@@ -44,7 +44,7 @@ public class PrepareExportController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadTableView(Invoice.getAllData());
+        loadTableView(Invoice.getAllDataGroubByTemplate());
 
         tableViewInvoice.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {

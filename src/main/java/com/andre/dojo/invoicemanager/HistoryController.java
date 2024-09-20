@@ -16,11 +16,14 @@ import javafx.util.StringConverter;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
 import java.util.*;
 
 public class HistoryController implements Initializable {
     @FXML
-    private Spinner<Month> spinner ;
+    private Spinner<String> spinner ;
     @FXML
     private TableView<Invoice> tableViewInvoice;
     @FXML
@@ -29,11 +32,17 @@ public class HistoryController implements Initializable {
     private TableColumn<Invoice, String> tableColumnDescription;
     @FXML
     private TableColumn<Invoice, String> tableColumnCustomer;
+    @FXML
+    private TableColumn<Invoice, String> tableColumnTime;
+    @FXML
+    private TableColumn<Invoice, String> tableColumnDate;
 
     @FXML
     private Label tombolHistory;
     @FXML
     private Label tombolTanggal;
+    @FXML
+    private Label tombolShowAll;
     @FXML
     private TextField searchField;
 
@@ -45,24 +54,16 @@ public class HistoryController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ObservableList<Month> listMoon = FXCollections.observableArrayList(Month.values());
-        Collections.reverse(listMoon);
-        SpinnerValueFactory<Month> val = new SpinnerValueFactory.ListSpinnerValueFactory<>(listMoon);
-        val.setValue(LocalDate.now().getMonth());
-        spinner.setValueFactory(val);
-        spinner.getValueFactory().setConverter(new StringConverter<Month>() {
-            @Override
-            public String toString(Month month) {
-                if (month != null) {
-                    return month.toString().substring(0, 1).toUpperCase() + month.toString().substring(1).toLowerCase();
-                } else {
-                    return "";
-                }
-            }
 
-            @Override
-            public Month fromString(String string) {
-                return Month.valueOf(string.toUpperCase());
+        // installasi spinner
+        setupSpinner();
+        spinner.valueProperty().addListener((obs, oldValue, newValue) -> {
+//            System.out.println("Bulan dipilih: " + newValue);
+            List<Invoice> listInvoice = Invoice.getAllDataGroubByBulan(newValue);
+            if (listInvoice != null || !listInvoice.isEmpty()){
+                loadTableView(listInvoice);
+            }else{
+                loadTableView(new ArrayList<Invoice>());
             }
         });
 
@@ -75,6 +76,25 @@ public class HistoryController implements Initializable {
         searchField.setOnKeyReleased(e -> {
             searchNow();
         });
+
+        tombolShowAll.setOnMouseClicked(e -> {
+            loadTableView(Invoice.getAllData());
+        });
+
+    }
+
+    private void setupSpinner() {
+        ObservableList<String> listMoon = FXCollections.observableArrayList();
+        for (Month month : Month.values()) {
+            listMoon.add(month.getDisplayName(TextStyle.FULL, new Locale("id", "ID")));
+        }
+        Collections.reverse(listMoon);
+        SpinnerValueFactory<String> valueFactory = new SpinnerValueFactory.ListSpinnerValueFactory<>(listMoon);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM", new Locale("id", "ID"));
+        valueFactory.setValue(LocalDate.now().format(formatter));
+
+        spinner.setValueFactory(valueFactory);
 
     }
 
@@ -89,13 +109,23 @@ public class HistoryController implements Initializable {
     private void openInvoicePane() {
         helloController.getAnchorPaneMain().getChildren().removeFirst();
         helloController.getAnchorPaneMain().getChildren().add(helloController.getPaneInvoice());
-        helloController.loadTableView(Invoice.getAllData());
+        helloController.loadTableView(Invoice.getAllDataGroubByTemplate());
     }
 
     private void loadTableView(Collection<Invoice> data) {
         tableViewInvoice.setItems(FXCollections.observableArrayList(data));
         tableColumnCode.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceCode()));
         tableColumnDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));
+        tableColumnDate.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDate()));
         tableColumnCustomer.setCellValueFactory(e -> new SimpleStringProperty(Customer.getOneData(e.getValue().getCustomer_id()).getName()));
+        tableColumnTime.setCellValueFactory(e -> {
+            if (e == null){
+                return new SimpleStringProperty("jangkrik");
+            }else{
+                ZonedDateTime zonedDateTime = ZonedDateTime.parse(e.getValue().getTimestamp());
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy hh:mm a");
+                return new SimpleStringProperty(zonedDateTime.format(formatter));
+            }
+        });
     }
 }

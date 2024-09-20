@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-d
 import static java.lang.Integer.parseInt;
 
 public class ChangeDataController {

@@ -188,7 +188,7 @@ public class SetupController implements Initializable {
         }
     }
 
-    private void loadJsonData(Invoice invoice) {
+    public static void loadJsonData(Invoice invoice) {
         invoice.setTotalPriceAll(Item.getSumOfPriceByInvoiceId(invoice.getId()));
 
         HelloController.customJSON.setOrganization(Organization.getOneData(Customer.getOneData(invoice.getCustomer_id()).getOrganization_id()));
@@ -198,7 +198,7 @@ public class SetupController implements Initializable {
 
         invoice.setJsonData(json);
         Invoice.updateById(invoice);
-        helloController.getJsonDataController().setJsonText(json);
+        HelloController.jsonDataController.setJsonText(json);
 
     }
 
@@ -216,7 +216,7 @@ public class SetupController implements Initializable {
             showCode.setText(invoice.getInvoiceCode());
             showDescription.setText(invoice.getDescription());
             showCustomer.setText(Customer.getOneData(invoice.getCustomer_id()).getName()+" | "+Customer.getOneData(invoice.getCustomer_id()).getDescription());
-            showTimeStamp.setText("Created at "+ZonedDateTime.parse(invoice.getTimeStamp()).format(formatter));
+            showTimeStamp.setText("Created at "+ZonedDateTime.parse(invoice.getTimestamp()).format(formatter));
         }else{
             showCode.setText("No Invoice Selected.");
             showDescription.setText("Please select invoice first then you can add some items on it.");
@@ -227,11 +227,15 @@ public class SetupController implements Initializable {
 
     private void loadIsiTable() {
         tableViewInvoice.setEditable(true);
-        tableViewInvoice.setItems(FXCollections.observableArrayList(Invoice.getAllData()));
+        tableViewInvoice.setItems(FXCollections.observableArrayList(Invoice.getAllDataGroubByTemplate()));
 
         tableColumnTimeCreated.setCellValueFactory(e -> {
-            ZonedDateTime zonedDateTime = ZonedDateTime.parse(e.getValue().getTimeStamp());
+
+            ZonedDateTime zonedDateTime = ZonedDateTime.parse(e.getValue().getTimestamp());
+//            System.out.println(e.getValue().getTimestamp());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy hh:mm a");
             return new SimpleStringProperty(zonedDateTime.format(formatter));
+//            return new SimpleStringProperty("okoko");
         });
         tableColumnCode.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceCode()));
         tableColumnDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));

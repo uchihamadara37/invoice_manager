@@ -42,12 +42,19 @@
             </Label>
             <TableView fx:id="tableViewInvoice" layoutX="14.0" layoutY="60.0" minHeight="467.0" prefHeight="536.0" prefWidth="949.0">
                 <columns>
-                    <TableColumn fx:id="tableColumnCode" prefWidth="272.0" text="Invoice Code" />
-                    <TableColumn fx:id="tableColumnDescription" prefWidth="374.0" text="Description" />
-                    <TableColumn fx:id="tableColumnCustomer" prefWidth="274.0" text="Customer" />
+                    <TableColumn fx:id="tableColumnCode" prefWidth="165.0" text="Invoice Code" />
+                    <TableColumn fx:id="tableColumnDescription" prefWidth="207.0" text="Description" />
+                  <TableColumn fx:id="tableColumnDate" prefWidth="181.0" text="Date on Invoice" />
+                    <TableColumn fx:id="tableColumnCustomer" prefWidth="155.0" text="Customer" />
+                  <TableColumn fx:id="tableColumnTime" prefWidth="223.0" text="Time Exported" />
                 </columns>
             </TableView>
             <Spinner fx:id="spinner" layoutX="164.0" layoutY="12.0" prefHeight="36.0" prefWidth="217.0" />
+            <Label fx:id="tombolShowAll" alignment="CENTER" layoutX="399.0" layoutY="12.0" prefHeight="37.0" prefWidth="81.0" styleClass="pane-cancel" text="Show All">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
         </children>
     </Pane>
 </children>

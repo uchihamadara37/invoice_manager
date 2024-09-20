@@ -121,6 +121,21 @@ public class Invoice {
                 """;
         return DatabaseManager.getListData(query, Invoice.class);
     }
+
+    public static List<Invoice> getAllDataGroubByTemplate(){
+        String query = """
+                SELECT * FROM invoice 
+                GROUP BY description
+                ORDER BY totalPriceAll DESC
+                """;
+        return DatabaseManager.getListData(query, Invoice.class);
+    }
+    public static List<Invoice> getAllDataGroubByBulan(String bulan){
+        String query = """
+                SELECT * FROM invoice WHERE date LIKE :p1
+                """;
+        return DatabaseManager.getListData(query, Invoice.class, "%"+bulan+"%");
+    }
     public static List<Invoice> getAllDataBetweenTime(){
         Timestamp timeNow = new Timestamp(System.currentTimeMillis());
         Calendar calendar = Calendar.getInstance();
@@ -130,7 +145,7 @@ public class Invoice {
                 SELECT * FROM invoice WHERE timestamp BETWEEN :p1 AND :p2
                 """;
 
-        System.out.println("kampretor");
+//        System.out.println("kampretor");
         return DatabaseManager.getListData(query, Invoice.class, januari.toInstant().toString(), timeNow.toInstant().toString());
     }
     public static List<Invoice> getListByCustomerID(long cs_id){
@@ -158,6 +173,14 @@ public class Invoice {
         return DatabaseManager.deleteData(query, Long.toString(id));
     }
 
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timeStamp) {
+        this.timestamp = timeStamp;
+    }
+
     public static boolean deleteOneById(long id){
         String query = """
                 DELETE FROM invoice WHERE id = :p1
@@ -174,7 +197,8 @@ public class Invoice {
                     a.date,
                     a.description,
                     a.totalPriceAll,
-                    a.customer_id
+                    a.customer_id,
+                    a.timestamp
                
                 FROM invoice a LEFT JOIN customer b ON a.customer_id = b.id
                 WHERE (a.invoiceMarkText LIKE :p1)
@@ -213,9 +237,7 @@ public class Invoice {
         this.id = id;
     }
 
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
-    }
+
 
     public long getJrxml_id() {
         return jrxml_id;
@@ -245,9 +267,6 @@ public class Invoice {
         this.invoiceCode = invoiceCode;
     }
 
-    public String getTimestamp() {
-        return timestamp;
-    }
 
     public void setInvoiceMarkText(String invoiceMarkText) {
         this.invoiceMarkText = invoiceMarkText;
@@ -269,9 +288,6 @@ public class Invoice {
         this.pdfUrl = pdfUrl;
     }
 
-    public void setTimeStamp(String timeStamp) {
-        this.timestamp = timeStamp;
-    }
 
     public void setListItems(List<Item> listItems) {
         for (Item i : listItems){
@@ -303,9 +319,7 @@ public class Invoice {
         return pdfUrl;
     }
 
-    public String getTimeStamp() {
-        return timestamp;
-    }
+
 
     public List<Item> getListItems() {
         return Item.getListByInvoiceID(id);

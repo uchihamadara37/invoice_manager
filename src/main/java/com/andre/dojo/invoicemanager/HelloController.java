@@ -63,7 +63,7 @@ public class HelloController implements Initializable {
 
     private SetupController setupController;
     private AddItemController addItemController;
-    private JsonDataController jsonDataController;
+    public static JsonDataController jsonDataController;
     private JrxmlController jrxmlController;
     private PreviewController previewController;
     private ChangeDataCustomerController changeDataInvoiceController;
@@ -89,7 +89,9 @@ public class HelloController implements Initializable {
 
         infoReady.setText("Invoice for this "+today.format(formatter2)+" is ready to generate.");
 
-        loadTableView(Invoice.getAllData());
+        loadTableView(Invoice.getAllDataGroubByTemplate());
+
+//        loadTableView(Invoice.getAllData());
 
         // event tombol
         tombolChangeData.setOnMouseClicked(e -> {
@@ -230,6 +232,7 @@ public class HelloController implements Initializable {
             addItemController = addLoader.getController();
             addItemController.setHelloController(this);
             jsonDataController = jsonLoader.getController();
+
             jsonDataController.setHelloController(this);
             jrxmlController = jrxmlLoader.getController();
             jrxmlController.setHelloController(this);
@@ -290,7 +293,7 @@ public class HelloController implements Initializable {
     private void openInvoicePane() {
         anchorPaneMain.getChildren().removeFirst();
         anchorPaneMain.getChildren().add(paneInvoice);
-        loadTableView(Invoice.getAllData());
+        loadTableView(Invoice.getAllDataGroubByTemplate());
     }
     public AnchorPane getAnchorPaneMain(){
         return anchorPaneMain;
