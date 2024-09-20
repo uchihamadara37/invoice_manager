@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+d
 import static java.lang.Integer.parseInt;
 
 public class ChangeDataController {
@@ -30,6 +30,8 @@ public class ChangeDataController {
     private Label tombolCustomer;
     @FXML
     private Label tombolInvoice;
+    @FXML
+    private Label tombolCode;
     @FXML
     private AnchorPane anchorPaneMain;
     @FXML
@@ -71,6 +73,7 @@ public class ChangeDataController {
 
     private ChangeDataCustomerController changeDataCustomerController;
     private ChangeDataInvoiceController changeDataInvoiceController;
+    private ChangeDataCodeController changeDataCodeController;
     private HelloController helloController;
     private Personal personal;
     private long idPerson;
@@ -102,12 +105,19 @@ public class ChangeDataController {
         this.changeDataInvoiceController = changeDataInvoiceController;
     }
 
+    public void setChangeDataCodeController(ChangeDataCodeController changeDataCodeController) {
+        this.changeDataCodeController = changeDataCodeController;
+    }
+
     public void initialize(){
         tombolCustomer.setOnMouseClicked(e -> {
             openCustomerPane();
         });
         tombolInvoice.setOnMouseClicked(e -> {
             openInvoicePane();
+        });
+        tombolCode.setOnMouseClicked(e -> {
+            openCodePane();
         });
         loadData();
         loadBox();
@@ -162,6 +172,21 @@ public class ChangeDataController {
 
             ChangeDataInvoiceController changeDataInvoiceController = fxmlLoader.getController();
             changeDataInvoiceController.setChangeDataController(this);
+
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(anchorPane);
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+    }
+
+    private void openCodePane() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("change-data-code.fxml"));
+            Pane anchorPane = new Pane((Node) fxmlLoader.load());
+
+            ChangeDataCodeController changeDataCodeController = fxmlLoader.getController();
+            changeDataCodeController.setChangeDataController(this);
 
             anchorPaneMain.getChildren().removeFirst();
             anchorPaneMain.getChildren().add(anchorPane);
@@ -240,29 +265,20 @@ public class ChangeDataController {
     }
 
     private void changeLogoOrganization() {
-        // Create a file chooser
         FileChooser fileChooser = new FileChooser();
-
-        // Set the title for the file chooser
         fileChooser.setTitle("Choose a Logo");
-
-        // Set the extension filters (optional)
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
         );
-
-        // Show the open dialog
         Stage stage = (Stage) changeLogo.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
 
         if (selectedFile != null) {
-            // Get the selected file's path
             String filePath = selectedFile.getAbsolutePath();
             Image image = new Image("file:" + filePath);
             setLogoFix(image);
             logoImage.setImage(image);
             setSelectedLogo(selectedFile);
-            // Perform your action with the file path, e.g., update a logo
             System.out.println("Selected file: " + filePath);
         } else {
             System.out.println("No file selected");
