@@ -19,15 +19,15 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                      <children>
-                        <TableView fx:id="tableViewCustomer" layoutX="14.0" layoutY="14.0" prefHeight="312.0" prefWidth="551.0">
+                        <TableView fx:id="tableViewBank" layoutX="14.0" layoutY="14.0" prefHeight="312.0" prefWidth="551.0">
                            <columns>
-                              <TableColumn fx:id="tableColumnName" prefWidth="179.0" text="Bank Name" />
-                              <TableColumn fx:id="tableColumnDesc" prefWidth="107.0" text="Bank ID" />
-                              <TableColumn fx:id="tableColumnDelete" minWidth="0.0" prefWidth="189.0" text="Owner" />
-                              <TableColumn fx:id="tableColumnDelete1" minWidth="0.0" prefWidth="75.0" text="Action" />
+                              <TableColumn fx:id="tableBankName" prefWidth="179.0" text="Bank Name" />
+                              <TableColumn fx:id="tableBankId" prefWidth="107.0" text="Bank ID" />
+                              <TableColumn fx:id="tableOwner" minWidth="0.0" prefWidth="189.0" text="Owner" />
+                              <TableColumn fx:id="tableBankDelete" minWidth="0.0" prefWidth="75.0" text="Action" />
                            </columns>
                         </TableView>
-                        <Pane fx:id="add1" layoutX="579.0" layoutY="284.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
+                        <Pane fx:id="addBank" layoutX="579.0" layoutY="284.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
                            <children>
                               <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -41,7 +41,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane fx:id="update1" layoutX="766.0" layoutY="284.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
+                        <Pane fx:id="updateBank" layoutX="766.0" layoutY="284.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
                            <children>
                               <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -55,7 +55,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane fx:id="reset1" layoutX="671.0" layoutY="284.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
+                        <Pane fx:id="resetBank" layoutX="671.0" layoutY="284.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
                            <children>
                               <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -69,9 +69,9 @@
                               </Label>
                            </children>
                         </Pane>
-                        <TextField fx:id="organizationName" layoutX="574.0" layoutY="152.0" prefHeight="36.0" prefWidth="385.0" styleClass="field-add-item" />
-                        <TextField fx:id="organizationName1" layoutX="579.0" layoutY="226.0" prefHeight="36.0" prefWidth="87.0" styleClass="field-add-item" />
-                        <TextField fx:id="organizationName11" layoutX="678.0" layoutY="226.0" prefHeight="36.0" prefWidth="286.0" styleClass="field-add-item" />
+                        <TextField fx:id="Owner" layoutX="574.0" layoutY="152.0" prefHeight="36.0" prefWidth="385.0" styleClass="field-add-item" />
+                        <TextField fx:id="BankId" layoutX="579.0" layoutY="226.0" prefHeight="36.0" prefWidth="87.0" styleClass="field-add-item" />
+                        <TextField fx:id="BankName" layoutX="678.0" layoutY="226.0" prefHeight="36.0" prefWidth="286.0" styleClass="field-add-item" />
                         <Label layoutX="575.0" layoutY="132.0" text="Owner :">
                            <font>
                               <Font size="14.0" />
@@ -91,14 +91,14 @@
                   </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="976.0">
                      <children>
-                        <TableView fx:id="tableViewCustomer1" layoutX="14.0" layoutY="14.0" prefHeight="236.0" prefWidth="459.0">
+                        <TableView fx:id="tableViewCode" layoutX="14.0" layoutY="14.0" prefHeight="236.0" prefWidth="459.0">
                            <columns>
-                              <TableColumn fx:id="tableColumnName1" prefWidth="179.0" text="Code Name" />
-                              <TableColumn fx:id="tableColumnDesc1" prefWidth="202.0" text="Serial Number" />
-                              <TableColumn fx:id="tableColumnDelete11" minWidth="0.0" prefWidth="76.0" text="Action" />
+                              <TableColumn fx:id="tableCodeName" prefWidth="179.0" text="Code Name" />
+                              <TableColumn fx:id="tableSerialNumber" prefWidth="202.0" text="Serial Number" />
+                              <TableColumn fx:id="tableDeleteCode" minWidth="0.0" prefWidth="76.0" text="Action" />
                            </columns>
                         </TableView>
-                        <Pane fx:id="add11" layoutX="488.0" layoutY="208.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
+                        <Pane fx:id="addCode" layoutX="488.0" layoutY="208.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
                            <children>
                               <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -112,7 +112,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane fx:id="update11" layoutX="675.0" layoutY="208.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
+                        <Pane fx:id="updateCode" layoutX="675.0" layoutY="208.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
                            <children>
                               <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -126,7 +126,7 @@
                               </Label>
                            </children>
                         </Pane>
-                        <Pane fx:id="reset11" layoutX="580.0" layoutY="208.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
+                        <Pane fx:id="resetCode" layoutX="580.0" layoutY="208.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
                            <children>
                               <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -140,13 +140,13 @@
                               </Label>
                            </children>
                         </Pane>
-                        <TextField fx:id="organizationName12" layoutX="488.0" layoutY="152.0" prefHeight="36.0" prefWidth="87.0" styleClass="field-add-item" />
+                        <TextField fx:id="KodeName" layoutX="488.0" layoutY="152.0" prefHeight="36.0" prefWidth="87.0" styleClass="field-add-item" />
                         <Label layoutX="488.0" layoutY="132.0" text="Code Name :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="organizationName121" layoutX="591.0" layoutY="152.0" prefHeight="36.0" prefWidth="101.0" styleClass="field-add-item" />
+                        <TextField fx:id="SerialNumber" layoutX="591.0" layoutY="152.0" prefHeight="36.0" prefWidth="101.0" styleClass="field-add-item" />
                         <Label layoutX="591.0" layoutY="132.0" text="Serial Number:">
                            <font>
                               <Font size="14.0" />

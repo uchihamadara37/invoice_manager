@@ -18,9 +18,9 @@ public class PersonAdapter extends TypeAdapter<Personal> {
         jsonWriter.beginObject();
         jsonWriter.name("id").value(person.getId());
         jsonWriter.name("name").value(person.getName());
-        jsonWriter.name("bankName").value(person.getBankName());
-        jsonWriter.name("bankIDNumber").value(person.getBankIDNumber());
-        jsonWriter.name("bankIDName").value(person.getBankIDName());
+//        jsonWriter.name("bankName").value(person.getBankName());
+//        jsonWriter.name("bankIDNumber").value(person.getBankIDNumber());
+//        jsonWriter.name("bankIDName").value(person.getBankIDName());
         jsonWriter.name("urlTtd").value(person.getUrlTtd());
         jsonWriter.name("organization_id").value(person.getOrganization_id());
         jsonWriter.endObject();

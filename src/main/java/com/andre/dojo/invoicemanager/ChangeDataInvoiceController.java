@@ -203,9 +203,7 @@ public class ChangeDataInvoiceController {
     private void handleSelection() {
         String selectedName = custName.getSelectionModel().getSelectedItem();
         customerId = customerMap.get(selectedName);
-//        Long id = customerMap.get(selectedName);
         if(customerId != null) {
-//            System.out.println("id nya : " + customerId);
             selectedCustomer = Customer.getOneData(customerId);
         }
     }
