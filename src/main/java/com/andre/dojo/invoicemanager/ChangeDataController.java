@@ -1,6 +1,5 @@
 package com.andre.dojo.invoicemanager;
 
-import com.andre.dojo.Models.Customer;
 import com.andre.dojo.Models.KodeSurat;
 import com.andre.dojo.Models.Organization;
 import com.andre.dojo.Models.Personal;
@@ -50,31 +49,18 @@ public class ChangeDataController {
     @FXML
     private TextField personalName;
     @FXML
-    private TextField bankID;
-    @FXML
-    private TextField bankName;
-    @FXML
-    private TextField bankNumber;
-    @FXML
     private Button changeLogo;
     @FXML
     private Button changeSignature;
     @FXML
-    private TextField totalLetter;
-    @FXML
-    private TextField totalInvoice;
-    @FXML
     private ImageView logoImage;
     @FXML
     private ImageView signatureImage;
-    @FXML
-    private ChoiceBox<String> letterCode;
 
     private ChangeDataCustomerController changeDataCustomerController;
     private ChangeDataInvoiceController changeDataInvoiceController;
     private ChangeDataCodeController changeDataCodeController;
     private HelloController helloController;
-    private Personal personal;
     private long idPerson;
     private long idOrganization;
     private long idKode;
@@ -84,9 +70,7 @@ public class ChangeDataController {
     private Image previousLogoImage, previousSignatureImage, logoFix, signatureFix;
     private static final String PREDEFINED_SAVE_PATH = "D:\\invoiceManagerSource\\logo\\";
     private File selectedLogo, selectedSignature;
-    private long idKodeSurat;
-    private String nameKodeSurat;
-    private Map<String, KodeSurat> suratMap = new HashMap<>();
+    private Organization selectedOrganization;
 
     public void setHelloController(HelloController helloController) {
         this.helloController = helloController;
@@ -119,7 +103,6 @@ public class ChangeDataController {
             openCodePane();
         });
         loadData();
-        loadBox();
         disable();
         edit.setOnMouseClicked(e -> {
             enable();
@@ -136,12 +119,10 @@ public class ChangeDataController {
         });
         save.setOnMouseClicked(e -> {
             disable();
-            saveData(idOrganization,idPerson);
+            saveData();
             saveImage(getSelectedLogo(), getSelectedSignature());
             textAccess(true);
-        });
-        letterCode.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            handleSelection();
+            loadData();
         });
 
         changeLogo.setOnAction(event -> changeLogoOrganization());
@@ -197,25 +178,13 @@ public class ChangeDataController {
     private void loadData(){
         List<Organization> allOrganizations = Organization.getAllData();
         System.out.println(allOrganizations);
-        Organization firstOrganization = allOrganizations.get(0);
-        totalLetter.setText(String.valueOf(firstOrganization.getTotalLetter()));
-        yearOr = firstOrganization.getTahunOperasi();
-        organizationName.setText(firstOrganization.getBrandName());
-        email.setText(firstOrganization.getEmail());
-        address.setText(firstOrganization.getAddress());
-        desc.setText(firstOrganization.getDescription());
-        agencyNum = firstOrganization.getNoUrutInstansi();
-        idOrganization = firstOrganization.getId();
-        List<Personal> personalList = Personal.getAllData();
-        Personal firstPersonal = personalList.get(0);
-        personalName.setText(firstPersonal.getName());
-        bankID.setText(firstPersonal.getBankIDName());
-        bankName.setText(firstPersonal.getBankName());
-        bankNumber.setText(String.valueOf(firstPersonal.getBankIDNumber()));
-        idPerson = firstPersonal.getId();
-        KodeSurat kodeSurats = KodeSurat.getOneData(Long.parseLong(idSurat));
-        totalInvoice.setText(String.valueOf(kodeSurats.getNoUrut()));
-        idKode = kodeSurats.getId();
+        selectedOrganization = allOrganizations.get(0);
+        yearOr = selectedOrganization.getTahunOperasi();
+        organizationName.setText(selectedOrganization.getBrandName());
+        email.setText(selectedOrganization.getEmail());
+        address.setText(selectedOrganization.getAddress());
+        desc.setText(selectedOrganization.getDescription());
+        personalName.setText(selectedOrganization.getSignatureName());
         textAccess(true);
     }
 
@@ -225,14 +194,8 @@ public class ChangeDataController {
         address.setDisable(con);
         desc.setDisable(con);
         personalName.setDisable(con);
-        bankID.setDisable(con);
-        bankName.setDisable(con);
-        bankNumber.setDisable(con);
         changeLogo.setDisable(con);
         changeSignature.setDisable(con);
-        totalInvoice.setDisable(con);
-        totalLetter.setDisable(con);
-        letterCode.setDisable(con);
     }
 
     private void disable(){
@@ -247,20 +210,14 @@ public class ChangeDataController {
         edit.setVisible(false);
     }
 
-    private void saveData(long idOrganization, long idPerson){
-//        Organization.updateById(new Organization(
-//                idOrganization, "D:\\invoiceManagerSource\\logo\\logo.png",organizationName.getText(),desc.getText(),address.getText(), email.getText(),agencyNum,yearOr,parseInt(totalLetter.getText()))
-//        ,idOrganization);
-        System.out.println("total letter : " + totalLetter.getText());
-        Personal.updateById(new Personal(
-                personalName.getText(),bankName.getText(), bankNumber.getText(), bankID.getText(),"D:\\invoiceManagerSource\\logo\\signature.png",idOrganization, idPerson)
-        );
-        KodeSurat.updateById(new KodeSurat(
-
-                idKode,"INV",parseInt(totalInvoice.getText()), idOrganization
-        ));
-
-        System.out.println("total invoice : " + totalInvoice.getText());
+    private void saveData(){
+        selectedOrganization.setSignatureName(personalName.getText());
+        selectedOrganization.setBrandName(organizationName.getText());
+        selectedOrganization.setEmail(email.getText());
+        selectedOrganization.setAddress(address.getText());
+        selectedOrganization.setDescription(desc.getText());
+        selectedOrganization.setSignature("D:\\invoiceManagerSource\\logo\\signature.png");
+        Organization.updateById(selectedOrganization);
     }
 
     private void changeLogoOrganization() {
@@ -341,29 +298,6 @@ public class ChangeDataController {
             System.out.println("File saved to: " + destinationFile.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void loadBox(){
-        List<KodeSurat> kodeSurats = KodeSurat.getAllData();
-
-        for (KodeSurat kodeSurat : kodeSurats) {
-            String name = kodeSurat.getKode(); // Assuming getName() returns the customer's name
-            letterCode.getItems().add(name);
-            suratMap.put(name, kodeSurat); // Map the name to the Customer object
-        }
-        letterCode.getSelectionModel().select("INV");
-    }
-
-    private void handleSelection() {
-        String selectedName = letterCode.getSelectionModel().getSelectedItem();
-        if (selectedName != null) {
-            KodeSurat kodeSurat = suratMap.get(selectedName);
-            if (kodeSurat != null) {
-                idKodeSurat = kodeSurat.getId();
-                nameKodeSurat = kodeSurat.getKode();
-                totalInvoice.setText(String.valueOf(kodeSurat.getNoUrut()));
-            }
         }
     }
 
