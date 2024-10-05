@@ -246,6 +246,7 @@ public class ChangeDataInvoiceController {
         String yearCode = year.substring(year.length() - 2);
         int urutanInvoice = kodeSurat.getNoUrut()+1;
         String idOr = "1723509861951";
+        String bankId = "1727219874871";
         Organization organization = Organization.getOneData(Long.parseLong(idOr));
         int urutanSurat = organization.getTotalLetter() + 1;
         String invoiceCode = urutanSurat + "/SG/INV/" + urutanInvoice + "/" + yearCode;
@@ -261,7 +262,7 @@ public class ChangeDataInvoiceController {
                 )
         );
         Invoice.addToDB(new Invoice(
-                "Alfiander Comunity", desc.getText(), invoiceCode, "29 Agustus 2024", 0, "", "", Long.parseLong(designId),customerId)
+                "Alfiander Comunity", desc.getText(), invoiceCode, "29 Agustus 2024", 0, "", "", Long.parseLong(designId),customerId,1==1, Long.parseLong(bankId))
         );
 
         reset();

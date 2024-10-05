@@ -1,5 +1,6 @@
 package com.andre.dojo.invoicemanager;
 
+import com.andre.dojo.Models.Invoice;
 import com.andre.dojo.Models.KodeSurat;
 import com.andre.dojo.Models.Organization;
 import com.andre.dojo.Models.Personal;
@@ -216,7 +217,6 @@ public class ChangeDataController {
         selectedOrganization.setEmail(email.getText());
         selectedOrganization.setAddress(address.getText());
         selectedOrganization.setDescription(desc.getText());
-        selectedOrganization.setSignature("D:\\invoiceManagerSource\\logo\\signature.png");
         Organization.updateById(selectedOrganization);
     }
 

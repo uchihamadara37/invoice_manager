@@ -21,6 +21,8 @@ public class Invoice {
     private String timestamp;
     private long jrxml_id;
     private long customer_id;
+    private long bank_id;
+    private boolean status;
     private BooleanProperty checked = new SimpleBooleanProperty(true);
     private List<Item> listItems;
 
@@ -37,7 +39,9 @@ public class Invoice {
             String jsonData,
             String pdfUrl,
             long design_id,
-            long customer_id
+            long customer_id,
+            boolean status,
+            long bank_id
     ) {
         this.id = Instant.now().toEpochMilli();
         this.invoiceMarkText = invoiceMarkText;
@@ -50,6 +54,8 @@ public class Invoice {
         this.invoiceCode = invoiceCode;
         this.jrxml_id = design_id;
         this.customer_id = customer_id;
+        this.status = status;
+        this.bank_id = bank_id;
     }
 
     public Invoice(
@@ -90,7 +96,9 @@ public class Invoice {
                 jrxml_id,
                 customer_id,
                 description,
-                invoiceCode
+                invoiceCode,
+                bank_id,
+                status
                 ) VALUES (
                 :id, 
                 :invoiceMarkText, 
@@ -102,7 +110,9 @@ public class Invoice {
                 :jrxml_id,
                 :customer_id,
                 :description,
-                :invoiceCode
+                :invoiceCode,
+                :bank_id,
+                :status
                 )""";
         return DatabaseManager.addOneData(query, invoice);
     }
@@ -223,7 +233,8 @@ public class Invoice {
                 jrxml_id = :jrxml_id,
                 customer_id = :customer_id,
                 description = :description,
-                invoiceCode = :invoiceCode
+                invoiceCode = :invoiceCode,
+                status = :status
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, invoice);
@@ -319,7 +330,21 @@ public class Invoice {
         return pdfUrl;
     }
 
+    public long getBank_id() {
+        return bank_id;
+    }
 
+    public void setBank_id(long bank_id) {
+        this.bank_id = bank_id;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
 
     public List<Item> getListItems() {
         return Item.getListByInvoiceID(id);

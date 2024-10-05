@@ -63,6 +63,20 @@ public class Bank {
         return DatabaseManager.updateData(query, bank);
     }
 
+    public static Bank getOneData(long id){
+        String query = """
+                SELECT * FROM bank WHERE id = :p1
+                """;
+        return DatabaseManager.getOneData(query, Bank.class, Long.toString(id));
+    }
+
+    public static Bank getOneDataByName(String bank_name){
+        String query = """
+                SELECT * FROM bank WHERE bank_name = :p1
+                """;
+        return DatabaseManager.getOneData(query, Bank.class, bank_name);
+    }
+
     public void setBank_id(String bank_id) {
         this.bank_id = bank_id;
     }
