@@ -1,7 +1,6 @@
 package com.andre.dojo.invoicemanager;
 
 import com.andre.dojo.Models.Bank;
-import com.andre.dojo.Models.Invoice;
 import com.andre.dojo.Models.KodeSurat;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -18,7 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
-import java.io.Serial;
 
 public class ChangeDataCodeController {
     @FXML
@@ -57,6 +55,8 @@ public class ChangeDataCodeController {
     private TextField BankName;
     @FXML
     private TextField Owner;
+    @FXML
+    private TextField Rekening;
 
     @FXML
     private TextField KodeName;
@@ -236,18 +236,26 @@ public class ChangeDataCodeController {
     }
 
     private void handleAddKode(){
-        String idOr = "1723509861951";
-        KodeSurat.addToDB(new KodeSurat(KodeName.getText(), Integer.parseInt(SerialNumber.getText()), Long.parseLong(idOr)));
-        loadDataKode();
-        resetKode();
+        if(KodeName.getText().trim().isEmpty() || SerialNumber.getText().trim().isEmpty()){
+            HelloApplication.showAlert("All field in code must be filled!");
+        } else {
+            String idOr = "1723509861951";
+            KodeSurat.addToDB(new KodeSurat(KodeName.getText(), Integer.parseInt(SerialNumber.getText()), Long.parseLong(idOr)));
+            loadDataKode();
+            resetKode();
+        }
     }
 
     private void handleUpdateKode(){
-        selectedKodeSurat.setKode(KodeName.getText());
-        selectedKodeSurat.setNoUrut(Integer.parseInt(SerialNumber.getText()));
-        KodeSurat.updateById(selectedKodeSurat);
-        resetKode();
-        loadDataKode();
+        if(KodeName.getText().trim().isEmpty() || SerialNumber.getText().trim().isEmpty()){
+            HelloApplication.showAlert("All field in code must be filled!");
+        } else {
+            selectedKodeSurat.setKode(KodeName.getText());
+            selectedKodeSurat.setNoUrut(Integer.parseInt(SerialNumber.getText()));
+            KodeSurat.updateById(selectedKodeSurat);
+            resetKode();
+            loadDataKode();
+        }
     }
 
     private void conButtonKode(boolean con){
@@ -298,11 +306,17 @@ public class ChangeDataCodeController {
     private void handleDeleteBank(Bank bank){
         Bank.deleteOneById(bank.getId());
         loadDataBank();
+        resetBank();
     }
 
     private void handleAddBank(){
-        Bank.addToDB(new Bank(BankId.getText(), BankName.getText(), Owner.getText()));
-        loadDataBank();
+        if(BankId.getText().trim().isEmpty() || BankName.getText().trim().isEmpty() || Owner.getText().trim().isEmpty() || Rekening.getText().trim().isEmpty()){
+            HelloApplication.showAlert("All field in bank must be filled!");
+        } else {
+            Bank.addToDB(new Bank(BankId.getText(), BankName.getText(), Owner.getText(), Rekening.getText()));
+            loadDataBank();
+            resetBank();
+        }
     }
 
     private void showDetailBank(Bank bank){
@@ -312,11 +326,13 @@ public class ChangeDataCodeController {
             BankName.setText(bank.getBank_name());
             BankId.setText(bank.getBank_id());
             Owner.setText(bank.getOwner());
+            Rekening.setText(bank.getAccount_number());
             conButtonBank(false);
         } else {
             BankName.setText("");
             BankId.setText("");
             Owner.setText("");
+            Rekening.setText("");
         }
     }
 
@@ -329,14 +345,20 @@ public class ChangeDataCodeController {
         BankId.setText("");
         BankName.setText("");
         Owner.setText("");
+        Rekening.setText("");
     }
 
     private void handleUpdateBank(){
-        selectedBank.setBank_name(BankName.getText());
-        selectedBank.setBank_id(BankId.getText());
-        selectedBank.setOwner(Owner.getText());
-        Bank.updateById(selectedBank);
-        resetBank();
-        loadDataBank();
+        if(BankId.getText().trim().isEmpty() || BankName.getText().trim().isEmpty() || Owner.getText().trim().isEmpty() || Rekening.getText().trim().isEmpty()){
+            HelloApplication.showAlert("All field in bank must be filled!");
+        } else {
+            selectedBank.setBank_name(BankName.getText());
+            selectedBank.setBank_id(BankId.getText());
+            selectedBank.setOwner(Owner.getText());
+            selectedBank.setAccount_number(Rekening.getText());
+            Bank.updateById(selectedBank);
+            resetBank();
+            loadDataBank();
+        }
     }
 }

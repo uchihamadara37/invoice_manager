@@ -10,16 +10,18 @@ public class Bank {
     private String bank_id;
     private String bank_name;
     private String owner;
+    private String account_number;
 
     public Bank(){
 
     }
 
-    public Bank(String bank_id, String bank_name, String owner) {
+    public Bank(String bank_id, String bank_name, String owner, String account_number) {
         this.id = Instant.now().toEpochMilli();
         this.bank_id = bank_id;
         this.bank_name = bank_name;
         this.owner = owner;
+        this.account_number = account_number;
     }
 
     public static boolean addToDB(Bank bank){
@@ -28,12 +30,14 @@ public class Bank {
                 id,
                 bank_name,
                 owner,
-                bank_id
+                bank_id,
+                account_number
                 ) VALUES (
                 :id,
                 :bank_name,
                 :owner,
-                :bank_id
+                :bank_id,
+                :account_number
                 )""";
         return DatabaseManager.addOneData(query, bank);
     }
@@ -57,7 +61,8 @@ public class Bank {
                 UPDATE bank SET 
                 bank_name = :bank_name, 
                 owner = :owner,
-                bank_id = :bank_id
+                bank_id = :bank_id,
+                account_number = :account_number
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, bank);
@@ -107,5 +112,13 @@ public class Bank {
 
     public long getId() {
         return id;
+    }
+
+    public String getAccount_number() {
+        return account_number;
+    }
+
+    public void setAccount_number(String account_number) {
+        this.account_number = account_number;
     }
 }

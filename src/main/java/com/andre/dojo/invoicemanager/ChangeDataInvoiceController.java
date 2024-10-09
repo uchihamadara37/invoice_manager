@@ -162,7 +162,7 @@ public class ChangeDataInvoiceController {
 
     private void loadData(){
         tableViewInvoice.setEditable(true);
-        tableViewInvoice.setItems(FXCollections.observableArrayList(Invoice.getAllData()));
+        tableViewInvoice.setItems(FXCollections.observableArrayList(Invoice.getAllDataGroubByTemplate()));
         tableColumnName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceMarkText()));
         tableColumnDesc.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));
         tableColumnCode.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceCode()));
@@ -221,7 +221,6 @@ public class ChangeDataInvoiceController {
             name.setText("");
             desc.setText("");
         }
-
     }
 
     private void selectCustomerById(long customerId) {
@@ -230,12 +229,16 @@ public class ChangeDataInvoiceController {
     }
 
     private void handleUpdate(){
-        selectedInvoice.setInvoiceMarkText(name.getText());
-        selectedInvoice.setDescription(desc.getText());
-        selectedInvoice.setCustomer_id(selectedCustomer.getId());
-        Invoice.updateById(selectedInvoice);
-        loadData();
-        reset();
+        if (name.getText().trim().isEmpty() || desc.getText().trim().isEmpty()){
+            HelloApplication.showAlert("All field in invoice must be filled!");
+        } else {
+            selectedInvoice.setInvoiceMarkText(name.getText());
+            selectedInvoice.setDescription(desc.getText());
+            selectedInvoice.setCustomer_id(selectedCustomer.getId());
+            Invoice.updateById(selectedInvoice);
+            loadData();
+            reset();
+        }
     }
 
     private void handleAdd(){

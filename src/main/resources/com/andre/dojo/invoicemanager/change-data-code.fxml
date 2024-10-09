@@ -69,10 +69,10 @@
                               </Label>
                            </children>
                         </Pane>
-                        <TextField fx:id="Owner" layoutX="574.0" layoutY="152.0" prefHeight="36.0" prefWidth="385.0" styleClass="field-add-item" />
+                        <TextField fx:id="Rekening" layoutX="574.0" layoutY="154.0" prefHeight="36.0" prefWidth="385.0" styleClass="field-add-item" />
                         <TextField fx:id="BankId" layoutX="579.0" layoutY="226.0" prefHeight="36.0" prefWidth="87.0" styleClass="field-add-item" />
                         <TextField fx:id="BankName" layoutX="678.0" layoutY="226.0" prefHeight="36.0" prefWidth="286.0" styleClass="field-add-item" />
-                        <Label layoutX="575.0" layoutY="132.0" text="Owner :">
+                        <Label layoutX="575.0" layoutY="134.0" text="Account Number:">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -83,6 +83,12 @@
                            </font>
                         </Label>
                         <Label layoutX="678.0" layoutY="206.0" text="Bank Name :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="Owner" layoutX="574.0" layoutY="89.0" prefHeight="36.0" prefWidth="385.0" styleClass="field-add-item" />
+                        <Label layoutX="575.0" layoutY="69.0" text="Owner :">
                            <font>
                               <Font size="14.0" />
                            </font>

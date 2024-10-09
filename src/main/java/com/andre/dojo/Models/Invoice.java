@@ -134,9 +134,7 @@ public class Invoice {
 
     public static List<Invoice> getAllDataGroubByTemplate(){
         String query = """
-                SELECT * FROM invoice 
-                GROUP BY description
-                ORDER BY totalPriceAll DESC
+                SELECT * FROM invoice WHERE status = 1
                 """;
         return DatabaseManager.getListData(query, Invoice.class);
     }

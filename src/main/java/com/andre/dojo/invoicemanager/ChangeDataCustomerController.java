@@ -202,26 +202,34 @@ public class ChangeDataCustomerController {
     }
 
     private void addCustomer(){
-        String cId = "1723509861951";
-        Customer.addToDB(
-                new Customer(
-                        name.getText(),
-                        desc.getText(),
-                        phone.getText(),
-                        Long.parseLong(cId)
-                ));
-        loadTableView();
-        reset();
+        if(name.getText().trim().isEmpty() || desc.getText().trim().isEmpty() || phone.getText().trim().isEmpty()){
+            HelloApplication.showAlert("All field in customer must be filled!");
+        } else {
+            String cId = "1723509861951";
+            Customer.addToDB(
+                    new Customer(
+                            name.getText(),
+                            desc.getText(),
+                            phone.getText(),
+                            Long.parseLong(cId)
+                    ));
+            loadTableView();
+            reset();
+        }
     }
 
     private void editCustomer(){
-        selectedCustomer.setName(name.getText());
-        selectedCustomer.setDescription(desc.getText());
-        selectedCustomer.setPhoneNumber(phone.getText());
-        Customer.updateById(selectedCustomer);
-        System.out.println("is clikced?");
-        loadTableView();
-        reset();
+        if(name.getText().trim().isEmpty() || desc.getText().trim().isEmpty() || phone.getText().trim().isEmpty()){
+            HelloApplication.showAlert("All field in customer must be filled!");
+        } else {
+            selectedCustomer.setName(name.getText());
+            selectedCustomer.setDescription(desc.getText());
+            selectedCustomer.setPhoneNumber(phone.getText());
+            Customer.updateById(selectedCustomer);
+            System.out.println("is clikced?");
+            loadTableView();
+            reset();
+        }
     }
 
     private void reset(){
@@ -235,7 +243,6 @@ public class ChangeDataCustomerController {
     private void handleDelete(Customer customer){
         Invoice.deleteOneByIdCustomer(customer.getId());
         Customer.deleteOneById(customer.getId());
-        System.out.println("Delete operation with id you just clicked is = " + customer.getId());
         loadTableView();
         reset();
     }

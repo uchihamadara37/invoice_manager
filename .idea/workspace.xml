@@ -14,10 +14,11 @@
       <change beforePath="$PROJECT_DIR$/mydatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/mydatabase.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Bank.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Bank.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Invoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCodeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCustomerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataInvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataInvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/SetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/SetupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/setup-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/setup-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-code.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-code.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
