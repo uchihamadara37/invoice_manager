@@ -196,6 +196,28 @@ public class Invoice {
         return DatabaseManager.deleteData(query, Long.toString(id));
     }
 
+    public static List<Invoice> searchInvoiceByStatus(String text){
+        String query = """
+                SELECT DISTINCT
+                    a.id,
+                    a.invoiceCode,
+                    a.invoiceMarkText,
+                    a.date,
+                    a.description,
+                    a.totalPriceAll,
+                    a.customer_id,
+                    a.timestamp
+               
+                FROM invoice a LEFT JOIN customer b ON a.customer_id = b.id
+                WHERE ((a.invoiceMarkText LIKE :p1)
+                   OR (a.date LIKE :p1)
+                   OR (a.description LIKE :p1)
+                   OR (a.invoiceCode LIKE :p1)
+                   OR (b.name LIKE :p1))
+                   AND a.status = 1
+                """;
+        return DatabaseManager.getListData(query, Invoice.class, "%"+text+"%");
+    }
     public static List<Invoice> searchInvoice(String text){
         String query = """
                 SELECT DISTINCT

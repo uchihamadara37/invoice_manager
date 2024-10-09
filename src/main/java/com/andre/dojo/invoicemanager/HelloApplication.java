@@ -52,7 +52,7 @@ public class HelloApplication extends Application {
 //        org.setTahunOperasi(2024);
 //        Organization.updateById(org);
 
-        DatabaseManager.dropTable();
+//        DatabaseManager.dropTable();
 
 //        Invoice inv = new Invoice();
 //        inv.setId(Instant.now().toEpochMilli());

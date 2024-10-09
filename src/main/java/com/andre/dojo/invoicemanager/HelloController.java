@@ -199,9 +199,9 @@ public class HelloController implements Initializable {
 
     private void searchNow() {
         if (!Objects.equals(searchField.getText(), "")){
-            loadTableView(Invoice.searchInvoice(searchField.getText()));
+            loadTableView(Invoice.searchInvoiceByStatus(searchField.getText()));
         }else{
-            loadTableView(Invoice.getAllData());
+            loadTableView(Invoice.getAllDataGroubByTemplate());
         }
     }
 
