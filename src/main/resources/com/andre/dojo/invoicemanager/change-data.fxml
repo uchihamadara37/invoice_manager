@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
@@ -22,32 +21,32 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="611.0" prefWidth="146.0">
                      <children>
                         <Button fx:id="changeLogo" layoutX="164.0" layoutY="215.0" mnemonicParsing="false" text="Change Logo" />
-                        <Label layoutX="14.0" layoutY="306.0" text="Organization Name : ">
+                        <Label layoutX="14.0" layoutY="253.0" text="Organization Name : ">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="organizationName" layoutX="14.0" layoutY="326.0" prefHeight="25.0" prefWidth="424.0" styleClass="field-add-item" />
-                        <Label layoutX="14.0" layoutY="361.0" text="Email :">
+                        <TextField fx:id="organizationName" layoutX="14.0" layoutY="273.0" prefHeight="25.0" prefWidth="424.0" styleClass="field-add-item" />
+                        <Label layoutX="14.0" layoutY="308.0" text="Email :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="email" layoutX="14.0" layoutY="381.0" prefHeight="25.0" prefWidth="424.0" styleClass="field-add-item" />
-                        <Label layoutX="14.0" layoutY="416.0" text="Address :">
+                        <TextField fx:id="email" layoutX="14.0" layoutY="328.0" prefHeight="25.0" prefWidth="424.0" styleClass="field-add-item" />
+                        <Label layoutX="14.0" layoutY="363.0" text="Address :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="address" layoutX="14.0" layoutY="436.0" prefHeight="25.0" prefWidth="424.0" styleClass="field-add-item" />
-                        <Label layoutX="13.0" layoutY="472.0" text="Description :">
+                        <TextField fx:id="address" layoutX="14.0" layoutY="383.0" prefHeight="25.0" prefWidth="424.0" styleClass="field-add-item" />
+                        <Label layoutX="13.0" layoutY="419.0" text="Description :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <ImageView fx:id="logoImage" fitHeight="150.0" fitWidth="200.0" layoutX="135.0" layoutY="65.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../../../../../../invoiceManagerSource/logo/logo.png" />
+                              <Image url="@logo/seigan.jpg" />
                            </image>
                         </ImageView>
                         <Label layoutX="153.0" layoutY="14.0" text="Organization">
@@ -55,31 +54,8 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TextArea fx:id="desc" layoutX="13.0" layoutY="492.0" prefHeight="87.0" prefWidth="424.0" styleClass="field-add-item" />
+                        <TextArea fx:id="desc" layoutX="13.0" layoutY="439.0" prefHeight="87.0" prefWidth="424.0" styleClass="field-add-item" />
                         <Separator layoutX="-5.0" layoutY="49.0" prefHeight="4.0" prefWidth="464.0" />
-                        <Label layoutX="16.0" layoutY="250.0" text="Invoice Code :">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="totalLetter" layoutX="16.0" layoutY="270.0" prefHeight="36.0" prefWidth="55.0" styleClass="field-add-item" />
-                        <Label layoutX="75.0" layoutY="278.0" text="/SG/">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="totalInvoice" layoutX="177.0" layoutY="270.0" prefHeight="36.0" prefWidth="55.0" styleClass="field-add-item" />
-                        <Label layoutX="235.0" layoutY="278.0" text="/24">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <ChoiceBox fx:id="letterCode" layoutX="108.0" layoutY="274.0" prefHeight="28.0" prefWidth="55.0" />
-                        <Label layoutX="167.0" layoutY="278.0" text="/">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
                      </children>
                   </AnchorPane>
                 <AnchorPane prefHeight="611.0" prefWidth="479.0">
@@ -90,24 +66,6 @@
                            </font>
                         </Label>
                         <TextField fx:id="personalName" layoutX="14.0" layoutY="272.0" prefHeight="25.0" prefWidth="485.0" styleClass="field-add-item" />
-                        <Label layoutX="14.0" layoutY="307.0" text="Bank ID Name : ">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="bankID" layoutX="14.0" layoutY="327.0" prefHeight="25.0" prefWidth="105.0" styleClass="field-add-item" />
-                        <Label layoutX="16.0" layoutY="362.0" text="Bank Number : ">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="bankNumber" layoutX="16.0" layoutY="382.0" prefHeight="25.0" prefWidth="485.0" styleClass="field-add-item" />
-                        <Label layoutX="125.0" layoutY="307.0" text="Bank Name : ">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="bankName" layoutX="125.0" layoutY="327.0" prefHeight="25.0" prefWidth="372.0" styleClass="field-add-item" />
                         <Button fx:id="changeSignature" layoutX="204.0" layoutY="215.0" mnemonicParsing="false" text="Change Signature" />
                         <Separator layoutY="49.0" prefHeight="4.0" prefWidth="519.0" />
                         <Label layoutX="223.0" layoutY="14.0" text="Personal">
@@ -166,7 +124,7 @@
               </items>
             </SplitPane>
          </children></Pane>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="30.0" layoutY="30.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -178,12 +136,17 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="tombolCustomer" alignment="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Customer">
+            <Label fx:id="tombolCustomer" alignment="CENTER" layoutX="296.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Customer">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="tombolInvoice" alignment="CENTER" layoutX="300.0" layoutY="14.0" prefHeight="37.0" prefWidth="113.0" text="Invoice">
+            <Label fx:id="tombolInvoice" alignment="CENTER" layoutX="450.0" layoutY="14.0" prefHeight="37.0" prefWidth="113.0" text="Invoice">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tombolCode" alignment="CENTER" layoutX="141.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Code &amp; Bank">
                <font>
                   <Font size="15.0" />
                </font>

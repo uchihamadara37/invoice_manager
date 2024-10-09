@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPaneMain" prefHeight="691.0" prefWidth="978.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.andre.dojo.invoicemanager.ChangeDataCodeController">
+   <children>
+      <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+         <children>
+            <SplitPane dividerPositions="0.563011456628478" orientation="VERTICAL" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                     <children>
+                        <TableView fx:id="tableViewBank" layoutX="14.0" layoutY="14.0" prefHeight="312.0" prefWidth="551.0">
+                           <columns>
+                              <TableColumn fx:id="tableBankName" prefWidth="179.0" text="Bank Name" />
+                              <TableColumn fx:id="tableBankId" prefWidth="107.0" text="Bank ID" />
+                              <TableColumn fx:id="tableOwner" minWidth="0.0" prefWidth="189.0" text="Owner" />
+                              <TableColumn fx:id="tableBankDelete" minWidth="0.0" prefWidth="75.0" text="Action" />
+                           </columns>
+                        </TableView>
+                        <Pane fx:id="addBank" layoutX="579.0" layoutY="284.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/file-plus.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="33.0" text="Add">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="updateBank" layoutX="766.0" layoutY="284.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/save.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="54.0" text="Update">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="resetBank" layoutX="671.0" layoutY="284.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
+                           <children>
+                              <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/reset.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="45.0" text="Reset">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <TextField fx:id="Rekening" layoutX="574.0" layoutY="154.0" prefHeight="36.0" prefWidth="385.0" styleClass="field-add-item" />
+                        <TextField fx:id="BankId" layoutX="579.0" layoutY="226.0" prefHeight="36.0" prefWidth="87.0" styleClass="field-add-item" />
+                        <TextField fx:id="BankName" layoutX="678.0" layoutY="226.0" prefHeight="36.0" prefWidth="286.0" styleClass="field-add-item" />
+                        <Label layoutX="575.0" layoutY="134.0" text="Account Number:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="579.0" layoutY="206.0" text="Bank ID :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="678.0" layoutY="206.0" text="Bank Name :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="Owner" layoutX="574.0" layoutY="89.0" prefHeight="36.0" prefWidth="385.0" styleClass="field-add-item" />
+                        <Label layoutX="575.0" layoutY="69.0" text="Owner :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="262.0" prefWidth="976.0">
+                     <children>
+                        <TableView fx:id="tableViewCode" layoutX="14.0" layoutY="14.0" prefHeight="236.0" prefWidth="459.0">
+                           <columns>
+                              <TableColumn fx:id="tableCodeName" prefWidth="179.0" text="Code Name" />
+                              <TableColumn fx:id="tableSerialNumber" prefWidth="202.0" text="Serial Number" />
+                              <TableColumn fx:id="tableDeleteCode" minWidth="0.0" prefWidth="76.0" text="Action" />
+                           </columns>
+                        </TableView>
+                        <Pane fx:id="addCode" layoutX="488.0" layoutY="208.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/file-plus.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="33.0" text="Add">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="updateCode" layoutX="675.0" layoutY="208.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
+                           <children>
+                              <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/save.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="54.0" text="Update">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <Pane fx:id="resetCode" layoutX="580.0" layoutY="208.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
+                           <children>
+                              <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@icon/reset.png" />
+                                 </image>
+                              </ImageView>
+                              <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="45.0" text="Reset">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                        <TextField fx:id="KodeName" layoutX="488.0" layoutY="152.0" prefHeight="36.0" prefWidth="87.0" styleClass="field-add-item" />
+                        <Label layoutX="488.0" layoutY="132.0" text="Code Name :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="SerialNumber" layoutX="591.0" layoutY="152.0" prefHeight="36.0" prefWidth="101.0" styleClass="field-add-item" />
+                        <Label layoutX="591.0" layoutY="132.0" text="Serial Number:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </children>
+      </Pane>
+      <AnchorPane layoutX="30.0" layoutY="30.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/sun.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="tombolLetter" alignment="CENTER" layoutX="13.0" layoutY="13.0" prefHeight="39.0" prefWidth="101.0" text="Lettter">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tombolCustomer" alignment="CENTER" layoutX="296.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Customer">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tombolInvoice" alignment="CENTER" layoutX="450.0" layoutY="14.0" prefHeight="37.0" prefWidth="113.0" text="Invoice">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="141.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" styleClass="top-label-active" text="Code &amp; Bank">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

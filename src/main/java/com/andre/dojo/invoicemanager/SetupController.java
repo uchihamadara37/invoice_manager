@@ -11,10 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -24,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -53,6 +51,8 @@ public class SetupController implements Initializable {
 
     @FXML
     private Pane btnAdd;
+    @FXML
+    private Pane save;
 
 
     @FXML
@@ -65,17 +65,24 @@ public class SetupController implements Initializable {
     private Label showTimeStamp;
     @FXML
     private Label showMessage;
+    @FXML
+    private Label showSelectBank;
+
+    @FXML
+    private ChoiceBox<String> showBank;
 
     @FXML
     private AnchorPane rootPane;
 
     private HelloController helloController;
+    private Invoice selectedInvoice;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         showMessage.setVisible(false);
         showSelectedInvoice(null);
         loadIsiTable();
+        loadBox();
         tableViewInvoice.getSelectionModel().selectedItemProperty().addListener(
             (observable, oldValue, newValue) -> {
                 showSelectedInvoice(newValue);
@@ -92,7 +99,14 @@ public class SetupController implements Initializable {
                 loadJrxmlString(newValue);
                 helloController.getPreviewController().setLabelDesignSelected("Design "+helloController.getInvoiceSelected().getJrxml_id()+" has been selected for this invoice. Lets start preview!");
             });
-
+        save.setOnMouseClicked(e -> {
+            if (Objects.equals(showTimeStamp.getText(), "")){
+                showMessage.setVisible(true);
+                showTooltip(btnAdd);
+            }else{
+                saveBank(showBank.getSelectionModel().getSelectedItem());
+            }
+        });
         btnAdd.setOnMouseClicked(e -> {
             if (Objects.equals(showTimeStamp.getText(), "")){
                 showMessage.setVisible(true);
@@ -213,15 +227,20 @@ public class SetupController implements Initializable {
 
     private void showSelectedInvoice(Invoice invoice) {
         if (invoice != null){
+            selectedInvoice = invoice;
             showCode.setText(invoice.getInvoiceCode());
             showDescription.setText(invoice.getDescription());
             showCustomer.setText(Customer.getOneData(invoice.getCustomer_id()).getName()+" | "+Customer.getOneData(invoice.getCustomer_id()).getDescription());
             showTimeStamp.setText("Created at "+ZonedDateTime.parse(invoice.getTimestamp()).format(formatter));
+            loadBank(invoice.getBank_id());
         }else{
             showCode.setText("No Invoice Selected.");
             showDescription.setText("Please select invoice first then you can add some items on it.");
             showCustomer.setText("(^_^)/");
             showTimeStamp.setText("");
+            showBank.setVisible(false);
+            showSelectBank.setVisible(false);
+            save.setVisible(false);
         }
     }
 
@@ -240,6 +259,27 @@ public class SetupController implements Initializable {
         tableColumnCode.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getInvoiceCode()));
         tableColumnDescription.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));
         tableColumnCustomer.setCellValueFactory(e -> new SimpleStringProperty(Customer.getOneData(e.getValue().getCustomer_id()).getName()));
+    }
+
+    private void loadBox(){
+        List<Bank> bank = Bank.getAllData();
+        for (Bank banks : bank) {
+            showBank.getItems().add(banks.getBank_name());
+        }
+    }
+
+    private void loadBank(long idBank){
+        Bank bank = Bank.getOneData(idBank);
+        showBank.setVisible(true);
+        showSelectBank.setVisible(true);
+        save.setVisible(true);
+        showBank.getSelectionModel().select(bank.getBank_name());
+    }
+
+    private void saveBank(String selectedBankName){
+        Bank bank = Bank.getOneDataByName(selectedBankName);
+        selectedInvoice.setBank_id(bank.getId());
+        Invoice.updateById(selectedInvoice);
     }
 
     public void setHelloController(HelloController helloController) {

@@ -21,6 +21,8 @@ public class Invoice {
     private String timestamp;
     private long jrxml_id;
     private long customer_id;
+    private long bank_id;
+    private boolean status;
     private BooleanProperty checked = new SimpleBooleanProperty(true);
     private List<Item> listItems;
 
@@ -37,7 +39,9 @@ public class Invoice {
             String jsonData,
             String pdfUrl,
             long design_id,
-            long customer_id
+            long customer_id,
+            boolean status,
+            long bank_id
     ) {
         this.id = Instant.now().toEpochMilli();
         this.invoiceMarkText = invoiceMarkText;
@@ -50,6 +54,8 @@ public class Invoice {
         this.invoiceCode = invoiceCode;
         this.jrxml_id = design_id;
         this.customer_id = customer_id;
+        this.status = status;
+        this.bank_id = bank_id;
     }
 
     public Invoice(
@@ -90,7 +96,9 @@ public class Invoice {
                 jrxml_id,
                 customer_id,
                 description,
-                invoiceCode
+                invoiceCode,
+                bank_id,
+                status
                 ) VALUES (
                 :id, 
                 :invoiceMarkText, 
@@ -102,7 +110,9 @@ public class Invoice {
                 :jrxml_id,
                 :customer_id,
                 :description,
-                :invoiceCode
+                :invoiceCode,
+                :bank_id,
+                :status
                 )""";
         return DatabaseManager.addOneData(query, invoice);
     }
@@ -124,9 +134,7 @@ public class Invoice {
 
     public static List<Invoice> getAllDataGroubByTemplate(){
         String query = """
-                SELECT * FROM invoice 
-                GROUP BY description
-                ORDER BY totalPriceAll DESC
+                SELECT * FROM invoice WHERE status = 1
                 """;
         return DatabaseManager.getListData(query, Invoice.class);
     }
@@ -188,6 +196,28 @@ public class Invoice {
         return DatabaseManager.deleteData(query, Long.toString(id));
     }
 
+    public static List<Invoice> searchInvoiceByStatus(String text){
+        String query = """
+                SELECT DISTINCT
+                    a.id,
+                    a.invoiceCode,
+                    a.invoiceMarkText,
+                    a.date,
+                    a.description,
+                    a.totalPriceAll,
+                    a.customer_id,
+                    a.timestamp
+               
+                FROM invoice a LEFT JOIN customer b ON a.customer_id = b.id
+                WHERE ((a.invoiceMarkText LIKE :p1)
+                   OR (a.date LIKE :p1)
+                   OR (a.description LIKE :p1)
+                   OR (a.invoiceCode LIKE :p1)
+                   OR (b.name LIKE :p1))
+                   AND a.status = 1
+                """;
+        return DatabaseManager.getListData(query, Invoice.class, "%"+text+"%");
+    }
     public static List<Invoice> searchInvoice(String text){
         String query = """
                 SELECT DISTINCT
@@ -223,7 +253,8 @@ public class Invoice {
                 jrxml_id = :jrxml_id,
                 customer_id = :customer_id,
                 description = :description,
-                invoiceCode = :invoiceCode
+                invoiceCode = :invoiceCode,
+                status = :status
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, invoice);
@@ -319,7 +350,21 @@ public class Invoice {
         return pdfUrl;
     }
 
+    public long getBank_id() {
+        return bank_id;
+    }
 
+    public void setBank_id(long bank_id) {
+        this.bank_id = bank_id;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
 
     public List<Item> getListItems() {
         return Item.getListByInvoiceID(id);

@@ -19,6 +19,8 @@ public class Organization {
     private String kodeInstansi;
     private int tahunOperasi;
     private int totalLetter;
+    private String signature;
+    private String signatureName;
     private Personal personal;
 
     public Organization(){}
@@ -98,7 +100,9 @@ public class Organization {
                 noUrutInstansi = :noUrutInstansi, 
                 tahunOperasi = :tahunOperasi,
                 totalLetter = :totalLetter,
-                kodeInstansi = :kodeInstansi
+                kodeInstansi = :kodeInstansi,
+                signature = :signature,
+                signatureName = :signatureName
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, organization);
@@ -198,6 +202,22 @@ public class Organization {
 
     public Personal getPersonal() {
         return Personal.getOneDataByOrganizeId(id);
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public String getSignatureName() {
+        return signatureName;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
+
+    public void setSignatureName(String signatureName) {
+        this.signatureName = signatureName;
     }
 
     public void setPersonal(Personal personManagement) {

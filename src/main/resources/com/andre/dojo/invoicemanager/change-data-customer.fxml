@@ -84,24 +84,29 @@
                </children>
             </Pane>
          </children></Pane>
-      <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="30.0" layoutY="30.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="938.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@icon/sun.png" />
                </image>
             </ImageView>
-            <Label fx:id="tombolOrganization" alignment="CENTER" layoutX="13.0" layoutY="13.0" prefHeight="39.0" prefWidth="101.0" text="Lettter">
+            <Label fx:id="tombolLetter" alignment="CENTER" layoutX="13.0" layoutY="13.0" prefHeight="39.0" prefWidth="101.0" text="Lettter">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" styleClass="top-label-active" text="Customer">
+            <Label alignment="CENTER" layoutX="296.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" styleClass="top-label-active" text="Customer">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label fx:id="tombolInvoice" alignment="CENTER" layoutX="300.0" layoutY="14.0" prefHeight="37.0" prefWidth="113.0" text="Invoice">
+            <Label fx:id="tombolInvoice" alignment="CENTER" layoutX="450.0" layoutY="14.0" prefHeight="37.0" prefWidth="113.0" text="Invoice">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="tombolCode" alignment="CENTER" layoutX="141.0" layoutY="14.0" prefHeight="37.0" prefWidth="130.0" text="Code &amp; Bank">
                <font>
                   <Font size="15.0" />
                </font>

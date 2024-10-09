@@ -39,9 +39,11 @@ public class ChangeDataCustomerController {
     private TextField phone;
 
     @FXML
-    private Label tombolOrganization;
+    private Label tombolLetter;
     @FXML
     private Label tombolInvoice;
+    @FXML
+    private Label tombolCode;
 
     @FXML
     private AnchorPane anchorPaneMain;
@@ -55,7 +57,9 @@ public class ChangeDataCustomerController {
 
     private ChangeDataController changedataController;
     private ChangeDataInvoiceController changeDataInvoiceController;
+    private ChangeDataCodeController changeDataCodeController;
     private HelloController helloController;
+    private Customer selectedCustomer;
     private long idCustomer;
     private long idOrganization;
 
@@ -67,6 +71,10 @@ public class ChangeDataCustomerController {
         this.changeDataInvoiceController = changeDataInvoiceController;
     }
 
+    public void setChangeDataCodeController(ChangeDataCodeController changeDataCodeController) {
+        this.changeDataCodeController = changeDataCodeController;
+    }
+
     public void setHelloController(HelloController helloController) {
         this.helloController = helloController;
     }
@@ -74,22 +82,22 @@ public class ChangeDataCustomerController {
     public void initialize(){
         update.setVisible(false);
 
-        tombolOrganization.setOnMouseClicked(e -> {
+        tombolLetter.setOnMouseClicked(e -> {
             openOrganizationPane();
         });
 
         tombolInvoice.setOnMouseClicked(e -> {
             openInvoicePane();
         });
+
+        tombolCode.setOnMouseClicked(e -> {
+            openCodePane();
+        });
+
         loadTableView();
-
-        // Clear person details.
         showDataCustomer(null);
-
-        // Listen for selection changes and show the person details when changed.
         tableViewCustomer.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showDataCustomer(newValue));
-
         reset.setOnMouseClicked(event -> {
             reset();
         });
@@ -120,6 +128,19 @@ public class ChangeDataCustomerController {
             Pane anchorPane = new Pane((Node) fxmlLoader.load());
             ChangeDataInvoiceController changeDataInvoiceController = fxmlLoader.getController();
             changeDataInvoiceController.setChangeDataCustomerController(this);
+            anchorPaneMain.getChildren().removeFirst();
+            anchorPaneMain.getChildren().add(anchorPane);
+        }catch (IOException e1){
+            e1.printStackTrace();
+        }
+    }
+
+    private void openCodePane() {
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("change-data-code.fxml"));
+            Pane anchorPane = new Pane((Node) fxmlLoader.load());
+            ChangeDataCodeController changeDataCodeController = fxmlLoader.getController();
+            changeDataCodeController.setChangeDataCustomerController(this);
             anchorPaneMain.getChildren().removeFirst();
             anchorPaneMain.getChildren().add(anchorPane);
         }catch (IOException e1){
@@ -165,6 +186,7 @@ public class ChangeDataCustomerController {
 
     private void showDataCustomer(Customer customer) {
         if (customer != null) {
+            selectedCustomer = customer;
             name.setText(customer.getName());
             desc.setText(customer.getDescription());
             phone.setText(customer.getPhoneNumber());
@@ -180,29 +202,34 @@ public class ChangeDataCustomerController {
     }
 
     private void addCustomer(){
-        String cId = "1723509861951";
-        Customer.addToDB(
-                new Customer(
-                        name.getText(),
-                        desc.getText(),
-                        phone.getText(),
-                        Long.parseLong(cId)
-                ));
-        loadTableView();
-        reset();
+        if(name.getText().trim().isEmpty() || desc.getText().trim().isEmpty() || phone.getText().trim().isEmpty()){
+            HelloApplication.showAlert("All field in customer must be filled!");
+        } else {
+            String cId = "1723509861951";
+            Customer.addToDB(
+                    new Customer(
+                            name.getText(),
+                            desc.getText(),
+                            phone.getText(),
+                            Long.parseLong(cId)
+                    ));
+            loadTableView();
+            reset();
+        }
     }
 
     private void editCustomer(){
-        Customer.updateById(new Customer(
-                name.getText(),
-                desc.getText(),
-                phone.getText(),
-                idOrganization,
-                idCustomer
-        ));
-        System.out.println("is clikced?");
-        loadTableView();
-        reset();
+        if(name.getText().trim().isEmpty() || desc.getText().trim().isEmpty() || phone.getText().trim().isEmpty()){
+            HelloApplication.showAlert("All field in customer must be filled!");
+        } else {
+            selectedCustomer.setName(name.getText());
+            selectedCustomer.setDescription(desc.getText());
+            selectedCustomer.setPhoneNumber(phone.getText());
+            Customer.updateById(selectedCustomer);
+            System.out.println("is clikced?");
+            loadTableView();
+            reset();
+        }
     }
 
     private void reset(){
@@ -216,7 +243,6 @@ public class ChangeDataCustomerController {
     private void handleDelete(Customer customer){
         Invoice.deleteOneByIdCustomer(customer.getId());
         Customer.deleteOneById(customer.getId());
-        System.out.println("Delete operation with id you just clicked is = " + customer.getId());
         loadTableView();
         reset();
     }

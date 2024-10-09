@@ -13,6 +13,8 @@ public class CustomJSONAdapter extends TypeAdapter<CustomJSON> {
     CustomerAdapter customerAdapter = new CustomerAdapter();
     InvoiceAdapter invoiceAdapter = new InvoiceAdapter();
 
+    BankAdapter bankAdapter = new BankAdapter();
+
     @Override
     public void write(JsonWriter jsonWriter, CustomJSON customJSON) throws IOException {
         if (customJSON == null) {
@@ -24,6 +26,12 @@ public class CustomJSONAdapter extends TypeAdapter<CustomJSON> {
             jsonWriter.name("organization");
                 if (customJSON.getOrganization() != null){
                     organizationAdapter.write(jsonWriter, customJSON.getOrganization());
+                }else{
+                    jsonWriter.nullValue();
+                }
+            jsonWriter.name("bank");
+                if (customJSON.getOrganization() != null){
+                    bankAdapter.write(jsonWriter, customJSON.getBank());
                 }else{
                     jsonWriter.nullValue();
                 }
