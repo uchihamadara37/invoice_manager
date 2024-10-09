@@ -84,6 +84,12 @@
                </children>
             </Pane>
             <ChoiceBox fx:id="custName" layoutX="17.0" layoutY="393.0" prefHeight="36.0" prefWidth="457.0" />
+            <Label layoutX="498.0" layoutY="372.0" text="Code ID :">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="code" layoutX="497.0" layoutY="393.0" prefHeight="36.0" prefWidth="457.0" />
          </children>
       </Pane>
       <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

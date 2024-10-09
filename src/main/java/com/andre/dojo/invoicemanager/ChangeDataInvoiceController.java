@@ -48,6 +48,8 @@ public class ChangeDataInvoiceController {
     @FXML
     private ChoiceBox<String> custName;
     @FXML
+    private ChoiceBox<String> code;
+    @FXML
     private TextField desc;
     @FXML
     private TextField name;
@@ -63,7 +65,9 @@ public class ChangeDataInvoiceController {
     private ChangeDataController changeDataController;
     private ChangeDataCodeController changeDataCodeController;
     private Map<String, Long> customerMap = new HashMap<>();
+    private Map<String, Long> kodeMap = new HashMap<>();
     private Long customerId;
+    private Long codeLetter;
     private String invCode;
     private long invId;
     private Invoice selectedInvoice;
@@ -92,6 +96,7 @@ public class ChangeDataInvoiceController {
             handleSelection();
         });
         loadBox();
+        loadBox2();
         loadData();
         conButton(true);
 
@@ -268,7 +273,7 @@ public class ChangeDataInvoiceController {
                 )
         );
         Invoice.addToDB(new Invoice(
-                "Alfiander Comunity", desc.getText(), invoiceCode, "29 Agustus 2024", 0, "", "", Long.parseLong(designId),customerId,1==1, Long.parseLong(bankId))
+                name.getText(), desc.getText(), invoiceCode, "29 Agustus 2024", 0, "", "", Long.parseLong(designId),customerId,1==1, Long.parseLong(bankId))
         );
 
         reset();
@@ -291,6 +296,14 @@ public class ChangeDataInvoiceController {
         for (Customer customer : customers) {
             custName.getItems().add(customer.getName());
             customerMap.put(customer.getName(), customer.getId());
+        }
+    }
+
+    private void loadBox2(){
+        List<KodeSurat> kodeSurats = KodeSurat.getAllData();
+        for (KodeSurat kodeSurat : kodeSurats) {
+            code.getItems().add(kodeSurat.getKode());
+            kodeMap.put(kodeSurat.getKode(), kodeSurat.getId());
         }
     }
 }
