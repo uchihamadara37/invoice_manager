@@ -205,6 +205,9 @@ public class ChangeDataInvoiceController {
         customerId = customerMap.get(selectedName);
         if(customerId != null) {
             selectedCustomer = Customer.getOneData(customerId);
+            System.out.println("berhasil ambil : " + customerId);
+        }else{
+            System.out.println("gagal ambil");
         }
     }
 
