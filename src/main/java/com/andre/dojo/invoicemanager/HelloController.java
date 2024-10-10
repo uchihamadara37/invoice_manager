@@ -377,7 +377,7 @@ public class HelloController implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.YES;
     }
-    public boolean showInformationDialog(String message) {
+    public static boolean showInformationDialog(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Konfirmasi");
         alert.setHeaderText(null);

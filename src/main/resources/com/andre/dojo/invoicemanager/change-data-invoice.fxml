@@ -15,7 +15,7 @@
    <children>
       <Pane layoutY="77.0" prefHeight="613.0" prefWidth="978.0" styleClass="list-invoice">
          <children>
-            <TableView fx:id="tableViewInvoice" layoutX="14.0" layoutY="66.0" prefHeight="297.0" prefWidth="951.0">
+            <TableView fx:id="tableViewInvoice" layoutX="14.0" layoutY="66.0" prefHeight="274.0" prefWidth="951.0">
                <columns>
                   <TableColumn fx:id="tableColumnCode" prefWidth="200.0" text="Invoice Number" />
                   <TableColumn fx:id="tableColumnName" prefWidth="274.0" text="Invoice Name" />
@@ -23,23 +23,23 @@
                   <TableColumn fx:id="tableColumnDelete" minWidth="0.0" prefWidth="76.0" text="Action" />
                </columns>
             </TableView>
-            <Label layoutX="18.0" layoutY="372.0" text="Customer Name :">
+            <Label layoutX="17.0" layoutY="351.0" text="Customer Name :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="428.0" text="Invoice Name :">
+            <Label layoutX="17.0" layoutY="419.0" text="Invoice Name :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="486.0" text="Invoice Description :">
+            <Label layoutX="18.0" layoutY="485.0" text="Invoice Description :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <TextField fx:id="name" layoutX="17.0" layoutY="449.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
-            <TextField fx:id="desc" layoutX="17.0" layoutY="507.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <TextField fx:id="name" layoutX="17.0" layoutY="440.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
+            <TextField fx:id="desc" layoutX="17.0" layoutY="506.0" prefHeight="36.0" prefWidth="457.0" styleClass="field-add-item" />
             <TextField layoutX="333.0" layoutY="14.0" prefHeight="39.0" prefWidth="313.0" promptText="Search..." styleClass="field-search" />
             <Pane fx:id="add" layoutX="18.0" layoutY="557.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
                <children>
@@ -55,7 +55,7 @@
                   </Label>
                </children>
             </Pane>
-            <Pane fx:id="update" layoutX="203.0" layoutY="557.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
+            <Pane fx:id="update" layoutX="271.0" layoutY="557.0" prefHeight="42.0" prefWidth="101.0" styleClass="tombol-primary">
                <children>
                   <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -69,27 +69,33 @@
                   </Label>
                </children>
             </Pane>
-            <Pane fx:id="reset" layoutX="108.0" layoutY="557.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
+            <Pane fx:id="reset" layoutX="108.0" layoutY="557.0" prefHeight="42.0" prefWidth="153.0" styleClass="tombol-primary">
                <children>
                   <ImageView fitHeight="21.0" fitWidth="25.0" layoutX="10.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@icon/reset.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="45.0" text="Reset">
+                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="101.0" text="Reset | Cancel">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <ChoiceBox fx:id="custName" layoutX="17.0" layoutY="393.0" prefHeight="36.0" prefWidth="457.0" />
-            <Label layoutX="498.0" layoutY="372.0" text="Code ID :">
+            <ChoiceBox fx:id="custName" layoutX="17.0" layoutY="375.0" prefHeight="36.0" prefWidth="457.0" />
+            <Label layoutX="498.0" layoutY="351.0" text="Letter Code">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="code" layoutX="497.0" layoutY="393.0" prefHeight="36.0" prefWidth="457.0" />
+            <ChoiceBox fx:id="code" layoutX="497.0" layoutY="375.0" prefHeight="36.0" prefWidth="457.0" />
+            <ChoiceBox fx:id="bankSelector" layoutX="497.0" layoutY="440.0" prefHeight="36.0" prefWidth="457.0" />
+            <Label layoutX="498.0" layoutY="419.0" text="Select bank do you want to use!">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
