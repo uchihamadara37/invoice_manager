@@ -48,7 +48,7 @@ public class PrepareExportController implements Initializable {
 
         tableViewInvoice.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> {
-                    System.out.println("bool: "+newValue.getChecked().get());
+//                    System.out.println("bool: "+newValue.getChecked().get());
 
                 });
         exportPage.setOnMouseClicked(e -> {
@@ -63,7 +63,7 @@ public class PrepareExportController implements Initializable {
     private void openExportPage() {
         // check apakah ada yang diselect atau tidak
         ObservableList<Invoice> currentData = tableViewInvoice.getItems();
-        System.out.println("Checked TableView Data:");
+//        System.out.println("Checked TableView Data:");
         invoiceSelected.clear();
         for (Invoice item : currentData) {
             if (item.getChecked().get()) {

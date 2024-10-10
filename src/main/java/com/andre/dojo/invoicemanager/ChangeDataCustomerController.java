@@ -226,7 +226,7 @@ public class ChangeDataCustomerController {
             selectedCustomer.setDescription(desc.getText());
             selectedCustomer.setPhoneNumber(phone.getText());
             Customer.updateById(selectedCustomer);
-            System.out.println("is clikced?");
+//            System.out.println("is clikced?");
             loadTableView();
             reset();
         }

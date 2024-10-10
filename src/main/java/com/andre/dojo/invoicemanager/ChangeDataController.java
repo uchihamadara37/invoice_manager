@@ -178,7 +178,6 @@ public class ChangeDataController {
 
     private void loadData(){
         List<Organization> allOrganizations = Organization.getAllData();
-        System.out.println(allOrganizations);
         selectedOrganization = allOrganizations.get(0);
         yearOr = selectedOrganization.getTahunOperasi();
         organizationName.setText(selectedOrganization.getBrandName());
@@ -235,9 +234,7 @@ public class ChangeDataController {
             setLogoFix(image);
             logoImage.setImage(image);
             setSelectedLogo(selectedFile);
-            System.out.println("Selected file: " + filePath);
         } else {
-            System.out.println("No file selected");
         }
     }
 
@@ -265,9 +262,7 @@ public class ChangeDataController {
             setSelectedSignature(selectedFile);
             setSignatureFix(image);
             // Perform your action with the file path, e.g., update a logo
-            System.out.println("Selected file: " + filePath);
         } else {
-            System.out.println("No file selected");
         }
     }
 
@@ -295,7 +290,6 @@ public class ChangeDataController {
             while ((length = inputStream.read(buffer)) > 0) {
                 outputStream.write(buffer, 0, length);
             }
-            System.out.println("File saved to: " + destinationFile.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
         }

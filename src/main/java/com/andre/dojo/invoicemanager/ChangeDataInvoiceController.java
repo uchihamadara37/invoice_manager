@@ -150,16 +150,16 @@ public class ChangeDataInvoiceController {
             handleAdd();
         });
         custName.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("isinya "+oldValue+" "+newValue);
+//            System.out.println("isinya "+oldValue+" "+newValue);
             handleSelection(newValue);
         });
         code.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("isi code "+oldValue+" "+newValue);
+//            System.out.println("isi code "+oldValue+" "+newValue);
             handleSelectionCode(newValue);
         });
         bankSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             handleSelectionBank(newValue);
-            System.out.println("isi bank "+selectedBank.getBank_name());
+//            System.out.println("isi bank "+selectedBank.getBank_name());
         });
 //        meload dropdown box
         loadBox();
@@ -335,9 +335,9 @@ public class ChangeDataInvoiceController {
             selectedInvoice.setInvoiceMarkText(name.getText());
             selectedInvoice.setDescription(desc.getText());
             selectedInvoice.setCustomer_id(selectedCustomer.getId());
-            System.out.println("bank select : "+ selectedBank.getBank_name());
+//            System.out.println("bank select : "+ selectedBank.getBank_name());
             selectedInvoice.setBank_id(selectedBank.getId());
-            System.out.println("bank hasil : "+Bank.getOneData(selectedInvoice.getBank_id()).getBank_name());
+//            System.out.println("bank hasil : "+Bank.getOneData(selectedInvoice.getBank_id()).getBank_name());
             Invoice.updateById(selectedInvoice);
             loadData();
             reset();
@@ -363,7 +363,7 @@ public class ChangeDataInvoiceController {
             Organization organization = HelloApplication.organization;
             int urutanSurat = organization.getNoUrutInstansi() + 1;
             String invoiceCode = urutanSurat + "/"+organization.getKodeInstansi()+"/"+selectedCodeSurat.getKode()+"/" + urutanInvoice + "/" + yearCode;
-            System.out.println(invoiceCode);
+//            System.out.println(invoiceCode);
 
             selectedCodeSurat.setNoUrut(urutanInvoice);
             organization.setNoUrutInstansi(urutanSurat);

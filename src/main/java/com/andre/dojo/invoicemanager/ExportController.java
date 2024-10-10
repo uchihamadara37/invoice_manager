@@ -143,7 +143,7 @@ public class ExportController {
 
         setupSpinner();
         spinner.valueProperty().addListener((obs, oldValue, newValue) -> {
-            System.out.println("Bulan dipilih: " + newValue);
+//            System.out.println("Bulan dipilih: " + newValue);
             monthSelected = newValue;
         });
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM", new Locale("id", "ID"));
@@ -155,7 +155,7 @@ public class ExportController {
             // filter folder configured
             // filter folder sudah pernah konfigure
             if (HelloController.showConfirmationDialog("Are you really want to Export this "+dataExport.size()+" invoices on this "+monthSelected+"?")){
-                //System.out.println(HelloApplication.dirExport);
+//                System.out.println(HelloApplication.dirExport);
                 if (!Objects.equals(HelloApplication.dirExport, "")){
                     File checkFolder = new File(HelloApplication.dirExport);
                     if (checkFolder.exists()){
@@ -171,7 +171,7 @@ public class ExportController {
                             // membuat folder
                             if (!folderAsli.exists()) {
                                 folderAsli.mkdir();
-                                System.out.println(folderAsli+" telah dibuat");
+//                                System.out.println(folderAsli+" telah dibuat");
                             }
                             startExportOneByOne(folderAsli);
                         }
@@ -205,7 +205,7 @@ public class ExportController {
         File selectedDirectory = directoryChooser.showDialog(HelloApplication.getMainStage());
 
         if (selectedDirectory != null) {
-            System.out.println("Folder yang dipilih: " + selectedDirectory.getAbsolutePath());
+//            System.out.println("Folder yang dipilih: " + selectedDirectory.getAbsolutePath());
             HelloApplication.dirExport = selectedDirectory.getAbsolutePath();
             fieldFolder.setText(selectedDirectory.getAbsolutePath());
             // simpan ke config.properties
@@ -231,14 +231,14 @@ public class ExportController {
                     fieldFolder.setText(properties.getProperty("dir.export"));
                     HelloApplication.dirExport = properties.getProperty("dir.export");
                 }else{
-                    System.out.println("folder dir.export belum diset ke config");
+//                    System.out.println("folder dir.export belum diset ke config");
                     fieldFolder.setText("folder dir.export is not configured, please change this..");
                 }
             } catch (IOException e) {
-                System.out.println("file config.prop gagal di-load(in)");
+//                System.out.println("file config.prop gagal di-load(in)");
             }
         }else{
-            System.out.println("file config.properties tidak ditemukan dari url : "+HelloApplication.filePropDir.getAbsolutePath());
+//            System.out.println("file config.properties tidak ditemukan dari url : "+HelloApplication.filePropDir.getAbsolutePath());
         }
 
     }
@@ -320,9 +320,9 @@ public class ExportController {
                         if (invSebelum.isEmpty()){
                             HelloApplication.organization.setNoUrutInstansi(1);
                             HelloApplication.organization.setTahunOperasi(LocalDate.now().getYear());
-                            System.out.println("Ada antara "+LocalDate.now().getYear());
+//                            System.out.println("Ada antara "+LocalDate.now().getYear());
                         }else{
-                            System.out.println("tidak ada antara");
+//                            System.out.println("tidak ada antara");
                             HelloApplication.organization.setNoUrutInstansi(HelloApplication.organization.getNoUrutInstansi()+1);
                         }
                         Organization.updateById(HelloApplication.organization);
@@ -350,7 +350,7 @@ public class ExportController {
                     if (e.isFillNameWithMonth()){
                         Matcher matcher = monthPattern.matcher(e.getName());
                         e.setName(matcher.replaceAll(monthSelected));
-                        System.out.println("Name : "+e.getName());
+//                        System.out.println("Name : "+e.getName());
                     }
                     i++;
                 }
@@ -368,7 +368,7 @@ public class ExportController {
 //                invBaru.setPdfUrl("Datenya : "+invBaru.getDate());
 
 //                System.out.println(invBaru.getPdfUrl());
-                System.out.println("========================================");
+//                System.out.println("========================================");
 //                System.out.println(invBaru.getJsonData());
                 Invoice.addToDB(invBaru);
 

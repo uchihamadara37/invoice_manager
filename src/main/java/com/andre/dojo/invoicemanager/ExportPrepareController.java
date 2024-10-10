@@ -43,11 +43,11 @@ public class ExportPrepareController {
         loadTable();
         generate.setOnMouseClicked(e -> {
             ObservableList<Invoice> currentData = tableViewPrepare.getItems();
-            System.out.println("Checked TableView Data:");
+//            System.out.println("Checked TableView Data:");
             selectedInvoices.clear();
             for (Invoice item : currentData) {
                 if (item.getChecked().get()) {
-                    System.out.println("Item: " + item.getChecked().get() + ", Desc: " + item.getDescription());
+//                    System.out.println("Item: " + item.getChecked().get() + ", Desc: " + item.getDescription());
                     selectedInvoices.add(item);
                 }
             }

@@ -52,8 +52,8 @@ public class JsonDataController implements Initializable {
                     p.getY() + HelloApplication.getMainStage().getY()
                             + btnCopy.getScene().getY() - 35
             );
-            System.out.println("p.getx = "+p.getX()+" stage.x = "+HelloApplication.getMainStage().getX()+" scenex = "+btnCopy.getScene().getX());
-            System.out.println("p.getY = "+p.getY()+" stage.Y = "+HelloApplication.getMainStage().getY()+" scene Y = "+btnCopy.getScene().getY());
+//            System.out.println("p.getx = "+p.getX()+" stage.x = "+HelloApplication.getMainStage().getX()+" scenex = "+btnCopy.getScene().getX());
+//            System.out.println("p.getY = "+p.getY()+" stage.Y = "+HelloApplication.getMainStage().getY()+" scene Y = "+btnCopy.getScene().getY());
             Timeline timeline = new Timeline(new KeyFrame(
                     Duration.seconds(3),
                     ae -> tooltip.hide()

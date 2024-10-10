@@ -218,7 +218,6 @@ public class ChangeDataCodeController {
     }
 
     private void showDetailCode(KodeSurat kodeSurat){
-        System.out.println("is kode clicked?");
         selectedKodeSurat = kodeSurat;
         if (kodeSurat != null) {
             KodeName.setText(kodeSurat.getKode());
@@ -320,7 +319,6 @@ public class ChangeDataCodeController {
     }
 
     private void showDetailBank(Bank bank){
-        System.out.println("is bank clicked?");
         selectedBank = bank;
         if (bank != null) {
             BankName.setText(bank.getBank_name());

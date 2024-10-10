@@ -88,7 +88,7 @@ public class HelloApplication extends Application {
         if (!fileProp.exists()) {
             try {
                 fileProp.createNewFile();
-                System.out.println("File config.properties baru telah dibuat.");
+//                System.out.println("File config.properties baru telah dibuat.");
             } catch (IOException e) {
                 showAlert("Gagal membuat file properties baru!");
                 e.printStackTrace();
@@ -101,10 +101,10 @@ public class HelloApplication extends Application {
         for (int i = 0; i < args.length; i++){
             switch (args[i]){
                 case "--help" :
-                    System.out.println("Help center :");
-                    System.out.println("--set-src-directory : example >> '--set-src-directory C:\\your_folder'");
-                    System.out.println("                      it`s a url directory or folder which used to save your local pdf or image, and just needed on the first running configuration");
-                    System.out.println("--help              : to provide all syntax you can used to configure something");
+//                    System.out.println("Help center :");
+//                    System.out.println("--set-src-directory : example >> '--set-src-directory C:\\your_folder'");
+//                    System.out.println("                      it`s a url directory or folder which used to save your local pdf or image, and just needed on the first running configuration");
+//                    System.out.println("--help              : to provide all syntax you can used to configure something");
                     break;
                 case "--set-src-directory" :
                     // jika next string ada input
@@ -183,7 +183,7 @@ public class HelloApplication extends Application {
                             Platform.runLater(() -> {
                                 HelloApplication.showAlert("this "+fileConfig+" directory is not exist! please fill with correct path directory!");
                             });
-                            System.out.println("this "+fileConfig+" directory is not exist! please fill with correct path directory!");
+//                            System.out.println("this "+fileConfig+" directory is not exist! please fill with correct path directory!");
                             return;
                         }
                         i++;
@@ -191,12 +191,12 @@ public class HelloApplication extends Application {
                         Platform.runLater(() -> {
                             HelloApplication.showAlert("--url-source \"need_some_input\" please use --help for more information");
                         });
-                        System.out.println("--url-source \"need_some_input\" please use --help for more information");
+//                        System.out.println("--url-source \"need_some_input\" please use --help for more information");
                         return;
                     }
                     break;
                 default:
-                    System.out.println(" Please use --help to show all syntax configuration!");
+//                    System.out.println(" Please use --help to show all syntax configuration!");
                     return;
 
             }
@@ -212,8 +212,8 @@ public class HelloApplication extends Application {
         }
 
 
-        System.out.println("okokok");
-        System.out.println(fileProp.getAbsolutePath());
+//        System.out.println("okokok");
+//        System.out.println(fileProp.getAbsolutePath());
         if (prop.containsKey("dir.image") && prop.containsKey("dir.pdf") && prop.containsKey("dir.logo") && prop.containsKey("dir.src")){
             dirImage = prop.getProperty("dir.image");
             dirPdf = prop.getProperty("dir.pdf");
@@ -238,7 +238,7 @@ public class HelloApplication extends Application {
             launch();
 
         }else{
-            System.out.println("jangkrik malah rung enek");
+//            System.out.println("jangkrik malah rung enek");
             Platform.runLater(() -> {
                 showAlert("Nilai directory tidak ditemukan dalam file config.properties!");
             });

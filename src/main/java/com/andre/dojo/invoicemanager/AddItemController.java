@@ -204,7 +204,6 @@ public class AddItemController implements Initializable {
                     );
 
                     reloadAfterChangeData();
-//                    System.out.println("Y :=> scene.window.getX : "+itemName.getScene().getWindow().getX()+" itemName.getLX : "+itemName.getLayoutX()+" mainStage.X : "+HelloApplication.getMainStage().getX());
                 }
             }
         }

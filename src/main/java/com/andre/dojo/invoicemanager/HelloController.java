@@ -79,7 +79,7 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("helloView jangkrik");
+//        System.out.println("helloView jangkrik");
 
         LocalDate today = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH);
@@ -152,11 +152,11 @@ public class HelloController implements Initializable {
         });
         tombolGenerate.setOnMouseClicked(e -> {
             ObservableList<Invoice> currentData = tableViewInvoice.getItems();
-            System.out.println("Checked TableView Data:");
+//            System.out.println("Checked TableView Data:");
             selectedInvoices.clear();
             for (Invoice item : currentData) {
                 if (item.getChecked().get()) {
-                    System.out.println("Item: " + item.getChecked().get() + ", Desc: " + item.getDescription());
+//                    System.out.println("Item: " + item.getChecked().get() + ", Desc: " + item.getDescription());
                     selectedInvoices.add(item);
                 }
             }
@@ -279,7 +279,7 @@ public class HelloController implements Initializable {
             exportController.setDataExport(getSelectedInvoices());
 
             exportController.setMessage("masukkah?");
-            System.out.println("dari export pane open : " + selectedInvoices);
+//            System.out.println("dari export pane open : " + selectedInvoices);
             exportController.customInitialize();
 
             anchorPaneMain.getChildren().removeFirst();
@@ -389,7 +389,7 @@ public class HelloController implements Initializable {
 
     public void setSelectedInvoices(ObservableList<Invoice> selectedInvoices) {
         this.selectedInvoices = selectedInvoices;
-        System.out.println("hasil set : " + selectedInvoices);
+//        System.out.println("hasil set : " + selectedInvoices);
     }
 
     public ObservableList<Invoice> getSelectedInvoices() {

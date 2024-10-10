@@ -345,7 +345,7 @@ public class JrxmlController implements Initializable {
         try {
             Path path = Paths.get(absolutePath);
             Files.delete(path);
-            System.out.println("File deleted successfully: " + absolutePath);
+//            System.out.println("File deleted successfully: " + absolutePath);
         } catch (NoSuchFileException e) {
             System.err.println("The file does not exist: " + absolutePath);
         } catch (DirectoryNotEmptyException e) {
@@ -446,8 +446,8 @@ public class JrxmlController implements Initializable {
         design.setDirImage(pngFullPath);
         design.setDirPdf(pdfFullPath);
 
-        System.out.println("PNG exported to: " + pngFullPath);
-        System.out.println("PDF exported to: " + pdfFullPath);
+//        System.out.println("PNG exported to: " + pngFullPath);
+//        System.out.println("PDF exported to: " + pdfFullPath);
 
         Design.addToDB(design);
         loadDesignSideBar();
@@ -483,8 +483,8 @@ public class JrxmlController implements Initializable {
         File dirInDBPdf = new File(design.getDirPdf());
         File dirUpdate = new File(HelloApplication.dirSource);
 
-        System.out.println("dir parent : "+dirInDBImg.getParent());
-        System.out.println("dir update : "+dirUpdate.getAbsolutePath());
+//        System.out.println("dir parent : "+dirInDBImg.getParent());
+//        System.out.println("dir update : "+dirUpdate.getAbsolutePath());
 
         if (Objects.equals(dirInDBImg.getParent(), dirUpdate.getAbsolutePath())){
             replaceImage(jasperPrint, design.getDirImage());
@@ -499,8 +499,8 @@ public class JrxmlController implements Initializable {
             // Export to PDF
             exportToPdf(jasperPrint, pdfFullPath);
 
-            System.out.println("PNG exported to ganti folder: " + pngFullPath);
-            System.out.println("PDF exported to ganti folder: " + pdfFullPath);
+//            System.out.println("PNG exported to ganti folder: " + pngFullPath);
+//            System.out.println("PDF exported to ganti folder: " + pdfFullPath);
 
             design.setDirImage(pngFullPath);
             design.setDirPdf(pdfFullPath);
@@ -578,7 +578,7 @@ public class JrxmlController implements Initializable {
             // Ganti file lama dengan file temporary
             Files.move(tempFile.toPath(), outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            System.out.println("File berhasil diganti pdf: " + outputFile.getAbsolutePath());
+//            System.out.println("File berhasil diganti pdf: " + outputFile.getAbsolutePath());
 
         } catch (IOException e) {
             System.err.println("Terjadi kesalahan saat mengganti file: " + e.getMessage());
@@ -619,7 +619,7 @@ public class JrxmlController implements Initializable {
             // Ganti file lama dengan file temporary
             Files.move(tempFile.toPath(), outputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-            System.out.println("File berhasil diganti png: " + outputFile.getAbsolutePath());
+//            System.out.println("File berhasil diganti png: " + outputFile.getAbsolutePath());
 
         } catch (IOException e) {
             System.err.println("Terjadi kesalahan saat mengganti file: " + e.getMessage());
