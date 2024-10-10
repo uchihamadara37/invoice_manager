@@ -254,7 +254,8 @@ public class Invoice {
                 customer_id = :customer_id,
                 description = :description,
                 invoiceCode = :invoiceCode,
-                status = :status
+                status = :status,
+                bank_id = :bank_id
                 WHERE id = :id
                 """;
         return DatabaseManager.updateData(query, invoice);

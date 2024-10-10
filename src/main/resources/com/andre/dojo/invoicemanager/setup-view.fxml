@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -102,26 +101,6 @@
                   <Font size="15.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="showBank" layoutX="651.0" layoutY="412.0" prefHeight="28.0" prefWidth="313.0" />
-            <Label fx:id="showSelectBank" layoutX="518.0" layoutY="415.0" prefHeight="21.0" prefWidth="116.0" text="Selected Bank">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Pane fx:id="save" layoutX="651.0" layoutY="454.0" prefHeight="42.0" prefWidth="87.0" styleClass="tombol-primary">
-               <children>
-                  <ImageView fitHeight="32.0" fitWidth="25.0" layoutX="8.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@icon/save.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="39.0" layoutY="6.0" prefHeight="28.0" prefWidth="55.0" text="Save">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
         </children>
     </Pane>
 </children>

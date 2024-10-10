@@ -36,6 +36,8 @@ public class ChangeDataInvoiceController {
     private TableColumn<Invoice, String> tableColumnDesc;
     @FXML
     private TableColumn<Invoice, Void> tableColumnDelete;
+    @FXML
+    private Label labelLetter;
 
     @FXML
     private Label tombolCustomer;
@@ -156,8 +158,8 @@ public class ChangeDataInvoiceController {
             handleSelectionCode(newValue);
         });
         bankSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("isi bank "+oldValue+" "+newValue);
             handleSelectionBank(newValue);
+            System.out.println("isi bank "+selectedBank.getBank_name());
         });
 //        meload dropdown box
         loadBox();
@@ -172,9 +174,9 @@ public class ChangeDataInvoiceController {
     private void handleSelectionBank(Bank newValue) {
         if(newValue != null) {
             selectedBank = newValue;
-            System.out.println("berhasil ambil bank : " + selectedBank.getBank_name());
+//            System.out.println("berhasil ambil bank : " + selectedBank.getBank_name());
         }else{
-            System.out.println("gagal ambil bank");
+//            System.out.println("gagal ambil bank");
         }
     }
 
@@ -182,9 +184,9 @@ public class ChangeDataInvoiceController {
         if(kodeSurat != null) {
             codeLetterId = kodeSurat.getId();
             selectedCodeSurat = kodeSurat;
-            System.out.println("berhasil ambil code : " + codeLetterId);
+//            System.out.println("berhasil ambil code : " + codeLetterId);
         }else{
-            System.out.println("gagal ambil kode surat");
+//            System.out.println("gagal ambil kode surat");
         }
     }
 
@@ -294,49 +296,59 @@ public class ChangeDataInvoiceController {
         customerId = customerMap.get(name);
         if(customerId != null) {
             selectedCustomer = Customer.getOneData(customerId);
-            System.out.println("berhasil ambil customer : " + customerId);
+//            System.out.println("berhasil ambil customer : " + customerId);
         }else{
-            System.out.println("gagal ambil customer");
+//            System.out.println("gagal ambil customer");
         }
     }
 
     private void showDetail(Invoice invoice){
         selectedInvoice = invoice;
         if (invoice != null) {
+            bankSelector.getSelectionModel().clearSelection();
             name.setText(invoice.getInvoiceMarkText());
             desc.setText(invoice.getDescription());
             invCode = invoice.getInvoiceCode();
             invId = invoice.getId();
-            selectCustomerById(invoice.getCustomer_id());
+            selectedCustomer = Customer.getOneData(invoice.getCustomer_id());
+            selectedBank = Bank.getOneData(invoice.getBank_id());
+            custName.getSelectionModel().select(selectedCustomer.getName());
+            bankSelector.getSelectionModel().select(selectedBank);
             conButton(false);
+            code.setVisible(false);
+            labelLetter.setVisible(false);
         } else {
             name.setText("");
             desc.setText("");
         }
     }
 
-    private void selectCustomerById(long customerId) {
-        Customer customer = Customer.getOneData(customerId);
-        custName.getSelectionModel().select(customer.getName());
-    }
+
 
     private void handleUpdate(){
-        if (name.getText().trim().isEmpty() || desc.getText().trim().isEmpty()){
+        if (Objects.equals(desc.getText(), "") ||
+                Objects.equals(name.getText(), "") ||
+                selectedBank == null || selectedCustomer == null
+        ){
             HelloApplication.showAlert("All field in invoice must be filled!");
         } else {
             selectedInvoice.setInvoiceMarkText(name.getText());
             selectedInvoice.setDescription(desc.getText());
             selectedInvoice.setCustomer_id(selectedCustomer.getId());
+            System.out.println("bank select : "+ selectedBank.getBank_name());
+            selectedInvoice.setBank_id(selectedBank.getId());
+            System.out.println("bank hasil : "+Bank.getOneData(selectedInvoice.getBank_id()).getBank_name());
             Invoice.updateById(selectedInvoice);
             loadData();
             reset();
         }
+
     }
 
     private void handleAdd(){
 //        String idSurat = "1723596852024";
 //        String designId = "1725261011387";
-        if (Objects.equals(desc.getText(), "") || Objects.equals(name.getText(), "") || customerId == null || codeLetterId == null){
+        if (Objects.equals(desc.getText(), "") || Objects.equals(name.getText(), "") || customerId == null || codeLetterId == null || selectedBank == null || selectedCustomer == null || selectedCodeSurat == null){
             HelloController.showInformationDialog("Maaf silakan lengkapi data terlebih dahulu");
         }else{
 //            Mengurus kode surat
@@ -394,6 +406,8 @@ public class ChangeDataInvoiceController {
         selectedCustomer = null;
         selectedCodeSurat = null;
         selectedInvoice = null;
+        code.setVisible(true);
+        labelLetter.setVisible(true);
     }
 
     private void loadBox(){
