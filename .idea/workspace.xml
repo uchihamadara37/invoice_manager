@@ -9,25 +9,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8adacacf-1080-473a-8e1a-343262ed38e4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/input/invoiceManager-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/invoiceDatabase.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Adapter/OrganizationAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Adapter/OrganizationAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Organization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Organization.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Personal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Personal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Utils/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Utils/DatabaseManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/AddItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/AddItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCodeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/SetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/SetupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-code.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-code.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-invoice.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-invoice.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" afterDir="false" />
-    </list>
+    <list default="true" id="8adacacf-1080-473a-8e1a-343262ed38e4" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
