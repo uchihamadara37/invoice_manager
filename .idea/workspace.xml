@@ -10,20 +10,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8adacacf-1080-473a-8e1a-343262ed38e4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/input/invoiceManager-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/invoiceDatabase.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mydatabase.db" beforeDir="false" afterPath="$PROJECT_DIR$/mydatabase.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Adapter/OrganizationAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Adapter/OrganizationAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Organization.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Organization.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Personal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Models/Personal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Utils/DatabaseManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/Utils/DatabaseManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/AddItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/AddItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCodeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataCustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataInvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ChangeDataInvoiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ExportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ExportController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ExportPrepareController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/ExportPrepareController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/JrxmlController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/JrxmlController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/JsonDataController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/JsonDataController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/PrepareExportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/PrepareExportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/SetupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/andre/dojo/invoicemanager/SetupController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-code.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-code.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-invoice.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data-invoice.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/change-data.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +58,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Application.HelloApplication.executor": "Debug",
+    "Application.HelloApplication.executor": "Run",
     "Maven.invoiceManager [-v].executor": "Run",
     "Maven.invoiceManager [clean].executor": "Run",
     "Maven.invoiceManager [install].executor": "Run",
@@ -66,7 +69,7 @@
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_directory_selection": "D:/PROJECT/invoice_manager/src/main/java/com/andre/dojo/invoicemanager",
-    "last_opened_file_path": "C:/Users/andre/Downloads/Compressed/sqlite-jdbc-3.5.7.jar",
+    "last_opened_file_path": "D:/PROJECT/invoice_manager/input",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.3275862",
@@ -75,6 +78,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECT\invoice_manager\input" />
       <recent name="D:\PROJECT\invoice_manager\src\main\resources\com\andre\dojo\invoicemanager\Image" />
       <recent name="D:\PROJECT\invoice_manager\src\main\resources\com\andre\dojo\invoicemanager\Jrxml" />
       <recent name="$PROJECT_DIR$/src/main/resources/com/andre/dojo/invoicemanager/Jrxml" />

@@ -73,6 +73,12 @@ public class Personal {
                 """;
         return DatabaseManager.getOneData(query, Personal.class, Long.toString(id));
     }
+    public static Personal getFirstData(){
+        String query = """
+                SELECT * FROM personal LIMIT 1
+                """;
+        return DatabaseManager.getOneData(query, Personal.class);
+    }
     public static Personal getOneDataByOrganizeId(long organization_id){
         String query = """
                 SELECT * FROM personal WHERE organization_id = :p1

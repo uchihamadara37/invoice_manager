@@ -18,7 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DatabaseManager {
-    private static final String DB_NAME = "mydatabase.db";
+    private static final String DB_NAME = "invoiceDatabase.db";
 //    private static final String DB_URL = "jdbc:sqlite:"+ HelloApplication.dirSource +"\\"+ DB_NAME;
     private static final String DB_URL = "jdbc:sqlite:"+ DB_NAME;
     private static final Sql2o sql2o = new Sql2o(DB_URL, "", "");
@@ -31,10 +31,10 @@ public class DatabaseManager {
         }
         try (Connection conn = DriverManager.getConnection(DB_URL)) {
             if (conn != null) {
-                System.out.println("Database baru telah dibuat.");
+//                System.out.println("Database baru telah dibuat.");
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 
@@ -47,7 +47,11 @@ public class DatabaseManager {
                 "    address TEXT,\n" +
                 "    email TEXT,\n" +
                 "    noUrutInstansi INTEGER,\n" +
-                "    tahunOperasi INTEGER\n" +
+                "    tahunOperasi INTEGER,\n" +
+                "    totalLetter INTEGER,\n" +
+                "    kodeInstansi TEXT,\n" +
+                "    signature TEXT,\n" +
+                "    signatureName TEXT\n" +
                 ");";
 
         try (
@@ -57,9 +61,9 @@ public class DatabaseManager {
             stmt.execute(sql);
             stmt.close();
             conn.close();
-            System.out.println("Tabel users telah dibuat.");
+//            System.out.println("Tabel users telah dibuat.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 
@@ -80,9 +84,9 @@ public class DatabaseManager {
             stmt.execute(sql);
             stmt.close();
             conn.close();
-            System.out.println("Tabel customer telah dibuat.");
+//            System.out.println("Tabel customer telah dibuat.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 
@@ -102,21 +106,21 @@ public class DatabaseManager {
             stmt.execute(sql);
             stmt.close();
             conn.close();
-            System.out.println("Tabel kode_surat telah dibuat.");
+//            System.out.println("Tabel kode_surat telah dibuat.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 
     public static void createTablePerson() {
         String sql = "CREATE TABLE IF NOT EXISTS personal (\n" +
                 "    id INTEGER PRIMARY KEY,\n" +
-                "    name TEXT NOT NULL,\n" +
+                "    name TEXT,\n" +
                 "    bankName TEXT,\n" +
                 "    bankIDNumber TEXT,\n" +
                 "    bankIDName TEXT,\n" +
-                "    organization_id INTEGER NOT NULL, \n"+
-                "    FOREIGN KEY (organization_id) REFERENCES organization(id)"+
+                "    urlTtd INTEGER,\n"+
+                "    organization_id INTEGER \n"+
                 ");";
 
         try (
@@ -126,9 +130,9 @@ public class DatabaseManager {
             stmt.execute(sql);
             stmt.close();
             conn.close();
-            System.out.println("Tabel personal telah dibuat.");
+//            System.out.println("Tabel personal telah dibuat.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 
@@ -142,6 +146,10 @@ public class DatabaseManager {
                 "    pdfUrl TEXT,\n" +
                 "    timestamp TEXT,\n" +
                 "    jrxml_id INTEGER,\n" +
+                "    description TEXT,\n" +
+                "    invoiceCode TEXT,\n" +
+                "    status BOOLEAN,\n" +
+                "    bank_id INTEGER,\n" +
                 "    customer_id INTEGER NOT NULL, \n"+
                 "    FOREIGN KEY (customer_id) REFERENCES organization(id)"+
                 "    FOREIGN KEY (jrxml_id) REFERENCES design(id)"+
@@ -154,9 +162,9 @@ public class DatabaseManager {
             stmt.execute(sql);
             stmt.close();
             conn.close();
-            System.out.println("Tabel invoice telah dibuat.");
+//            System.out.println("Tabel invoice telah dibuat.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 
@@ -175,15 +183,15 @@ public class DatabaseManager {
             stmt.execute(sql);
             stmt.close();
             conn.close();
-            System.out.println("Tabel design telah dibuat.");
+//            System.out.println("Tabel design telah dibuat.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 
 
     public static void createTableItem() {
-        String sql = "CREATE TABLE IF NOT EXISTS item2 (\n" +
+        String sql = "CREATE TABLE IF NOT EXISTS item (\n" +
                 "    id INTEGER PRIMARY KEY,\n" +
                 "    name TEXT NOT NULL,\n" +
                 "    price INTEGER NOT NULL,\n" +
@@ -201,9 +209,30 @@ public class DatabaseManager {
             stmt.execute(sql);
             stmt.close();
             conn.close();
-            System.out.println("Tabel design telah dibuat.");
+//            System.out.println("Tabel design telah dibuat.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
+        }
+    }
+    public static void createTableBank() {
+        String sql = "CREATE TABLE IF NOT EXISTS bank (\n" +
+                "    id INTEGER PRIMARY KEY,\n" +
+                "    bank_name TEXT,\n" +
+                "    owner TEXT,\n" +
+                "    bank_id TEXT,\n" +
+                "    account_number TEXT" +
+                ");";
+
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                Statement stmt = conn.createStatement()
+        ) {
+            stmt.execute(sql);
+            stmt.close();
+            conn.close();
+//            System.out.println("Tabel bank telah dibuat.");
+        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
         }
     }
 
@@ -215,20 +244,20 @@ public class DatabaseManager {
                 Connection conn = DriverManager.getConnection(DB_URL);
                 Statement stmt = conn.createStatement()
         ) {
-//            stmt.execute("DROP TABLE IF EXISTS organization;");
+            stmt.execute("DROP TABLE IF EXISTS personal;");
 //            stmt.execute("DROP TABLE IF EXISTS customer;");
 //            stmt.execute("ALTER TABLE item2 RENAME TO item;");
 //            stmt.execute("DROP TABLE IF EXISTS item;");
 //            stmt.execute("DROP TABLE IF EXISTS design;");
 //            stmt.execute("INSERT INTO item2 SELECT * FROM item;");
-            stmt.execute("DELETE FROM item WHERE invoice_id = 0;");
+//            stmt.execute("DELETE FROM item WHERE invoice_id = 0;");
 //            stmt.execute("DELETE FROM invoice WHERE id = 1726207571539;");
 //            stmt.execute("ALTER TABLE organization ADD COLUMN kodeInstansi TEXT;");
             stmt.close();
             conn.close();
-            System.out.println("Tabel telah dihapus.");
+//            System.out.println("Tabel telah dihapus.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+//            System.out.println(e.getMessage());
         }
     }
 
@@ -290,6 +319,14 @@ public class DatabaseManager {
     public static <T> T getOneData(String query, Class<T> classe, String... params){
         try(org.sql2o.Connection con = sql2o.open()){
             return con.createQuery(query).withParams((Object) params).executeAndFetchFirst(classe);
+        }catch (Sql2oException e1){
+            e1.printStackTrace();
+            return null;
+        }
+    }
+    public static <T> T getOneData(String query, Class<T> classe){
+        try(org.sql2o.Connection con = sql2o.open()){
+            return con.createQuery(query).executeAndFetchFirst(classe);
         }catch (Sql2oException e1){
             e1.printStackTrace();
             return null;

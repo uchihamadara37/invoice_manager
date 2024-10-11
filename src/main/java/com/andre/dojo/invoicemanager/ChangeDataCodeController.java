@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class ChangeDataCodeController {
     @FXML
@@ -86,6 +87,9 @@ public class ChangeDataCodeController {
 
 
     public void initialize(){
+        setupNumberTextField(SerialNumber);
+        setupNumberTextField(Rekening);
+
         loadDataKode();
         loadDataBank();
 
@@ -271,7 +275,7 @@ public class ChangeDataCodeController {
         conButtonBank(true);
         tableViewBank.setEditable(true);
         tableViewBank.setItems(FXCollections.observableArrayList(Bank.getAllData()));
-        tableBankName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getBank_name()));
+        tableBankName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getAccount_number()));
         tableBankId.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getBank_id())));
         tableOwner.setCellValueFactory(e -> new SimpleStringProperty(String.valueOf(e.getValue().getOwner())));
         tableBankDelete.setCellFactory(e -> new TableCell<Bank, Void>() {
@@ -358,5 +362,19 @@ public class ChangeDataCodeController {
             resetBank();
             loadDataBank();
         }
+    }
+
+    public static void setupNumberTextField(TextField textField) {
+        Pattern pattern = Pattern.compile("\\d*");
+        TextFormatter<String> formatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            if (pattern.matcher(newText).matches()) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+
+        textField.setTextFormatter(formatter);
     }
 }

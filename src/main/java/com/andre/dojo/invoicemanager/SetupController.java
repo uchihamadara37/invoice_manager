@@ -196,11 +196,12 @@ public class SetupController implements Initializable {
     public static void loadJsonData(Invoice invoice) {
         invoice.setTotalPriceAll(Item.getSumOfPriceByInvoiceId(invoice.getId()));
 
-        HelloController.customJSON.setOrganization(Organization.getOneData(Customer.getOneData(invoice.getCustomer_id()).getOrganization_id()));
+        HelloController.customJSON.setOrganization(HelloApplication.organization);
         HelloController.customJSON.setCustomer(Customer.getOneData(invoice.getCustomer_id()));
         HelloController.customJSON.setInvoice(invoice);
         HelloController.customJSON.setBank(Bank.getOneData(invoice.getBank_id()));
         String json = HelloApplication.gson.toJson(HelloController.customJSON, CustomJSON.class);
+//        System.out.println("buat json baru clear");
 
         invoice.setJsonData(json);
         Invoice.updateById(invoice);

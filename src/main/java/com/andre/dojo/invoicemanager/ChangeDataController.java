@@ -19,9 +19,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+
 import static java.lang.Integer.parseInt;
 
 public class ChangeDataController {
@@ -50,6 +56,8 @@ public class ChangeDataController {
     @FXML
     private TextField personalName;
     @FXML
+    private TextField orgLetter;
+    @FXML
     private Button changeLogo;
     @FXML
     private Button changeSignature;
@@ -67,11 +75,12 @@ public class ChangeDataController {
     private long idKode;
     private int yearOr;
     private int agencyNum;
-    private String idSurat = "1723596852024";
+//    private String idSurat = "1723596852024";
     private Image previousLogoImage, previousSignatureImage, logoFix, signatureFix;
-    private static final String PREDEFINED_SAVE_PATH = "D:\\invoiceManagerSource\\logo\\";
+//    private static final String PREDEFINED_SAVE_PATH = "D:\\invoiceManagerSource\\logo\\";
     private File selectedLogo, selectedSignature;
     private Organization selectedOrganization;
+    private Personal selectedPersonal;
 
     public void setHelloController(HelloController helloController) {
         this.helloController = helloController;
@@ -103,6 +112,29 @@ public class ChangeDataController {
         tombolCode.setOnMouseClicked(e -> {
             openCodePane();
         });
+        selectedOrganization = Organization.getFirstData();
+        selectedPersonal = Personal.getFirstData();
+        System.out.println("selected orh : "+selectedOrganization);
+        System.out.println("selected perso : "+selectedPersonal);
+
+        if (selectedOrganization.getLogo() != null){
+            if (new File(selectedOrganization.getLogo()).exists()){
+                Image image = new Image("file:" + selectedOrganization.getLogo());
+                setLogoFix(image);
+                logoImage.setImage(image);
+                selectedLogo = new File(selectedOrganization.getLogo());
+            }
+        }
+        if (selectedPersonal.getUrlTtd() != null){
+            if (new File(selectedPersonal.getUrlTtd()).exists()){
+                Image image = new Image("file:" + selectedPersonal.getUrlTtd());
+                setSignatureFix(image);
+                signatureImage.setImage(image);
+                selectedSignature = new File(selectedPersonal.getUrlTtd());
+            }
+        }
+
+
         loadData();
         disable();
         edit.setOnMouseClicked(e -> {
@@ -119,11 +151,11 @@ public class ChangeDataController {
             textAccess(true);
         });
         save.setOnMouseClicked(e -> {
-            disable();
+//            disable();
+
             saveData();
-            saveImage(getSelectedLogo(), getSelectedSignature());
-            textAccess(true);
-            loadData();
+
+
         });
 
         changeLogo.setOnAction(event -> changeLogoOrganization());
@@ -177,14 +209,15 @@ public class ChangeDataController {
     }
 
     private void loadData(){
-        List<Organization> allOrganizations = Organization.getAllData();
-        selectedOrganization = allOrganizations.get(0);
+
+        selectedOrganization = HelloApplication.organization;
         yearOr = selectedOrganization.getTahunOperasi();
         organizationName.setText(selectedOrganization.getBrandName());
         email.setText(selectedOrganization.getEmail());
         address.setText(selectedOrganization.getAddress());
         desc.setText(selectedOrganization.getDescription());
-        personalName.setText(selectedOrganization.getSignatureName());
+        personalName.setText(selectedPersonal.getName());
+        orgLetter.setText(selectedOrganization.getKodeInstansi());
         textAccess(true);
     }
 
@@ -196,6 +229,7 @@ public class ChangeDataController {
         personalName.setDisable(con);
         changeLogo.setDisable(con);
         changeSignature.setDisable(con);
+        orgLetter.setDisable(con);
     }
 
     private void disable(){
@@ -211,19 +245,31 @@ public class ChangeDataController {
     }
 
     private void saveData(){
-        selectedOrganization.setSignatureName(personalName.getText());
-        selectedOrganization.setBrandName(organizationName.getText());
-        selectedOrganization.setEmail(email.getText());
-        selectedOrganization.setAddress(address.getText());
-        selectedOrganization.setDescription(desc.getText());
-        Organization.updateById(selectedOrganization);
+        if (Objects.equals(orgLetter.getText(), "" )|| selectedLogo == null || selectedSignature == null){
+            HelloController.showInformationDialog("Please fill out the Code Organization and Image File!");
+        }else{
+            saveImage(selectedLogo, selectedSignature);
+            selectedOrganization.setSignatureName(personalName.getText());
+            selectedPersonal.setName(personalName.getText());
+
+            selectedOrganization.setBrandName(organizationName.getText());
+            selectedOrganization.setEmail(email.getText());
+            selectedOrganization.setAddress(address.getText());
+            selectedOrganization.setDescription(desc.getText());
+            selectedOrganization.setKodeInstansi(orgLetter.getText());
+            Organization.updateById(selectedOrganization);
+            Personal.updateById(selectedPersonal);
+            textAccess(true);
+            loadData();
+            disable();
+        }
     }
 
     private void changeLogoOrganization() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Choose a Logo");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
         Stage stage = (Stage) changeLogo.getScene().getWindow();
         File selectedFile = fileChooser.showOpenDialog(stage);
@@ -233,21 +279,16 @@ public class ChangeDataController {
             Image image = new Image("file:" + filePath);
             setLogoFix(image);
             logoImage.setImage(image);
-            setSelectedLogo(selectedFile);
+            selectedLogo = new File(filePath);
         } else {
         }
     }
 
     private void changeSignatureOrganization() {
-        // Create a file chooser
         FileChooser fileChooser = new FileChooser();
-
-        // Set the title for the file chooser
         fileChooser.setTitle("Choose a Signature");
-
-        // Set the extension filters (optional)
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg", "*.gif")
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
         );
 
         // Show the open dialog
@@ -259,39 +300,34 @@ public class ChangeDataController {
             String filePath = selectedFile.getAbsolutePath();
             Image image = new Image("file:" + filePath);
             signatureImage.setImage(image);
-            setSelectedSignature(selectedFile);
             setSignatureFix(image);
-            // Perform your action with the file path, e.g., update a logo
+            selectedSignature = new File(filePath);
         } else {
         }
     }
 
-    private void saveImage(File logo, File signature){
-        String logoName = "logo.png";
-        String signatureName = "signature.png";
-        if(logo != null){
-            saveFileToPredefinedLocation(logo, logoName);
-        }
-        if (signature != null){
-            saveFileToPredefinedLocation(signature, signatureName);
-        }
-    }
-
-    private void saveFileToPredefinedLocation(File selectedFile, String fileName) {
-        // Set the destination file path
-        File destinationFile = new File(PREDEFINED_SAVE_PATH + fileName);
-
-        // Copy the file to the predefined location
-        try (FileInputStream inputStream = new FileInputStream(selectedFile);
-             FileOutputStream outputStream = new FileOutputStream(destinationFile)) {
-
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, length);
+    private void saveImage(File logo, File signature) {
+        if (logo != null && logo.exists()){
+            File destinationFile = new File(HelloApplication.dirLogo + File.separator+ logo.getName());
+            Path source = logo.toPath();
+            Path destination = Paths.get(HelloApplication.dirLogo + File.separator+ logo.getName());
+            try {
+                Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+                selectedOrganization.setLogo(destinationFile.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        }
+        if (signature != null && signature.exists()){
+            File destinationFile = new File(HelloApplication.dirLogo + File.separator+ signature.getName());
+            Path source = signature.toPath();
+            Path destination = Paths.get(HelloApplication.dirLogo + File.separator+ signature.getName());
+            try {
+                Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+                selectedPersonal.setUrlTtd(destinationFile.getAbsolutePath());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

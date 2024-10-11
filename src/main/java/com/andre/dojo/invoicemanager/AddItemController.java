@@ -317,7 +317,7 @@ public class AddItemController implements Initializable {
         return rootPane;
     }
 
-    public void setupFloatTextField(TextField textField) {
+    public static void setupFloatTextField(TextField textField) {
         Pattern pattern = Pattern.compile("\\d*|\\d+\\.\\d*");
         TextFormatter<String> formatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();

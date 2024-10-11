@@ -40,6 +40,8 @@ public class OrganizationAdapter extends TypeAdapter<Organization> {
             jsonWriter.name("personal");
             if (organization.getPersonal() != null){
                 personAdapter.write(jsonWriter, organization.getPersonal());
+            }else{
+                jsonWriter.nullValue();
             }
         jsonWriter.endObject();
     }

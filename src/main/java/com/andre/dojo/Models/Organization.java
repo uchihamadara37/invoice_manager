@@ -83,6 +83,12 @@ public class Organization {
                 """;
         return DatabaseManager.getOneData(query, Organization.class, Long.toString(id));
     }
+    public static Organization getFirstData(){
+        String query = """
+                SELECT * FROM organization LIMIT 1
+                """;
+        return DatabaseManager.getOneData(query, Organization.class);
+    }
     public static boolean deleteOneById(long id){
         String query = """
                 DELETE FROM organization WHERE id = :p1
@@ -201,7 +207,7 @@ public class Organization {
     }
 
     public Personal getPersonal() {
-        return Personal.getOneDataByOrganizeId(id);
+        return Personal.getFirstData();
     }
 
     public String getSignature() {

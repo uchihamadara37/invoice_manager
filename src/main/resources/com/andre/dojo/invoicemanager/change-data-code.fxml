@@ -21,10 +21,10 @@
                      <children>
                         <TableView fx:id="tableViewBank" layoutX="14.0" layoutY="14.0" prefHeight="312.0" prefWidth="551.0">
                            <columns>
-                              <TableColumn fx:id="tableBankName" prefWidth="179.0" text="Bank Name" />
-                              <TableColumn fx:id="tableBankId" prefWidth="107.0" text="Bank ID" />
-                              <TableColumn fx:id="tableOwner" minWidth="0.0" prefWidth="189.0" text="Owner" />
-                              <TableColumn fx:id="tableBankDelete" minWidth="0.0" prefWidth="75.0" text="Action" />
+                              <TableColumn fx:id="tableBankName" prefWidth="179.0" text="Number" />
+                              <TableColumn fx:id="tableBankId" prefWidth="107.0" text="Bank Code" />
+                              <TableColumn fx:id="tableOwner" minWidth="0.0" prefWidth="156.0" text="Owner" />
+                              <TableColumn fx:id="tableBankDelete" minWidth="0.0" prefWidth="108.0" text="Action" />
                            </columns>
                         </TableView>
                         <Pane fx:id="addBank" layoutX="579.0" layoutY="284.0" prefHeight="42.0" prefWidth="79.0" styleClass="tombol-primary">
@@ -77,7 +77,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="579.0" layoutY="206.0" text="Bank ID :">
+                        <Label layoutX="579.0" layoutY="206.0" text="Bank Code :">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -100,7 +100,7 @@
                         <TableView fx:id="tableViewCode" layoutX="14.0" layoutY="14.0" prefHeight="236.0" prefWidth="459.0">
                            <columns>
                               <TableColumn fx:id="tableCodeName" prefWidth="179.0" text="Code Name" />
-                              <TableColumn fx:id="tableSerialNumber" prefWidth="202.0" text="Serial Number" />
+                              <TableColumn fx:id="tableSerialNumber" prefWidth="202.0" text="Sequence Number Now" />
                               <TableColumn fx:id="tableDeleteCode" minWidth="0.0" prefWidth="76.0" text="Action" />
                            </columns>
                         </TableView>
@@ -147,13 +147,18 @@
                            </children>
                         </Pane>
                         <TextField fx:id="KodeName" layoutX="488.0" layoutY="152.0" prefHeight="36.0" prefWidth="87.0" styleClass="field-add-item" />
-                        <Label layoutX="488.0" layoutY="132.0" text="Code Name :">
+                        <Label layoutX="488.0" layoutY="131.0" text="Code Name :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                         <TextField fx:id="SerialNumber" layoutX="591.0" layoutY="152.0" prefHeight="36.0" prefWidth="101.0" styleClass="field-add-item" />
-                        <Label layoutX="591.0" layoutY="132.0" text="Serial Number:">
+                        <Label layoutX="591.0" layoutY="131.0" prefHeight="20.0" prefWidth="137.0" text="Sequence Number :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="703.0" layoutY="160.0" prefHeight="20.0" prefWidth="234.0" text="Please fill 0 if it the first code Letter">
                            <font>
                               <Font size="14.0" />
                            </font>

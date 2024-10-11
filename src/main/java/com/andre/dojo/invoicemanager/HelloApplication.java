@@ -18,6 +18,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
@@ -41,12 +42,37 @@ public class HelloApplication extends Application {
     public static String dirLogo;
     public static File filePropDir;
     public static String dirExport;
-
-    public static Organization organization = Organization.getOneData(1723509861951L);
-    public static List<KodeSurat> kodeSurats = KodeSurat.getAllData();
+    public static Organization organization;
+    public static List<KodeSurat> kodeSurats = new ArrayList<>();
 
     @Override
     public void start(Stage stage) throws IOException {
+        DatabaseManager.createNewDatabase();
+        DatabaseManager.createTableOrganization();
+        DatabaseManager.createTableCustomer();
+        DatabaseManager.createTableKodeSurat();
+        DatabaseManager.createTablePerson();
+        DatabaseManager.createTableInvoice();
+        DatabaseManager.createTableDesign();
+        DatabaseManager.createTableItem();
+        DatabaseManager.createTableBank();
+        // Membuat organization pertama
+        if (Organization.getAllData().isEmpty()){
+//            System.out.println("gagal ambil");
+            Organization.addToDB(
+                    new Organization("Siegan Dojo")
+            );
+            Personal.addToDB(new Personal());
+        }else{
+//            System.out.println("berhasil ambil org pertama");
+            organization = Organization.getFirstData();
+
+//            System.out.println(organization.getBrandName());
+//            System.out.println(Personal.getFirstData());
+
+        }
+
+
 
 //        Organization org = Organization.getOneData(1723509861951L);
 //        org.setTahunOperasi(2024);
@@ -101,10 +127,10 @@ public class HelloApplication extends Application {
         for (int i = 0; i < args.length; i++){
             switch (args[i]){
                 case "--help" :
-//                    System.out.println("Help center :");
-//                    System.out.println("--set-src-directory : example >> '--set-src-directory C:\\your_folder'");
-//                    System.out.println("                      it`s a url directory or folder which used to save your local pdf or image, and just needed on the first running configuration");
-//                    System.out.println("--help              : to provide all syntax you can used to configure something");
+                    System.out.println("Help center :");
+                    System.out.println("--set-src-directory : example >> '--set-src-directory C:\\your_folder'");
+                    System.out.println("                      it`s a url directory or folder which used to save your local pdf or image, and just needed on the first running configuration");
+                    System.out.println("--help              : to provide all syntax you can used to configure something");
                     break;
                 case "--set-src-directory" :
                     // jika next string ada input
@@ -196,7 +222,7 @@ public class HelloApplication extends Application {
                     }
                     break;
                 default:
-//                    System.out.println(" Please use --help to show all syntax configuration!");
+                    System.out.println(" Please use --help to show all syntax configuration!");
                     return;
 
             }
