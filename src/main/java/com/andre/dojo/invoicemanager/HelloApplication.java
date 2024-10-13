@@ -63,6 +63,8 @@ public class HelloApplication extends Application {
                     new Organization("Siegan Dojo")
             );
             Personal.addToDB(new Personal());
+            organization = Organization.getFirstData();
+
         }else{
 //            System.out.println("berhasil ambil org pertama");
             organization = Organization.getFirstData();
