@@ -47,7 +47,7 @@ public class ChangeDataInvoiceController {
     private Label tombolCode;
 
     @FXML
-    private ChoiceBox<String> custName;
+    private ChoiceBox<Customer> custName;
     @FXML
     private ChoiceBox<KodeSurat> code;
     @FXML
@@ -70,6 +70,7 @@ public class ChangeDataInvoiceController {
     private Map<String, Long> customerMap = new HashMap<>();
     private ObservableList<KodeSurat> kodeSuratList = FXCollections.observableArrayList();
     private ObservableList<Bank> bankList = FXCollections.observableArrayList();
+    private ObservableList<Customer> customerList = FXCollections.observableArrayList();
 
     private Long customerId;
     private Long codeLetterId;
@@ -86,6 +87,24 @@ public class ChangeDataInvoiceController {
 
 
     public void initialize(){
+        customerList.addAll(Customer.getAllData());
+        customerList.sort(Comparator.comparing(Customer::getName));
+        custName.setItems(customerList);
+        custName.setConverter(new StringConverter<Customer>() {
+            @Override
+            public String toString(Customer customer) {
+                if (customer == null){
+                    return null;
+                }else{
+                    return customer.getName();
+                }
+            }
+            @Override
+            public Customer fromString(String string) {
+                return null;
+            }
+        });
+
         kodeSuratList.addAll(KodeSurat.getAllData());
         code.setItems(kodeSuratList);
         code.setConverter(new StringConverter<KodeSurat>() {
@@ -162,7 +181,7 @@ public class ChangeDataInvoiceController {
 //            System.out.println("isi bank "+selectedBank.getBank_name());
         });
 //        meload dropdown box
-        loadBox();
+//        loadBox();
 //        loadBox2();
         loadData();
         conButton(true);
@@ -291,15 +310,9 @@ public class ChangeDataInvoiceController {
         reset();
     }
 
-    private void handleSelection(String name) {
-        String selectedName = custName.getSelectionModel().getSelectedItem();
-        customerId = customerMap.get(name);
-        if(customerId != null) {
-            selectedCustomer = Customer.getOneData(customerId);
-//            System.out.println("berhasil ambil customer : " + customerId);
-        }else{
-//            System.out.println("gagal ambil customer");
-        }
+    private void handleSelection(Customer cst) {
+        selectedCustomer = cst;
+
     }
 
     private void showDetail(Invoice invoice){
@@ -312,7 +325,7 @@ public class ChangeDataInvoiceController {
             invId = invoice.getId();
             selectedCustomer = Customer.getOneData(invoice.getCustomer_id());
             selectedBank = Bank.getOneData(invoice.getBank_id());
-            custName.getSelectionModel().select(selectedCustomer.getName());
+            custName.getSelectionModel().select(selectedCustomer);
             bankSelector.getSelectionModel().select(selectedBank);
             conButton(false);
             code.setVisible(false);
@@ -410,13 +423,13 @@ public class ChangeDataInvoiceController {
         labelLetter.setVisible(true);
     }
 
-    private void loadBox(){
-        List<Customer> customers = Customer.getAllData();
-        for (Customer customer : customers) {
-            custName.getItems().add(customer.getName());
-            customerMap.put(customer.getName(), customer.getId());
-        }
-    }
+//    private void loadBox(){
+//        List<Customer> customers = Customer.getAllData();
+//        for (Customer customer : customers) {
+//            custName.getItems().add(customer.getName());
+//            customerMap.put(customer.getName(), customer.getId());
+//        }
+//    }
 
 //    private void loadBox2(){
 //        List<KodeSurat> kodeSurats = KodeSurat.getAllData();

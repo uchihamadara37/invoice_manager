@@ -71,7 +71,7 @@ public class SetupController implements Initializable {
     private AnchorPane rootPane;
 
     private HelloController helloController;
-    private Invoice selectedInvoice;
+    public static Invoice selectedInvoice;
     public static Bank selectedBank;
 
     @Override

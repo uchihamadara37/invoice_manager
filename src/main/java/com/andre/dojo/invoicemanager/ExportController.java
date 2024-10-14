@@ -156,7 +156,9 @@ public class ExportController {
             // filter folder sudah pernah konfigure
             if (HelloController.showConfirmationDialog("Are you really want to Export this "+dataExport.size()+" invoices on this "+monthSelected+"?")){
 //                System.out.println(HelloApplication.dirExport);
-                if (!Objects.equals(HelloApplication.dirExport, "")){
+                if (Objects.equals(HelloApplication.dirExport, "") || HelloApplication.dirExport == null){
+                    HelloApplication.showAlert("Your export folder is not configured yet! Please configure export folder bellow!");
+                }else{
                     File checkFolder = new File(HelloApplication.dirExport);
                     if (checkFolder.exists()){
                         // membuat nama folder baru
@@ -178,9 +180,9 @@ public class ExportController {
                     }else{
                         HelloApplication.showAlert("Your export folder is not exist, please reconfigure it!");
                     }
-                }else{
-                    HelloApplication.showAlert("Your export folder is not configured yet! Please configure export folder bellow!");
                 }
+
+
             }
 
         });
@@ -199,7 +201,11 @@ public class ExportController {
     private void selectFolder() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select Folder");
-        if (!Objects.equals(HelloApplication.dirExport, "")){
+        if (Objects.equals(HelloApplication.dirExport, "") || HelloApplication.dirExport == null){
+//            HelloApplication.showAlert("");
+            System.out.println("dir export null");
+        }else{
+            System.out.println("dir export : "+HelloApplication.dirExport);
             directoryChooser.setInitialDirectory(new File(HelloApplication.dirExport));
         }
         File selectedDirectory = directoryChooser.showDialog(HelloApplication.getMainStage());
@@ -283,135 +289,137 @@ public class ExportController {
 //        String cek = "1724503671986", cek2 = "1724656789071";
 
         int untukIDInvoice = 1;
-        for (Invoice invoice : dataExport) {
-            // cek jika data lengkap
-            if (Objects.equals(invoice.getJsonData(), "") || invoice.getJrxml_id() == 0 ){
-                HelloApplication.showAlert("There is invoice don`t has complete data, so it is ignored during export. code : "+invoice.getInvoiceCode());
-            }else{
-//
+        if (HelloApplication.dirExport == null || Objects.equals(HelloApplication.dirExport, "")){
+            HelloApplication.showAlert("Please choose the export directory first!");
+        }else{
+            for (Invoice invoice : dataExport) {
+                // cek jika data lengkap
+                if (Objects.equals(invoice.getJsonData(), "") || invoice.getJrxml_id() == 0 ){
+                    HelloApplication.showAlert("There is invoice don`t has complete data, so it is ignored during export. code : "+invoice.getInvoiceCode());
+                }else{
+                    // generate file baru
+                    Invoice invBaru = new Invoice();
+                    invBaru.setId(Instant.now().toEpochMilli() + untukIDInvoice);
+                    untukIDInvoice++;
+                    invBaru.setJrxml_id(invoice.getJrxml_id());
+                    invBaru.setDescription(invoice.getDescription());
+                    invBaru.setTotalPriceAll(invoice.getTotalPriceAll());
+                    invBaru.setInvoiceMarkText(invoice.getInvoiceMarkText());
+                    invBaru.setDate(LocalDate.now().withMonth(indonesianToEnglishMonth.get(monthSelected)).format(tglBulanTahun));
+                    invBaru.setCustomer_id(invoice.getCustomer_id());
+                    invBaru.setTimestamp(Instant.now().toString());
+                    invBaru.setBank_id(invoice.getBank_id());
 
-                // generate file baru
-                Invoice invBaru = new Invoice();
-                invBaru.setId(Instant.now().toEpochMilli() + untukIDInvoice);
-                untukIDInvoice++;
-                invBaru.setJrxml_id(invoice.getJrxml_id());
-                invBaru.setDescription(invoice.getDescription());
-                invBaru.setTotalPriceAll(invoice.getTotalPriceAll());
-                invBaru.setInvoiceMarkText(invoice.getInvoiceMarkText());
-                invBaru.setDate(LocalDate.now().withMonth(indonesianToEnglishMonth.get(monthSelected)).format(tglBulanTahun));
-                invBaru.setCustomer_id(invoice.getCustomer_id());
-                invBaru.setTimestamp(Instant.now().toString());
-                invBaru.setBank_id(invoice.getBank_id());
+                    String kodeSurat = "";
+                    int nomorSurat = 0;
 
+                    String[] kodes = invoice.getInvoiceCode().split("/");
+                    for (KodeSurat ks : KodeSurat.getAllData()){
+                        if (Objects.equals(ks.getKode(), kodes[2])){
+                            ks.setNoUrut(ks.getNoUrut()+1);
 
-                String kodeSurat = "";
-                int nomorSurat = 0;
+                            kodeSurat = ks.getKode();
+                            nomorSurat = ks.getNoUrut();
+                            // jika ganti tahun maka reset ke 1
+                            // mengecek ada berapa invoice dalam setahun ini
 
-                String[] kodes = invoice.getInvoiceCode().split("/");
-                for (KodeSurat ks : KodeSurat.getAllData()){
-                    if (Objects.equals(ks.getKode(), kodes[2])){
-                        ks.setNoUrut(ks.getNoUrut()+1);
+                            List<Invoice> invSebelum = Invoice.getAllDataBetweenTime();
 
-                        kodeSurat = ks.getKode();
-                        nomorSurat = ks.getNoUrut();
-                        // jika ganti tahun maka reset ke 1
-                        // mengecek ada berapa invoice dalam setahun ini
-
-                        List<Invoice> invSebelum = Invoice.getAllDataBetweenTime();
-
-                        if (invSebelum.isEmpty()){
-                            HelloApplication.organization.setNoUrutInstansi(1);
-                            HelloApplication.organization.setTahunOperasi(LocalDate.now().getYear());
+                            if (invSebelum.isEmpty()){
+                                HelloApplication.organization.setNoUrutInstansi(1);
+                                HelloApplication.organization.setTahunOperasi(LocalDate.now().getYear());
 //                            System.out.println("Ada antara "+LocalDate.now().getYear());
-                        }else{
+                            }else{
 //                            System.out.println("tidak ada antara");
-                            HelloApplication.organization.setNoUrutInstansi(HelloApplication.organization.getNoUrutInstansi()+1);
-                        }
-                        Organization.updateById(HelloApplication.organization);
-                        KodeSurat.updateNumber(ks);
+                                HelloApplication.organization.setNoUrutInstansi(HelloApplication.organization.getNoUrutInstansi()+1);
+                            }
+                            Organization.updateById(HelloApplication.organization);
+                            KodeSurat.updateNumber(ks);
 
-                        
-                        break;
+
+                            break;
+                        }
                     }
-                }
-                invBaru.setInvoiceCode(
-                        HelloApplication.organization.getNoUrutInstansi()+
-                        "/"+HelloApplication.organization.getKodeInstansi()+
-                        "/"+kodeSurat+
-                        "/"+nomorSurat+
-                        "/"+LocalDate.now().getYear() % 100
-                );
+                    invBaru.setInvoiceCode(
+                            HelloApplication.organization.getNoUrutInstansi()+
+                                    "/"+HelloApplication.organization.getKodeInstansi()+
+                                    "/"+kodeSurat+
+                                    "/"+nomorSurat+
+                                    "/"+LocalDate.now().getYear() % 100
+                    );
 //                System.out.println(invBaru.getInvoiceCode());
 
-                // create item
-                List<Item> listItem = Item.getListByInvoiceID(invoice.getId());
+                    // create item
+                    List<Item> listItem = Item.getListByInvoiceID(invoice.getId());
 
-                int i = 1;
-                for (Item e : listItem){
-                    e.setInvoice_id(invBaru.getId());
-                    e.setId(Instant.now().toEpochMilli() + i);
-                    if (e.isFillNameWithMonth()){
-                        Matcher matcher = monthPattern.matcher(e.getName());
-                        e.setName(matcher.replaceAll(monthSelected));
+                    int i = 1;
+                    for (Item e : listItem){
+                        e.setInvoice_id(invBaru.getId());
+                        e.setId(Instant.now().toEpochMilli() + i);
+                        if (e.isFillNameWithMonth()){
+                            Matcher matcher = monthPattern.matcher(e.getName());
+                            e.setName(matcher.replaceAll(monthSelected));
 //                        System.out.println("Name : "+e.getName());
+                        }
+                        i++;
                     }
-                    i++;
-                }
 //                if (!listItem.isEmpty()){
 //
 //                    System.out.println("item first : "+listItem.getFirst().getName());
 //                }else{
 //                    System.out.println("kosong");
 //                }
-                invBaru.setListItems(listItem);
+                    invBaru.setListItems(listItem);
 
-                // save invoice
-                loadJsonData(invBaru);
+                    // save invoice
+                    loadJsonData(invBaru);
 
 //                invBaru.setPdfUrl("Datenya : "+invBaru.getDate());
 
 //                System.out.println(invBaru.getPdfUrl());
 //                System.out.println("========================================");
 //                System.out.println(invBaru.getJsonData());
-                Invoice.addToDB(invBaru);
+                    Invoice.addToDB(invBaru);
 
 
-                // update data invoice
-                // update data kode_surat
-                // update data noUrutInstansi di organization
-                // update data item
+                    // update data invoice
+                    // update data kode_surat
+                    // update data noUrutInstansi di organization
+                    // update data item
 
 //                System.out.println("Invoice ID: " + invoice.getId());
 //                System.out.println("with jxrml ID : " + invoice.getJrxml_id());
 
-                JasperReport jasperReport = null;
-                try {
-                    jasperReport = JasperCompileManager.compileReport(new ByteArrayInputStream(Design.getOneData(invBaru.getJrxml_id()).getJrxml().getBytes()));
-                } catch (JRException e) {
-                    HelloApplication.showAlert("There is some error : "+e.getMessage());
-                    return;
-                }
-                JsonDataSource dataSource = null;
-                try {
-                    dataSource = new JsonDataSource(new ByteArrayInputStream(invBaru.getJsonData().getBytes()));
-                } catch (JRException e) {
-                    HelloApplication.showAlert("There is some error : "+e.getMessage());
-                    return;
-                }
-                JasperPrint jasperPrint = null;
-                try {
-                    jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
-                } catch (JRException e) {
-                    HelloApplication.showAlert("There is some error : "+e.getMessage());
-                    return;
-                }
+                    JasperReport jasperReport = null;
+                    try {
+                        jasperReport = JasperCompileManager.compileReport(new ByteArrayInputStream(Design.getOneData(invBaru.getJrxml_id()).getJrxml().getBytes()));
+                    } catch (JRException e) {
+                        HelloApplication.showAlert("There is some error : "+e.getMessage());
+                        return;
+                    }
+                    JsonDataSource dataSource = null;
+                    try {
+                        dataSource = new JsonDataSource(new ByteArrayInputStream(invBaru.getJsonData().getBytes()));
+                    } catch (JRException e) {
+                        HelloApplication.showAlert("There is some error : "+e.getMessage());
+                        return;
+                    }
+                    JasperPrint jasperPrint = null;
+                    try {
+                        jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);
+                    } catch (JRException e) {
+                        HelloApplication.showAlert("There is some error : "+e.getMessage());
+                        return;
+                    }
 
-                // setting nama file
-                String fileName = "report_" + invBaru.getId()+".pdf";
-                String pdfFullPath = folderAsli + File.separator + fileName;
+                    // setting nama file
+                    String[] splitTime = invBaru.getDate().split(" ");
+                    String fileName = invBaru.getDescription()+"_"+splitTime[1]+"_"+splitTime[2]+".pdf";
+                    String pdfFullPath = folderAsli + File.separator + fileName;
 
-                JrxmlController.exportToPdf(jasperPrint, pdfFullPath);
+                    JrxmlController.exportToPdf(jasperPrint, pdfFullPath);
 
+                }
             }
         }
         dataExport.clear();

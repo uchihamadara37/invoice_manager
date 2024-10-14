@@ -47,6 +47,8 @@ public class HelloApplication extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
+        mainStage.setResizable(false);
+
         DatabaseManager.createNewDatabase();
         DatabaseManager.createTableOrganization();
         DatabaseManager.createTableCustomer();
@@ -125,6 +127,36 @@ public class HelloApplication extends Application {
         }
 
         Properties prop = new Properties();
+        try (FileInputStream in = new FileInputStream(fileProp)){
+            prop.load(in);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (prop.containsKey("dir.image") && prop.containsKey("dir.pdf") && prop.containsKey("dir.logo") && prop.containsKey("dir.src")){
+            dirImage = prop.getProperty("dir.image");
+            dirPdf = prop.getProperty("dir.pdf");
+            dirLogo = prop.getProperty("dir.logo");
+            dirSource = prop.getProperty("dir.src");
+            File fileDirImage = new File(dirImage);
+            File fileDirPdf = new File(dirPdf);
+            File fileDirLogo = new File(dirLogo);
+            File fileDirSrc = new File(dirSource);
+            if (!fileDirSrc.exists()){
+                fileDirSrc.mkdir();
+            }
+            if (!fileDirImage.exists()){
+                fileDirImage.mkdir();
+            }
+            if (!fileDirPdf.exists()){
+                fileDirPdf.mkdir();
+            }
+            if (!fileDirLogo.exists()){
+                fileDirLogo.mkdir();
+            }
+
+        }
 
         for (int i = 0; i < args.length; i++){
             switch (args[i]){
@@ -133,6 +165,17 @@ public class HelloApplication extends Application {
                     System.out.println("--set-src-directory : example >> '--set-src-directory C:\\your_folder'");
                     System.out.println("                      it`s a url directory or folder which used to save your local pdf or image, and just needed on the first running configuration");
                     System.out.println("--help              : to provide all syntax you can used to configure something");
+                    System.out.println("--directory         : to show current source directory address");
+
+                    break;
+                case "--directory" :
+                    System.out.println("Current source directory :");
+
+                    File fileDirSrc = new File(dirSource);
+                    if (fileDirSrc.exists()){
+                        System.out.println("Directory       : "+fileDirSrc.getAbsolutePath());
+                    }
+
                     break;
                 case "--set-src-directory" :
                     // jika next string ada input
@@ -269,8 +312,12 @@ public class HelloApplication extends Application {
 //            System.out.println("jangkrik malah rung enek");
             Platform.runLater(() -> {
                 showAlert("Nilai directory tidak ditemukan dalam file config.properties!");
+                System.out.println("Help center :");
+                System.out.println("--set-src-directory : example >> '--set-src-directory C:\\your_folder'");
+                System.out.println("                      it`s a url directory or folder which used to save your local pdf or image, and just needed on the first running configuration");
+                System.out.println("--help              : to provide all syntax you can used to configure something");
+                System.out.println("--directory         : to show current source directory address");
             });
-
         }
 
     }

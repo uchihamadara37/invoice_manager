@@ -238,14 +238,15 @@ public class AddItemController implements Initializable {
                         DateTimeFormatter.ISO_DATE_TIME
                 ).format(formatter2);
 
-                String nameOri = e.getValue().getName().replaceAll(" bulan .*$", "");
+                String nameOri = e.getValue().getName().replaceAll(" Bulan .*$", "");
                 if (t1){
-                    e.getValue().setName(nameOri + " bulan "+bulanTahun);
+                    e.getValue().setName(nameOri + " Bulan "+bulanTahun);
                 }else{
                     e.getValue().setName(nameOri);
                 }
                 Item.updateById(e.getValue());
                 tableViewItem.refresh();
+                SetupController.loadJsonData(SetupController.selectedInvoice);
             });
             return check;
         });
