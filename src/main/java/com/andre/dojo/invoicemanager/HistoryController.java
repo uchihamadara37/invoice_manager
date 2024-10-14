@@ -55,6 +55,12 @@ public class HistoryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        LocalDate today = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.ENGLISH);
+        String formattedDate = today.format(formatter);
+        tombolTanggal.setText(formattedDate);
+
+
         // installasi spinner
         setupSpinner();
         spinner.valueProperty().addListener((obs, oldValue, newValue) -> {

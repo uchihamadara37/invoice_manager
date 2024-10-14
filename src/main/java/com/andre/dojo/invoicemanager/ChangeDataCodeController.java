@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class ChangeDataCodeController {
@@ -242,10 +243,21 @@ public class ChangeDataCodeController {
         if(KodeName.getText().trim().isEmpty() || SerialNumber.getText().trim().isEmpty()){
             HelloApplication.showAlert("All field in code must be filled!");
         } else {
-            String idOr = "1723509861951";
-            KodeSurat.addToDB(new KodeSurat(KodeName.getText(), Integer.parseInt(SerialNumber.getText()), Long.parseLong(idOr)));
-            loadDataKode();
-            resetKode();
+            boolean adaYangSama = false;
+            for (KodeSurat ks : KodeSurat.getAllData()){
+                if (Objects.equals(KodeName.getText(), ks.getKode())){
+                    adaYangSama = true;
+                }
+            }
+            if (adaYangSama){
+                HelloApplication.showAlert("There is same code letter on data, please change your new code!");
+            }else{
+                KodeSurat.addToDB(
+                        new KodeSurat(KodeName.getText(), Integer.parseInt(SerialNumber.getText()), HelloApplication.organization.getId())
+                );
+                loadDataKode();
+                resetKode();
+            }
         }
     }
 
@@ -253,11 +265,21 @@ public class ChangeDataCodeController {
         if(KodeName.getText().trim().isEmpty() || SerialNumber.getText().trim().isEmpty()){
             HelloApplication.showAlert("All field in code must be filled!");
         } else {
-            selectedKodeSurat.setKode(KodeName.getText());
-            selectedKodeSurat.setNoUrut(Integer.parseInt(SerialNumber.getText()));
-            KodeSurat.updateById(selectedKodeSurat);
-            resetKode();
-            loadDataKode();
+            boolean adaYangSama = false;
+            for (KodeSurat ks : KodeSurat.getAllData()){
+                if (Objects.equals(KodeName.getText(), ks.getKode())){
+                    adaYangSama = true;
+                }
+            }
+            if (adaYangSama){
+                HelloApplication.showAlert("There is same code letter on data, please change your updated code!");
+            }else{
+                selectedKodeSurat.setKode(KodeName.getText());
+                selectedKodeSurat.setNoUrut(Integer.parseInt(SerialNumber.getText()));
+                KodeSurat.updateById(selectedKodeSurat);
+                resetKode();
+                loadDataKode();
+            }
         }
     }
 
