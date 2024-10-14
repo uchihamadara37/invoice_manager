@@ -64,7 +64,7 @@ public class HelloApplication extends Application {
             );
             Personal.addToDB(new Personal());
             organization = Organization.getFirstData();
-
+            organization.setPersonal(Personal.getFirstData());
         }else{
 //            System.out.println("berhasil ambil org pertama");
             organization = Organization.getFirstData();

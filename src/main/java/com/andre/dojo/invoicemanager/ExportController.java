@@ -82,11 +82,11 @@ public class ExportController {
 
     public List<Invoice> dataExport = new ArrayList<>();
     public String message;
-    private ExportPrepareController exportPrepareController;
+//    private ExportPrepareController exportPrepareController;/''
 
-    public void setExportPrepareController(ExportPrepareController exportPrepareController) {
-        this.exportPrepareController = exportPrepareController;
-    }
+//    public void setExportPrepareController(ExportPrepareController exportPrepareController) {
+//        this.exportPrepareController = exportPrepareController;
+//    }
 
     public void setDataExport(List<Invoice> dataExport) {
         this.dataExport = dataExport;
@@ -301,12 +301,14 @@ public class ExportController {
                 invBaru.setDate(LocalDate.now().withMonth(indonesianToEnglishMonth.get(monthSelected)).format(tglBulanTahun));
                 invBaru.setCustomer_id(invoice.getCustomer_id());
                 invBaru.setTimestamp(Instant.now().toString());
+                invBaru.setBank_id(invoice.getBank_id());
+
 
                 String kodeSurat = "";
                 int nomorSurat = 0;
 
                 String[] kodes = invoice.getInvoiceCode().split("/");
-                for (KodeSurat ks : HelloApplication.kodeSurats){
+                for (KodeSurat ks : KodeSurat.getAllData()){
                     if (Objects.equals(ks.getKode(), kodes[2])){
                         ks.setNoUrut(ks.getNoUrut()+1);
 
@@ -339,6 +341,7 @@ public class ExportController {
                         "/"+nomorSurat+
                         "/"+LocalDate.now().getYear() % 100
                 );
+//                System.out.println(invBaru.getInvoiceCode());
 
                 // create item
                 List<Item> listItem = Item.getListByInvoiceID(invoice.getId());
@@ -438,27 +441,28 @@ public class ExportController {
         }
     }
 
-    private void openPreparePane() {
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("export-prepare-view.fxml"));
-            Pane anchorPane = new Pane((Node) fxmlLoader.load());
-
-            ExportPrepareController test = fxmlLoader.getController();
-            test.setExportController(this);
-
-            anchorPaneMain.getChildren().removeFirst();
-            anchorPaneMain.getChildren().add(anchorPane);
-        }catch (IOException e1){
-            e1.printStackTrace();
-        }
-    }
+//    private void openPreparePane() {
+//        try{
+//            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("export-prepare-view.fxml"));
+//            Pane anchorPane = new Pane((Node) fxmlLoader.load());
+//
+//            ExportPrepareController test = fxmlLoader.getController();
+//            test.setExportController(this);
+//
+//            anchorPaneMain.getChildren().removeFirst();
+//            anchorPaneMain.getChildren().add(anchorPane);
+//        }catch (IOException e1){
+//            e1.printStackTrace();
+//        }
+//    }
 
     public void loadJsonData(Invoice invoice) {
         invoice.setTotalPriceAll(Item.getSumOfPriceByInvoiceId(invoice.getId()));
 
-        HelloController.customJSON.setOrganization(Organization.getOneData(Customer.getOneData(invoice.getCustomer_id()).getOrganization_id()));
+        HelloController.customJSON.setOrganization(HelloApplication.organization);
         HelloController.customJSON.setCustomer(Customer.getOneData(invoice.getCustomer_id()));
         HelloController.customJSON.setInvoice(invoice);
+        HelloController.customJSON.setBank(Bank.getOneData(invoice.getBank_id()));
         String json = HelloApplication.gson.toJson(HelloController.customJSON, CustomJSON.class);
 
         invoice.setJsonData(json);
