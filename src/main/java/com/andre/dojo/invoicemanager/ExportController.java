@@ -100,7 +100,7 @@ public class ExportController {
 
     private HelloController helloController;
     Properties properties = new Properties();
-    File fileProp = new File(HelloApplication.filePropDir, "config.properties");
+    File fileProp = new File(Config.getFirstData().getDir());
     private String folderWithSubFolder ;
 
     DateTimeFormatter tglBulanTahun = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("id", "ID"));

@@ -235,6 +235,23 @@ public class DatabaseManager {
 //            System.out.println(e.getMessage());
         }
     }
+    public static void createTableConfig() {
+        String sql = "CREATE TABLE IF NOT EXISTS config (\n" +
+                "    id INTEGER ,\n" +
+                "    name TEXT,\n" +
+                "    dir TEXT" +
+                ");";
+
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                Statement stmt = conn.createStatement()
+        ) {
+            stmt.execute(sql);
+            stmt.close();
+        } catch (SQLException e) {
+//            System.out.println(e.getMessage());
+        }
+    }
 
     public static void dropTable() {
 
