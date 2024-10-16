@@ -23,17 +23,17 @@
                   <TableColumn fx:id="tableColumnDelete" minWidth="0.0" prefWidth="76.0" text="Action" />
                </columns>
             </TableView>
-            <Label layoutX="17.0" layoutY="351.0" text="Customer Name :">
+            <Label fx:id="labelCustomer" layoutX="17.0" layoutY="348.0" text="Customer Name :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="17.0" layoutY="419.0" text="Invoice Mark Text :">
+            <Label fx:id="labelMarkText" layoutX="17.0" layoutY="419.0" text="Invoice Mark Text :">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Label layoutX="18.0" layoutY="485.0" text="Invoice Description :">
+            <Label fx:id="labelDescription" layoutX="18.0" layoutY="485.0" text="Invoice Description :">
                <font>
                   <Font size="15.0" />
                </font>
@@ -83,7 +83,6 @@
                   </Label>
                </children>
             </Pane>
-            <ChoiceBox fx:id="custName" layoutX="17.0" layoutY="375.0" prefHeight="36.0" prefWidth="457.0" />
             <Label fx:id="labelLetter" layoutX="498.0" layoutY="351.0" text="Letter Code">
                <font>
                   <Font size="15.0" />
@@ -96,6 +95,26 @@
                   <Font size="15.0" />
                </font>
             </Label>
+            <Pane fx:id="btnSelectCustomer" layoutX="17.0" layoutY="373.0" prefHeight="42.0" prefWidth="144.0" styleClass="tombol-primary">
+               <children>
+                  <Label layoutX="13.0" layoutY="6.0" prefHeight="28.0" prefWidth="124.0" text="Select Customer">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label fx:id="labelSelectedCustomerName" layoutX="173.0" layoutY="384.0" prefHeight="21.0" prefWidth="301.0" text="Selected Customer still null">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <TableView fx:id="tableViewCustomer" layoutX="14.0" layoutY="348.0" prefHeight="200.0" prefWidth="464.0">
+              <columns>
+                <TableColumn fx:id="tableColumnCsName" prefWidth="178.0" text="Name Customer" />
+                <TableColumn fx:id="tableColumnCsDesc" minWidth="0.0" prefWidth="271.0" text="Desc (Please select by click on row)" />
+              </columns>
+            </TableView>
          </children>
       </Pane>
       <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

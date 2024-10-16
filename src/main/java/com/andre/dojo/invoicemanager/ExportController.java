@@ -433,7 +433,7 @@ public class ExportController {
         alert.setHeaderText(null);
         alert.setContentText("Export process has finished successfully.");
 
-        ButtonType cancelButton = new ButtonType("Cancel");
+        ButtonType cancelButton = new ButtonType("Close");
         ButtonType openButton = new ButtonType("Open Folder");
 
         alert.getButtonTypes().setAll(cancelButton, openButton);

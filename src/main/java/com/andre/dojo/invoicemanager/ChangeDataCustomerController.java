@@ -202,7 +202,7 @@ public class ChangeDataCustomerController {
     }
 
     private void addCustomer(){
-        if(name.getText().trim().isEmpty() || desc.getText().trim().isEmpty() || phone.getText().trim().isEmpty()){
+        if(name.getText().trim().isEmpty() || desc.getText().trim().isEmpty()){
             HelloApplication.showAlert("All field in customer must be filled!");
         } else {
             String cId = "1723509861951";
@@ -219,7 +219,7 @@ public class ChangeDataCustomerController {
     }
 
     private void editCustomer(){
-        if(name.getText().trim().isEmpty() || desc.getText().trim().isEmpty() || phone.getText().trim().isEmpty()){
+        if(name.getText().trim().isEmpty() || desc.getText().trim().isEmpty() ){
             HelloApplication.showAlert("All field in customer must be filled!");
         } else {
             selectedCustomer.setName(name.getText());

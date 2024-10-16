@@ -36,8 +36,24 @@ public class ChangeDataInvoiceController {
     private TableColumn<Invoice, String> tableColumnDesc;
     @FXML
     private TableColumn<Invoice, Void> tableColumnDelete;
+
     @FXML
     private Label labelLetter;
+    @FXML
+    private Label labelCustomer;
+    @FXML
+    private Label labelMarkText;
+    @FXML
+    private Label labelDescription;
+    @FXML
+    private Label labelSelectedCustomerName;
+
+    @FXML
+    private TableView<Customer> tableViewCustomer;
+    @FXML
+    private TableColumn<Customer, String> tableColumnCsName;
+    @FXML
+    private TableColumn<Customer, String> tableColumnCsDesc;
 
     @FXML
     private Label tombolCustomer;
@@ -47,7 +63,7 @@ public class ChangeDataInvoiceController {
     private Label tombolCode;
 
     @FXML
-    private ChoiceBox<Customer> custName;
+    private Pane btnSelectCustomer;
     @FXML
     private ChoiceBox<KodeSurat> code;
     @FXML
@@ -87,23 +103,7 @@ public class ChangeDataInvoiceController {
 
 
     public void initialize(){
-        customerList.addAll(Customer.getAllData());
-        customerList.sort(Comparator.comparing(Customer::getName));
-        custName.setItems(customerList);
-        custName.setConverter(new StringConverter<Customer>() {
-            @Override
-            public String toString(Customer customer) {
-                if (customer == null){
-                    return null;
-                }else{
-                    return customer.getName();
-                }
-            }
-            @Override
-            public Customer fromString(String string) {
-                return null;
-            }
-        });
+
 
         kodeSuratList.addAll(KodeSurat.getAllData());
         code.setItems(kodeSuratList);
@@ -168,10 +168,7 @@ public class ChangeDataInvoiceController {
         add.setOnMouseClicked(event -> {
             handleAdd();
         });
-        custName.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-//            System.out.println("isinya "+oldValue+" "+newValue);
-            handleSelection(newValue);
-        });
+
         code.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
 //            System.out.println("isi code "+oldValue+" "+newValue);
             handleSelectionCode(newValue);
@@ -186,10 +183,62 @@ public class ChangeDataInvoiceController {
         loadData();
         conButton(true);
 
+        btnSelectCustomer.setOnMouseClicked(e -> {
+            setLabelsVisible(false);
+        });
+        tableViewCustomer.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) { // Cek apakah ini single-click
+                Customer selectedCustomer = tableViewCustomer.getSelectionModel().getSelectedItem();
+                if (selectedCustomer != null) {
+                    handleSelection(selectedCustomer);
+//                    System.out.println("Selected Customer: " + selectedCustomer.getName());
+//                    System.out.println("Description: " + selectedCustomer.getDescription());
+
+                    // Di sini Anda bisa melakukan apa pun dengan data customer yang dipilih
+                    // Misalnya, memperbarui UI lain atau memproses data
+                }
+            }
+        });
+
+        loadTableCustomer();
+//        tableViewCustomer.getSelectionModel().selectedItemProperty().addListener(
+//                (observable, oldValue, newValue) -> handleSelection(newValue)
+//        );
         tableViewInvoice.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showDetail(newValue));
+
+        setLabelsVisible(true);
+
     }
 
+    private void loadTableCustomer() {
+//        tableViewInvoice.setEditable(true);
+        tableViewCustomer.setItems(FXCollections.observableArrayList(Customer.getAllData()));
+        tableColumnCsName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getName()));
+        tableColumnCsDesc.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));
+    }
+
+    private void setLabelsVisible(boolean bool) {
+        labelCustomer.setVisible(bool);
+        labelMarkText.setVisible(bool);
+        labelDescription.setVisible(bool);
+        labelSelectedCustomerName.setVisible(bool);
+        btnSelectCustomer.setVisible(bool);
+        name.setVisible(bool);
+        desc.setVisible(bool);
+        // menampilkan tabel
+        tableViewCustomer.setVisible(!bool);
+    }
+
+
+    private void handleSelection(Customer cst) {
+        if (cst != null){
+            selectedCustomer = cst;
+            customerId = cst.getId();
+            setLabelsVisible(true);
+            labelSelectedCustomerName.setText(selectedCustomer.getName()+" | "+selectedCustomer.getDescription());
+        }
+    }
     private void handleSelectionBank(Bank newValue) {
         if(newValue != null) {
             selectedBank = newValue;
@@ -310,10 +359,7 @@ public class ChangeDataInvoiceController {
         reset();
     }
 
-    private void handleSelection(Customer cst) {
-        selectedCustomer = cst;
 
-    }
 
     private void showDetail(Invoice invoice){
         selectedInvoice = invoice;
@@ -325,7 +371,7 @@ public class ChangeDataInvoiceController {
             invId = invoice.getId();
             selectedCustomer = Customer.getOneData(invoice.getCustomer_id());
             selectedBank = Bank.getOneData(invoice.getBank_id());
-            custName.getSelectionModel().select(selectedCustomer);
+//            custName.getSelectionModel().select(selectedCustomer);
             bankSelector.getSelectionModel().select(selectedBank);
             conButton(false);
             code.setVisible(false);
@@ -361,7 +407,7 @@ public class ChangeDataInvoiceController {
     private void handleAdd(){
 //        String idSurat = "1723596852024";
 //        String designId = "1725261011387";
-        if (Objects.equals(desc.getText(), "") || Objects.equals(name.getText(), "") || customerId == null || codeLetterId == null || selectedBank == null || selectedCustomer == null || selectedCodeSurat == null){
+        if (Objects.equals(desc.getText(), "") || Objects.equals(name.getText(), "") || selectedBank == null || selectedCustomer == null || selectedCodeSurat == null){
             HelloController.showInformationDialog("Maaf silakan lengkapi data terlebih dahulu");
         }else{
 //            Mengurus kode surat
@@ -391,7 +437,7 @@ public class ChangeDataInvoiceController {
                     "",
                     "",
                     0L,
-                    customerId,
+                    selectedCustomer.getId(),
                     true,
                     selectedBank.getId())
             );
@@ -410,7 +456,7 @@ public class ChangeDataInvoiceController {
     private void reset(){
         name.setText("");
         desc.setText("");
-        custName.getSelectionModel().clearSelection();
+//        custName.getSelectionModel().clearSelection();
         code.getSelectionModel().clearSelection();
         bankSelector.getSelectionModel().clearSelection();
         conButton(true);
