@@ -4,6 +4,7 @@ import com.andre.dojo.Models.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ChangeDataInvoiceController {
     @FXML
@@ -177,9 +179,6 @@ public class ChangeDataInvoiceController {
             handleSelectionBank(newValue);
 //            System.out.println("isi bank "+selectedBank.getBank_name());
         });
-//        meload dropdown box
-//        loadBox();
-//        loadBox2();
         loadData();
         conButton(true);
 
@@ -191,19 +190,11 @@ public class ChangeDataInvoiceController {
                 Customer selectedCustomer = tableViewCustomer.getSelectionModel().getSelectedItem();
                 if (selectedCustomer != null) {
                     handleSelection(selectedCustomer);
-//                    System.out.println("Selected Customer: " + selectedCustomer.getName());
-//                    System.out.println("Description: " + selectedCustomer.getDescription());
-
-                    // Di sini Anda bisa melakukan apa pun dengan data customer yang dipilih
-                    // Misalnya, memperbarui UI lain atau memproses data
                 }
             }
         });
 
         loadTableCustomer();
-//        tableViewCustomer.getSelectionModel().selectedItemProperty().addListener(
-//                (observable, oldValue, newValue) -> handleSelection(newValue)
-//        );
         tableViewInvoice.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showDetail(newValue));
 
@@ -213,7 +204,12 @@ public class ChangeDataInvoiceController {
 
     private void loadTableCustomer() {
 //        tableViewInvoice.setEditable(true);
-        tableViewCustomer.setItems(FXCollections.observableArrayList(Customer.getAllData()));
+        List<Customer> customerList = Customer.getAllData();
+        List<Customer> sortedList = customerList.stream()
+                .sorted((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()))
+                .toList();
+
+        tableViewCustomer.setItems(FXCollections.observableArrayList(sortedList));
         tableColumnCsName.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getName()));
         tableColumnCsDesc.setCellValueFactory(e -> new SimpleStringProperty(e.getValue().getDescription()));
     }
@@ -405,8 +401,6 @@ public class ChangeDataInvoiceController {
     }
 
     private void handleAdd(){
-//        String idSurat = "1723596852024";
-//        String designId = "1725261011387";
         if (Objects.equals(desc.getText(), "") || Objects.equals(name.getText(), "") || selectedBank == null || selectedCustomer == null || selectedCodeSurat == null){
             HelloController.showInformationDialog("Maaf silakan lengkapi data terlebih dahulu");
         }else{
@@ -467,6 +461,7 @@ public class ChangeDataInvoiceController {
         selectedInvoice = null;
         code.setVisible(true);
         labelLetter.setVisible(true);
+        labelSelectedCustomerName.setText("Selected customer Name Null");
     }
 
 //    private void loadBox(){

@@ -114,8 +114,6 @@ public class ChangeDataController {
         });
         selectedOrganization = Organization.getFirstData();
         selectedPersonal = Personal.getFirstData();
-        System.out.println("selected orh : "+selectedOrganization);
-        System.out.println("selected perso : "+selectedPersonal);
 
         if (selectedOrganization.getLogo() != null){
             if (new File(selectedOrganization.getLogo()).exists()){
