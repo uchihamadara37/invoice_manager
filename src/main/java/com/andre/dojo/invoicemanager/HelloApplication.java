@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -41,6 +43,7 @@ public class HelloApplication extends Application {
     public static String dirExport;
     public static Organization organization;
     public static List<KodeSurat> kodeSurats = new ArrayList<>();
+    public static Invoice invoice;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -334,6 +337,30 @@ public class HelloApplication extends Application {
                         fileDirLogo.mkdir();
                     }
                     System.out.println("udah siap launch");
+                    invoice = Invoice.getLastData();
+                    try {
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", new Locale("id", "ID"));
+                        Date invoiceDate = dateFormat.parse(invoice.getDate());
+                        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+                        Calendar invoiceCalendar = Calendar.getInstance();
+                        invoiceCalendar.setTime(invoiceDate);
+                        int invoiceYear = invoiceCalendar.get(Calendar.YEAR);
+                        if (currentYear != invoiceYear) {
+                            kodeSurats = KodeSurat.getAllData();
+                            for (KodeSurat kodeSurat : kodeSurats) {
+                                kodeSurat.setNoUrut(0);
+                                KodeSurat.updateNumber(kodeSurat);
+                                System.out.println("Reset ke 0, terdeteksi perbedaan tahun");
+                            }
+                            organization = Organization.getFirstData();
+                            organization.setNoUrutInstansi(0);
+                            Organization.updateById(organization);
+                        } else {
+                            System.out.println("Tahun sama, tidak ada perubahan.");
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     launch();
 
                 }else{

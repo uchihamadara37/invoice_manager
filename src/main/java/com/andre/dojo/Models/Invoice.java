@@ -261,6 +261,15 @@ public class Invoice {
         return DatabaseManager.updateData(query, invoice);
     }
 
+    public static Invoice getLastData() {
+        String query = """
+            SELECT * FROM invoice
+            ORDER BY id DESC
+            LIMIT 1
+            """;
+        return DatabaseManager.getOneData(query, Invoice.class);
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
