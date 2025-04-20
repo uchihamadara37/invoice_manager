@@ -115,6 +115,12 @@
                 <TableColumn fx:id="tableColumnCsDesc" minWidth="0.0" prefWidth="271.0" text="Desc (Please select by click on row)" />
               </columns>
             </TableView>
+            <ChoiceBox fx:id="typeSelector" layoutX="497.0" layoutY="506.0" prefHeight="36.0" prefWidth="457.0" />
+            <Label layoutX="498.0" layoutY="485.0" text="Select invoice type">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <AnchorPane layoutX="20.0" layoutY="20.0" prefHeight="64.0" prefWidth="978.0" styleClass="top-panel" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">

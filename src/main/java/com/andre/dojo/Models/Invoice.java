@@ -23,8 +23,10 @@ public class Invoice {
     private long customer_id;
     private long bank_id;
     private boolean status;
+    private String type;
     private BooleanProperty checked = new SimpleBooleanProperty(true);
     private List<Item> listItems;
+    private final SimpleBooleanProperty checked2 = new SimpleBooleanProperty(false);
 
     public Invoice(){
 
@@ -41,7 +43,8 @@ public class Invoice {
             long design_id,
             long customer_id,
             boolean status,
-            long bank_id
+            long bank_id,
+            String type
     ) {
         this.id = Instant.now().toEpochMilli();
         this.invoiceMarkText = invoiceMarkText;
@@ -56,6 +59,7 @@ public class Invoice {
         this.customer_id = customer_id;
         this.status = status;
         this.bank_id = bank_id;
+        this.type = type;
     }
 
     public Invoice(
@@ -68,7 +72,8 @@ public class Invoice {
             String pdfUrl,
             long design_id,
             long customer_id,
-            long id
+            long id,
+            String type
     ) {
         this.id = id;
         this.invoiceMarkText = invoiceMarkText;
@@ -81,13 +86,14 @@ public class Invoice {
         this.invoiceCode = invoiceCode;
         this.jrxml_id = design_id;
         this.customer_id = customer_id;
+        this.type = type;
     }
 
     public static boolean addToDB(Invoice invoice){
         String query = """
                 INSERT INTO invoice (
-                id, 
-                invoiceMarkText, 
+                id,
+                invoiceMarkText,
                 date,
                 totalPriceAll,
                 jsonData,
@@ -98,10 +104,11 @@ public class Invoice {
                 description,
                 invoiceCode,
                 bank_id,
-                status
+                status,
+                type
                 ) VALUES (
-                :id, 
-                :invoiceMarkText, 
+                :id,
+                :invoiceMarkText,
                 :date,
                 :totalPriceAll,
                 :jsonData,
@@ -112,7 +119,8 @@ public class Invoice {
                 :description,
                 :invoiceCode,
                 :bank_id,
-                :status
+                :status,
+                :type
                 )""";
         return DatabaseManager.addOneData(query, invoice);
     }
@@ -124,6 +132,15 @@ public class Invoice {
         return this.checked;
     }
 
+
+    public static Invoice getLastData() {
+        String query = """
+            SELECT * FROM invoice
+            ORDER BY id DESC
+            LIMIT 1
+            """;
+        return DatabaseManager.getOneData(query, Invoice.class);
+    }
 
     public static List<Invoice> getAllData(){
         String query = """
@@ -261,15 +278,6 @@ public class Invoice {
         return DatabaseManager.updateData(query, invoice);
     }
 
-    public static Invoice getLastData() {
-        String query = """
-            SELECT * FROM invoice
-            ORDER BY id DESC
-            LIMIT 1
-            """;
-        return DatabaseManager.getOneData(query, Invoice.class);
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -374,6 +382,26 @@ public class Invoice {
 
     public boolean getStatus() {
         return status;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public SimpleBooleanProperty getChecked2() {
+        return checked2;
+    }
+
+    public void setChecked2(boolean value) {
+        this.checked2.set(value);
+    }
+
+    public boolean isChecked2() {
+        return checked2.get();
     }
 
     public List<Item> getListItems() {

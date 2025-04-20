@@ -303,6 +303,10 @@ public class HelloController implements Initializable {
     }
 
     public void loadTableView(Collection<Invoice> data) {
+        for (Invoice invoice : data) {
+            boolean isRegular = "Regular".equalsIgnoreCase(invoice.getType());
+            invoice.getChecked().set(isRegular);
+        }
         tableViewInvoice.setEditable(true);
         tableViewInvoice.setItems(FXCollections.observableArrayList(data));
         tableColumnCheckbox.setCellValueFactory(e -> e.getValue().getChecked());

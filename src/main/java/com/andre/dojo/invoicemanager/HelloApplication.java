@@ -59,6 +59,7 @@ public class HelloApplication extends Application {
         DatabaseManager.createTableDesign();
         DatabaseManager.createTableItem();
         DatabaseManager.createTableBank();
+        DatabaseManager.alterTableInvoice();
 
         // Membuat organization pertama
         if (Organization.getAllData().isEmpty()){

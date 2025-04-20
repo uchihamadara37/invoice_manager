@@ -84,6 +84,11 @@ public class PrepareExportController implements Initializable {
     }
 
     private void loadTableView(List<Invoice> allData) {
+        for (Invoice invoice : allData) {
+            boolean isRegular = "Regular".equalsIgnoreCase(invoice.getType());
+            invoice.getChecked().set(isRegular);
+        }
+
         tableViewInvoice.setEditable(true);
         tableViewInvoice.setItems(FXCollections.observableArrayList(allData));
         tableColumnCheckbox.setCellValueFactory(e -> e.getValue().getChecked());

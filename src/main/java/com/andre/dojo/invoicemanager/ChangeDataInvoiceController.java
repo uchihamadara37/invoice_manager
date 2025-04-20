@@ -71,6 +71,8 @@ public class ChangeDataInvoiceController {
     @FXML
     private ChoiceBox<Bank> bankSelector;
     @FXML
+    private ChoiceBox<String> typeSelector;
+    @FXML
     private TextField desc;
     @FXML
     private TextField name;
@@ -139,6 +141,8 @@ public class ChangeDataInvoiceController {
                 return null; // Tidak digunakan untuk ChoiceBox
             }
         });
+        ObservableList<String> options = FXCollections.observableArrayList("Regular", "Non-Regular");
+        typeSelector.setItems(options);
         indonesianToEnglishMonth.put("Januari", 1);
         indonesianToEnglishMonth.put("Februari", 2);
         indonesianToEnglishMonth.put("Maret", 3);
@@ -178,6 +182,12 @@ public class ChangeDataInvoiceController {
         bankSelector.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             handleSelectionBank(newValue);
 //            System.out.println("isi bank "+selectedBank.getBank_name());
+        });
+        typeSelector.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                System.out.println("Tipe dipilih: " + newVal);
+                // Lakukan aksi lain berdasarkan newVal
+            }
         });
         loadData();
         conButton(true);
@@ -369,6 +379,7 @@ public class ChangeDataInvoiceController {
             selectedBank = Bank.getOneData(invoice.getBank_id());
 //            custName.getSelectionModel().select(selectedCustomer);
             bankSelector.getSelectionModel().select(selectedBank);
+            typeSelector.getSelectionModel().select(invoice.getType());
             conButton(false);
             code.setVisible(false);
             labelLetter.setVisible(false);
@@ -392,6 +403,7 @@ public class ChangeDataInvoiceController {
             selectedInvoice.setCustomer_id(selectedCustomer.getId());
 //            System.out.println("bank select : "+ selectedBank.getBank_name());
             selectedInvoice.setBank_id(selectedBank.getId());
+            selectedInvoice.setType(typeSelector.getValue());
 //            System.out.println("bank hasil : "+Bank.getOneData(selectedInvoice.getBank_id()).getBank_name());
             Invoice.updateById(selectedInvoice);
             loadData();
@@ -433,7 +445,8 @@ public class ChangeDataInvoiceController {
                     0L,
                     selectedCustomer.getId(),
                     true,
-                    selectedBank.getId())
+                    selectedBank.getId(),
+                    typeSelector.getValue())
             );
 
             reset();
@@ -452,7 +465,10 @@ public class ChangeDataInvoiceController {
         desc.setText("");
 //        custName.getSelectionModel().clearSelection();
         code.getSelectionModel().clearSelection();
-        bankSelector.getSelectionModel().clearSelection();
+//        bankSelector.getSelectionModel().clearSelection();
+//        typeSelector.getSelectionModel().clearSelection();
+        bankSelector.setValue(null);
+        typeSelector.setValue(null);
         conButton(true);
         customerId = null;
         codeLetterId = null;

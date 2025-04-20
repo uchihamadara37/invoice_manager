@@ -8,10 +8,7 @@ import org.sql2o.Sql2oException;
 import org.sqlite.SQLiteException;
 
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -19,7 +16,7 @@ import java.util.regex.Pattern;
 
 public class DatabaseManager {
     private static final String DB_NAME = "invoiceDatabase.db";
-//    private static final String DB_URL = "jdbc:sqlite:"+ HelloApplication.dirSource +"\\"+ DB_NAME;
+    //    private static final String DB_URL = "jdbc:sqlite:"+ HelloApplication.dirSource +"\\"+ DB_NAME;
     private static final String DB_URL = "jdbc:sqlite:"+ DB_NAME;
     private static final Sql2o sql2o = new Sql2o(DB_URL, "", "");
 
@@ -277,6 +274,44 @@ public class DatabaseManager {
 //            System.out.println(e.getMessage());
         }
     }
+
+    public static void alterTableInvoice() {
+        String columnName = "type";
+        boolean columnExists = false;
+
+        try (
+                Connection conn = DriverManager.getConnection(DB_URL);
+                Statement stmt = conn.createStatement()
+        ) {
+            // Cek kolom pada tabel invoice
+            ResultSet rs = stmt.executeQuery("PRAGMA table_info(invoice);");
+
+            while (rs.next()) {
+                String currentColumn = rs.getString("name");
+                if (currentColumn.equalsIgnoreCase(columnName)) {
+                    columnExists = true;
+                    break;
+                }
+            }
+
+            rs.close();
+
+            // Jika kolom belum ada, tambahkan
+            if (!columnExists) {
+                String sqlAlter = "ALTER TABLE invoice ADD COLUMN type TEXT DEFAULT 'Regular';";
+                stmt.execute(sqlAlter);
+                System.out.println("Kolom 'type' berhasil ditambahkan.");
+            } else {
+                System.out.println("Kolom 'type' sudah ada, tidak perlu ditambahkan.");
+            }
+
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+//        System.out.println("Error saat menambahkan kolom 'type': " + e.getMessage());
+        }
+    }
+
 
     //========================================================================
     public static <T> boolean addOneData (String query, T object) {
